@@ -19,6 +19,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
     Route::post('register', [\App\Http\Controllers\PassportAuthController::class, 'register']);
     Route::post('Login', [\App\Http\Controllers\PassportAuthController::class, 'Login']);
+Route::post('Location',[\App\Http\Controllers\LocationController::class,'store']);
+Route::get('Location',[\App\Http\Controllers\LocationController::class,'index']);
+Route::delete('Location/{id}',[\App\Http\Controllers\LocationController::class,'destroy']);
+Route::put('Location/{id}',[\App\Http\Controllers\LocationController::class,'update']);
+Route::get('Location/{id}',[\App\Http\Controllers\LocationController::class,'show']);
 
     Route::middleware(['auth:api']) ->group(function (){
         Route::get('logout', [\App\Http\Controllers\PassportAuthController::class, 'logout']);
