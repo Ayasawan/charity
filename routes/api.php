@@ -22,15 +22,17 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
     Route::post('register', [\App\Http\Controllers\PassportAuthController::class, 'register']);
     Route::post('Login', [\App\Http\Controllers\PassportAuthController::class, 'Login']);
+
+    Route::middleware(['auth:api']) ->group(function (){
+        Route::get('logout', [\App\Http\Controllers\PassportAuthController::class, 'logout']);
+    });
+    // location
 Route::post('Location',[\App\Http\Controllers\LocationController::class,'store']);
 Route::get('Location',[\App\Http\Controllers\LocationController::class,'index']);
 Route::delete('Location/{id}',[\App\Http\Controllers\LocationController::class,'destroy']);
 Route::put('Location/{id}',[\App\Http\Controllers\LocationController::class,'update']);
 Route::get('Location/{id}',[\App\Http\Controllers\LocationController::class,'show']);
 
-    Route::middleware(['auth:api']) ->group(function (){
-        Route::get('logout', [\App\Http\Controllers\PassportAuthController::class, 'logout']);
-    });
 
 //      jobs routes
 Route::prefix("jobs")->group(function () {
@@ -44,4 +46,12 @@ Route::prefix("jobs")->group(function () {
 
     Route::post('/{id}', [JobController::class, 'destroy']);
 });
+// Training
+
+Route::post('Training',[\App\Http\Controllers\TrainingController::class,'store']);
+Route::get('Training',[\App\Http\Controllers\TrainingController::class,'index']);
+Route::delete('Training/{id}',[\App\Http\Controllers\TrainingController::class,'destroy']);
+Route::put('Training/{id}',[\App\Http\Controllers\TrainingController::class,'update']);
+Route::get('Training/{id}',[\App\Http\Controllers\TrainingController::class,'show']);
+
 

@@ -35,35 +35,35 @@ class TrainingController extends Controller
         }
         $training =Training::create($request->all());
         if($training) {
-            return $this->apiResponse(new TrainingResource($job), 'This Training save', 201);
+            return $this->apiResponse(new TrainingResource($training), 'This Training save', 201);
         }
         return $this->apiResponse(null, 'This Training not save', 400);
     }
 
 
-    public function show(Training $training)
+    public function show($id )
     {
         $training = Training::find($id);
         if( $training) {
-            return $this->apiResponse(new JobResource($training), 'ok', 200);
+            return $this->apiResponse(new TrainingResource($training), 'ok', 200);
         }
         return $this->apiResponse(null, 'This Training not found', 404);
     }
 
 
-    public function update(Request $request, Training $training)
+    public function update(Request $request, $id)
     {
-        $validator = Validator::make($request->all() , [
-            'name'=>'required',
-            'about'=>'required',
-            'out_date'=>'required',
-            'phone'=>'required',
-            'charity_id'=>'required',
-        ]);
+//        $validator = Validator::make($request->all() , [
+//            'name'=>'required',
+//            'about'=>'required',
+//            'out_date'=>'required',
+//            'phone'=>'required',
+//            'charity_id'=>'required',
+//        ]);
 
-        if ($validator->fails()){
-            return $this->apiResponse(null,$validator ->errors() , 400);
-        }
+//        if ($validator->fails()){
+//            return $this->apiResponse(null,$validator ->errors() , 400);
+//        }
 
         $training = Training::find($id);
         if(!$training){
@@ -77,7 +77,7 @@ class TrainingController extends Controller
     }
 
 
-    public function destroy(Training $training)
+    public function destroy($id)
     {
         $training = Training::find($id);
         if(! $training){
