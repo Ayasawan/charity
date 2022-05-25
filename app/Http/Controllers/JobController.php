@@ -55,17 +55,6 @@ class JobController extends Controller
 
     public function update(Request $request,  $id)
     {
-        $validator = Validator::make($request->all() , [
-            'name'=>'required',
-            'about'=>'required',
-            'out_date'=>'required',
-            'phone'=>'required',
-            'charity_id'=>'required',
-        ]);
-
-        if ($validator->fails()){
-            return $this->apiResponse(null,$validator ->errors() , 400);
-        }
 
         $job = Job::find($id);
         if(!$job){
