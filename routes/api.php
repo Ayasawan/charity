@@ -55,3 +55,21 @@ Route::put('Training/{id}',[\App\Http\Controllers\TrainingController::class,'upd
 Route::get('Training/{id}',[\App\Http\Controllers\TrainingController::class,'show']);
 
 
+//      zone
+Route::prefix("zones")->group(function () {
+    Route::get('/', [ZoneController::class, 'index']);
+    Route::post('/', [ZoneController::class, 'store']);
+    Route::get('/{id}', [ZoneController::class, 'show']);
+    Route::post('/update/{id}', [ZoneController::class, 'update']);
+    Route::post('/{id}', [ZoneController::class, 'destroy']);
+});
+
+
+//      scolarship
+Route::prefix("scolarships")->group(function () {
+    Route::get('/', [ScolarshipController::class, 'index']);
+    Route::post('/', [ScolarshipController::class, 'store']);
+    Route::get('/{id}', [ScolarshipController::class, 'show']);
+    Route::post('/update/{id}', [ScolarshipController::class, 'update']);
+    Route::post('/{id}', [ScolarshipController::class, 'destroy']);
+});
