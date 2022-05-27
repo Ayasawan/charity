@@ -7,6 +7,8 @@ use App\Http\Resources\LocationResource;
 use App\Models\Location;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+
+
 class LocationController extends Controller
 {
     use ApiResponseTrait;

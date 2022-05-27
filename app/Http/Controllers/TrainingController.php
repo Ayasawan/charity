@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Http\Resources\TrainingResource;
-use App\Models\Job;
+// use App\Models\Job;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Validator;
 

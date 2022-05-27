@@ -73,3 +73,13 @@ Route::prefix("scolarships")->group(function () {
     Route::post('/update/{id}', [ScolarshipController::class, 'update']);
     Route::post('/{id}', [ScolarshipController::class, 'destroy']);
 });
+
+
+// conection
+
+Route::post('conection',[\App\Http\Controllers\ContentinfoController::class,'store']);
+Route::get('conection',[\App\Http\Controllers\ContentinfoController::class,'index']);
+Route::delete('conection/{id}',[\App\Http\Controllers\ContentinfoController::class,'destroy']);
+Route::put('conection/{id}',[\App\Http\Controllers\ContentinfoController::class,'update']);
+Route::get('conection/{id}',[\App\Http\Controllers\ContentinfoController::class,'show']);
+
