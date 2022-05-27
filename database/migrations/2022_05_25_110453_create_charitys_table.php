@@ -4,20 +4,19 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateContentinfosTable extends Migration
+class CreateCharitysTable extends Migration
 {
     /**
      * Run the migrations.
-     *
+     *z
      * @return void
      */
     public function up()
     {
-        Schema::create('contentinfos', function (Blueprint $table) {
+        Schema::create('charitys', function (Blueprint $table) {
             $table->id();
-            $table->string('department');
-            $table->string('contact');
-            $table->bigInteger('charity_id');
+            $table->string('name');
+            $table->text('about');
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ class CreateContentinfosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('contentinfos');
+        Schema::dropIfExists('charitys');
     }
 }

@@ -5,18 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Contentinfo extends Model
+class Image extends Model
 {
     use HasFactory;
-    protected $table = "contentinfos";
-
-
+    protected $table = "images";
     protected $fillable = [
-        'department',
-        'contact' ,
+        'img_url',
         'charity_id',
     ];
     protected $primaryKey = "id";
-
     public $timestamps=true ;
 }
