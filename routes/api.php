@@ -83,3 +83,21 @@ Route::delete('conection/{id}',[\App\Http\Controllers\ContentinfoController::cla
 Route::put('conection/{id}',[\App\Http\Controllers\ContentinfoController::class,'update']);
 Route::get('conection/{id}',[\App\Http\Controllers\ContentinfoController::class,'show']);
 
+// charity
+
+Route::post('charity',[\App\Http\Controllers\CharityController::class,'store']);
+Route::get('charity',[\App\Http\Controllers\CharityController::class,'index']);
+Route::delete('charity/{id}',[\App\Http\Controllers\CharityController::class,'destroy']);
+Route::put('charity/{id}',[\App\Http\Controllers\CharityController::class,'update']);
+Route::get('charity/{id}',[\App\Http\Controllers\CharityController::class,'show']);
+
+
+// charity
+
+Route::post('image',[\App\Http\Controllers\ImageController::class,'store']);
+Route::get('image',[\App\Http\Controllers\ImageController::class,'index']);
+Route::delete('image/{id}',[\App\Http\Controllers\ImageController::class,'destroy']);
+Route::put('image/{id}',[\App\Http\Controllers\ImageController::class,'update']);
+Route::get('image/{id}',[\App\Http\Controllers\ImageController::class,'show']);
+
+

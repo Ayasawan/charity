@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateContentinfosTable extends Migration
+class CreateImagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateContentinfosTable extends Migration
      */
     public function up()
     {
-        Schema::create('contentinfos', function (Blueprint $table) {
+        Schema::create('images', function (Blueprint $table) {
             $table->id();
-            $table->string('department');
-            $table->string('contact');
+            $table->text('img_url');
             $table->bigInteger('charity_id');
             $table->timestamps();
         });
@@ -29,6 +28,6 @@ class CreateContentinfosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('contentinfos');
+        Schema::dropIfExists('images');
     }
 }
