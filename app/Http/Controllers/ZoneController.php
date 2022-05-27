@@ -39,9 +39,9 @@ class ZoneController extends Controller
         }
         $zone =Zone::create($request->all());
         if($zone) {
-            return $this->apiResponse(new ZoneResource($zone), 'This Zone save', 201);
+            return $this->apiResponse(new ZoneResource($zone), 'This  Study Zone save', 201);
         }
-        return $this->apiResponse(null, 'This Zone not save', 400);
+        return $this->apiResponse(null, 'This  Study Zone not save', 400);
     }
 
     
@@ -53,7 +53,7 @@ class ZoneController extends Controller
         if( $zone) {
             return $this->apiResponse(new ZoneResource($zone), 'ok', 200);
         }
-        return $this->apiResponse(null, 'This Zone not found', 404);
+        return $this->apiResponse(null, 'This  Study Zone not found', 404);
     }
 
     
@@ -61,17 +61,7 @@ class ZoneController extends Controller
 
     public function update(Request $request,$id)
     {
-        // $validator = Validator::make($request->all() , [
-        //     'name'=>'required',
-        //     'about'=>'required',
-        //     'out_date'=>'required',
-        //     'phone'=>'required',
-        //     'charity_id'=>'required',
-        // ]);
-
-        // if ($validator->fails()){
-        //     return $this->apiResponse(null,$validator ->errors() , 400);
-        // }
+       
 
         $zone = Zone::find($id);
         if(!$zone){
@@ -91,11 +81,11 @@ class ZoneController extends Controller
     {
         $zone = Zone::find($id);
         if(! $zone){
-            return $this->apiResponse(null, 'This Zone not found', 404);
+            return $this->apiResponse(null, 'This Study Zone not found', 404);
         }
         $zone->delete($id);
         if( $zone) {
-            return $this->apiResponse(null, 'This Zone deleted', 200);
+            return $this->apiResponse(null, 'This  Study Zone deleted', 200);
         }
     }
 }

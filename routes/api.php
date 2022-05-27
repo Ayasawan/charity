@@ -65,14 +65,25 @@ Route::prefix("zones")->group(function () {
 });
 
 
-//      scolarship
-Route::prefix("scolarships")->group(function () {
-    Route::get('/', [ScolarshipController::class, 'index']);
-    Route::post('/', [ScolarshipController::class, 'store']);
-    Route::get('/{id}', [ScolarshipController::class, 'show']);
-    Route::post('/update/{id}', [ScolarshipController::class, 'update']);
-    Route::post('/{id}', [ScolarshipController::class, 'destroy']);
-});
+// //      scolarship
+// Route::prefix("scolarships")->group(function () {
+//     Route::get('/', [ScolarshipController::class, 'index']);
+//     Route::post('/', [ScolarshipController::class, 'store']);
+//     Route::get('/{id}', [ScolarshipController::class, 'show']);
+//     Route::post('/update/{id}', [ScolarshipController::class, 'update']);
+//     Route::post('/{id}', [ScolarshipController::class, 'destroy']);
+// });
+
+
+// scolarships
+
+Route::get('scolarships',[\App\Http\Controllers\ScolarshipController::class,'index']);
+Route::post('scolarships',[\App\Http\Controllers\ScolarshipController::class,'store']);
+Route::get('scolarships/{id}',[\App\Http\Controllers\ScolarshipController::class,'show']);
+Route::post('scolarships/update/{id}',[\App\Http\Controllers\ScolarshipController::class,'update']);
+Route::post('scolarships/{id}',[\App\Http\Controllers\ScolarshipController::class,'destroy']);
+
+
 
 
 // conection
@@ -92,7 +103,7 @@ Route::put('charity/{id}',[\App\Http\Controllers\CharityController::class,'updat
 Route::get('charity/{id}',[\App\Http\Controllers\CharityController::class,'show']);
 
 
-// charity
+// images_charity
 
 Route::post('image',[\App\Http\Controllers\ImageController::class,'store']);
 Route::get('image',[\App\Http\Controllers\ImageController::class,'index']);

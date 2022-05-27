@@ -55,7 +55,7 @@ class ScolarshipController extends Controller
 
         ]);
         if($scolarship) {
-            return $this->apiResponse(new ScolarshipResource($zone), 'This Scolarship save', 201);
+            return $this->apiResponse(new ScolarshipResource($scolarship), 'This Scolarship save', 201);
         }
         return $this->apiResponse(null, 'This Scolarship not save', 400);
     }
