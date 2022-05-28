@@ -83,7 +83,23 @@ Route::get('scolarships/{id}',[\App\Http\Controllers\ScolarshipController::class
 Route::post('scolarships/update/{id}',[\App\Http\Controllers\ScolarshipController::class,'update']);
 Route::post('scolarships/{id}',[\App\Http\Controllers\ScolarshipController::class,'destroy']);
 
+// applicants
 
+Route::get('applicants',[\App\Http\Controllers\ApplicantController::class,'index']);
+Route::post('applicants',[\App\Http\Controllers\ApplicantController::class,'store']);
+Route::get('applicants/{id}',[\App\Http\Controllers\ApplicantController::class,'show']);
+Route::post('applicants/update/{id}',[\App\Http\Controllers\ApplicantController::class,'update']);
+Route::post('applicants/{id}',[\App\Http\Controllers\ApplicantController::class,'destroy']);
+
+
+
+// Documents_applicants
+
+Route::get('documents',[\App\Http\Controllers\DocumentController::class,'index']);
+Route::post('documents',[\App\Http\Controllers\DocumentController::class,'store']);
+Route::get('documents/{id}',[\App\Http\Controllers\DocumentController::class,'show']);
+Route::post('documents/update/{id}',[\App\Http\Controllers\DocumentController::class,'update']);
+Route::post('documents/{id}',[\App\Http\Controllers\DocumentController::class,'destroy']);
 
 
 // conection
