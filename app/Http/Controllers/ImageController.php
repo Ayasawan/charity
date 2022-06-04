@@ -87,7 +87,7 @@ class ImageController extends Controller
         $imag->update($request->all());
         if($imag)
         {
-            return $this->apiResponse(new  ImageResource($conect) , 'the imag update',201);
+            return $this->apiResponse(new  ImageResource($imag) , 'the imag update',201);
 
         }
     }

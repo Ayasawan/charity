@@ -110,7 +110,7 @@ Route::delete('conection/{id}',[\App\Http\Controllers\ContentinfoController::cla
 Route::put('conection/{id}',[\App\Http\Controllers\ContentinfoController::class,'update']);
 Route::get('conection/{id}',[\App\Http\Controllers\ContentinfoController::class,'show']);
 
-// charity
+// image_charity
 
 Route::post('charity',[\App\Http\Controllers\CharityController::class,'store']);
 Route::get('charity',[\App\Http\Controllers\CharityController::class,'index']);
@@ -127,4 +127,19 @@ Route::delete('image/{id}',[\App\Http\Controllers\ImageController::class,'destro
 Route::put('image/{id}',[\App\Http\Controllers\ImageController::class,'update']);
 Route::get('image/{id}',[\App\Http\Controllers\ImageController::class,'show']);
 
+
+//donation
+Route::post('donation',[\App\Http\Controllers\DonationController::class,'store']);
+Route::get('donation',[\App\Http\Controllers\DonationController::class,'index']);
+Route::delete('donation/{id}',[\App\Http\Controllers\DonationController::class,'destroy']);
+Route::put('donation/{id}',[\App\Http\Controllers\DonationController::class,'update']);
+Route::get('donation/{id}',[\App\Http\Controllers\DonationController::class,'show']);
+
+
+//beneficiary
+Route::post('beneficiary',[\App\Http\Controllers\BeneficiariesController::class,'store']);
+Route::get('beneficiary',[\App\Http\Controllers\BeneficiariesController::class,'index']);
+Route::delete('beneficiary/{id}',[\App\Http\Controllers\BeneficiariesController::class,'destroy']);
+Route::put('beneficiary/{id}',[\App\Http\Controllers\BeneficiariesController::class,'update']);
+Route::get('beneficiary/{id}',[\App\Http\Controllers\BeneficiariesController::class,'show']);
 
