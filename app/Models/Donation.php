@@ -5,17 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Charity extends Model
+class Donation extends Model
 {
     use HasFactory;
-    protected $table = "charities";
 
+    protected $table = "donations";
 
     protected $fillable = [
-        'name',
-        'about' ,
-    ];
-    protected $primaryKey = "id";
+        'user_id', 'd_amount','d_date'];
 
-    public $timestamps=true ;
+    protected $primaryKey = "id";
 }

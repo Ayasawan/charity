@@ -4,16 +4,16 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCharitysTable extends Migration
+class CreateCharitiesTable extends Migration
 {
     /**
      * Run the migrations.
-     *z
+     *
      * @return void
      */
     public function up()
     {
-        Schema::create('charitys', function (Blueprint $table) {
+        Schema::create('charities', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->text('about');
@@ -28,6 +28,6 @@ class CreateCharitysTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('charitys');
+        Schema::dropIfExists('charities');
     }
 }
