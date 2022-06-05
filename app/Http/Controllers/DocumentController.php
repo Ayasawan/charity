@@ -11,14 +11,14 @@ class DocumentController extends Controller
 {
     use  ApiResponseTrait;
 
-    
+
     public function index()
     {
         $document = DocumentResource::collection(Document::get());
         return $this->apiResponse($document, 'ok', 200);
     }
 
-   
+
     public function store(Request $request)
     {
 
@@ -55,7 +55,7 @@ class DocumentController extends Controller
     }
 
 
-   
+
     public function update(Request $request,  $id)
     {
 
@@ -90,7 +90,7 @@ class DocumentController extends Controller
         }
     }
 
-  
+
     public function destroy($id)
     {
         $document= Document::find($id);
