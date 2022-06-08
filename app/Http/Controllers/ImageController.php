@@ -72,11 +72,9 @@ class ImageController extends Controller
         $image->update($request->all());
         if($image)
         {
-<<<<<<< Updated upstream
-            return $this->apiResponse(new  ImageResource($imag) , 'the imag update',201);
-=======
-            return $this->apiResponse(new  ImageResource($image) , 'the image update',201);
->>>>>>> Stashed changes
+
+            return $this->apiResponse(new  ImageResource($image) , 'the imag update',201);
+
 
         }
     }

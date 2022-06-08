@@ -71,13 +71,7 @@ class LocationController extends Controller
     }
 
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Location  $location
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request,  $id)
     {
         $location= Location::find($id);
