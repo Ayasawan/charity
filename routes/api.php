@@ -150,3 +150,29 @@ Route::delete('beneficiary/{id}',[\App\Http\Controllers\BeneficiariesController:
 Route::put('beneficiary/{id}',[\App\Http\Controllers\BeneficiariesController::class,'update']);
 Route::get('beneficiary/{id}',[\App\Http\Controllers\BeneficiariesController::class,'show']);
 
+
+////roles
+//Route::group[('middleware')->get('/user', function (Request $request) {
+//    return $request->user();
+//});
+//
+//
+////protected routes
+//Route :: group(['middleware'=>['auth:api','access.control']],function(){
+//
+//// Other Routes
+//    Route :: prefix('test')->group(function(){
+//        Route :: get('',[TestController :: class,'list'])->name('list_test');
+//        Route :: post('',[TestController :: class,'add'])->name('add_test');
+//
+//}
+//    Route :: prefix('{id}'))->group(function(){
+//         Route :: put( '',[TestController :: class,'update'])->name('update_test');
+//        Route :: delete('',[TestController :: class,'delete'])->name('delete_test');
+//         Route :: get('',[TestController::class,'view'])->name('view_test');
+//    });
+//
+//});
+
+
+
