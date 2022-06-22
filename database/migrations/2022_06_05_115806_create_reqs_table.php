@@ -20,7 +20,7 @@ class CreateReqsTable extends Migration
             $table->integer('age');
             $table->string('gender');
             $table->string('location');
-            //$table->string('specialization ');
+            $table->string('specialize')->nullable();
             $table->integer('academic_years');
             $table->double('value');
             $table->text('description');

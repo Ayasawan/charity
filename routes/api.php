@@ -2,6 +2,9 @@
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\TrainingController;
 use App\Http\Controllers\ZoneController;
+use App\Http\Controllers\PicController;
+use App\Http\Controllers\ReqController;
+use App\Http\Controllers\SponsorController;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -149,6 +152,50 @@ Route::get('beneficiary',[\App\Http\Controllers\BeneficiariesController::class,'
 Route::delete('beneficiary/{id}',[\App\Http\Controllers\BeneficiariesController::class,'destroy']);
 Route::put('beneficiary/{id}',[\App\Http\Controllers\BeneficiariesController::class,'update']);
 Route::get('beneficiary/{id}',[\App\Http\Controllers\BeneficiariesController::class,'show']);
+
+
+
+//      requests routes
+Route::prefix("requests")->group(function () {
+    Route::get('/', [ReqController::class, 'index']);
+
+    Route::post('/', [ReqController::class, 'store']);
+
+    Route::get('/{id}', [ReqController::class, 'show']);
+
+    Route::post('/update/{id}', [ReqController::class, 'update']);
+
+    Route::post('/{id}', [ReqController::class, 'destroy']);
+});
+
+
+//      sponsors routes
+Route::prefix("sponsors")->group(function () {
+    Route::get('/', [SponsorController::class, 'index']);
+
+    Route::post('/', [SponsorController::class, 'store']);
+
+    Route::get('/{id}', [SponsorController::class, 'show']);
+
+    Route::post('/update/{id}', [SponsorController::class, 'update']);
+
+    Route::post('/{id}', [SponsorController::class, 'destroy']);
+});
+
+
+
+//      pics routes
+Route::prefix("pics")->group(function () {
+    Route::get('/', [PicController::class, 'index']);
+
+    Route::post('/', [PicController::class, 'store']);
+
+    Route::get('/{id}', [PicController::class, 'show']);
+
+    Route::post('/update/{id}', [PicController::class, 'update']);
+
+    Route::post('/{id}', [PicController::class, 'destroy']);
+});
 
 
 ////roles

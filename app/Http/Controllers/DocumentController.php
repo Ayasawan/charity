@@ -60,14 +60,14 @@ class DocumentController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-          
+
                 'name' => ['nullable',],
                 'applicant_id' => 'required',
-    
+
             ]);
-           
+
             $file_name = $this->saveImage($request->name, 'images/applicant');
-    
+
 
         if ($validator->fails()) {
             return $this->apiResponse(null, $validator->errors(), 400);
@@ -77,12 +77,13 @@ class DocumentController extends Controller
         {
             return $this->apiResponse(null ,'the document not found ',404);
         }
-     //   $document->update($request->all());
+        $document->update($request->all());
         $document = Document::query()->update([
             'name' =>$file_name,
             'applicant_id' =>$request->applicant_id,
             ]);
-            dd($document->toArray());
+           // dd($document->toArray());
+
         if($document)
         {
             return $this->apiResponse(new  DocumentResource($document) , 'the document update',201);

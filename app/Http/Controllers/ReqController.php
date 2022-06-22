@@ -15,68 +15,75 @@ class ReqController extends Controller
     public function index()
     {
         $reqs  =ReqResource::collection(Req::get());
-        return $this->apiResponse($reqs,'ok',200);
+        return $this->apiResponse($reqs ,'ok',200);
     }
 
 
     public function store(Request $request)
     {
+
         $input=$request->all();
         $validator = Validator::make($input , [
-            'user_id'=>'user_id',
-            'sponsor_id'=>'sponsor_id',
-            'age'=>'age',
-            'gender'=>'gender',
-            'location'=>'location',
-            'specialization'=>'specialization',
-            'academic_years'=>'academic_years',
-            'value'=>'value',
-            'description'=>'description',
-            'phone'=>'phone',
-            'status'=>'status',
+            'user_id'=>'required',
+            'sponsor_id'=>'required',
+            'age'=>'required',
+            'gender'=>'required',
+            'location'=>'required',
+            'specialize'=>'required',
+            'academic_years'=>'required',
+            'value'=>'required',
+            'description'=>'required',
+            'phone'=>'required',
+            'status'=>'required',
         ]);
 
         if ($validator->fails()){
             return $this->apiResponse(null,$validator ->errors() , 400);
         }
-        $job =Job::create($request->all());
-        if($job) {
-            return $this->apiResponse(new JobResource($job), 'This Job save', 201);
+        $req =Req::create($request->all());
+        if($req) {
+            return $this->apiResponse(new ReqResource($req), 'This Request save', 201);
         }
-        return $this->apiResponse(null, 'This Job not save', 400);
+        return $this->apiResponse(null, 'This Request not save', 400);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Req  $req
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Req $req)
+
+
+
+    public function show( $id)
     {
-        //
+        $req = Req::find($id);
+        if( $req) {
+            return $this->apiResponse(new ReqResource($req), 'ok', 200);
+        }
+        return $this->apiResponse(null, 'This Request not found', 404);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Req  $req
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Req $req)
+
+
+    public function update(Request $request,  $id)
     {
-        //
+        $req = Req::find($id);
+        if(!$req){
+            return $this->apiResponse(null, 'This Request not found', 404);
+        }
+
+        $req->update($request->all());
+        if($req) {
+            return $this->apiResponse(new ReqResource(  $req), 'This Request update', 201);
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Req  $req
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Req $req)
+
+    public function destroy( $id)
     {
-        //
+        $req = Req::find($id);
+        if(! $req){
+            return $this->apiResponse(null, 'This Request not found', 404);
+        }
+        $req->delete($id);
+        if( $req) {
+            return $this->apiResponse(null, 'This Request deleted', 200);
+        }
     }
 }

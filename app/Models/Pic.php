@@ -5,18 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Req extends Model
+class Pic extends Model
 {
     use HasFactory;
 
-    protected $table = "reqs";
-
+    protected $table = "pics";
     protected $fillable = [
-        'user_id','sponsor_id', 'age','gender','location'
-        , 'specialize','academic_years','value'
-        , 'description','phone','status'];
-
+        'name',
+        'request_id',
+    ];
     protected $primaryKey = "id";
-
     public $timestamps=true ;
 }

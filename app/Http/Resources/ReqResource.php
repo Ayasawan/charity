@@ -17,7 +17,7 @@ class ReqResource extends JsonResource
             "age"=>$this->age,
             "gender"=>$this->gender,
             "location"=>$this->location,
-            "specialization"=>$this->specialization,
+            "specialize"=>$this->specializ,
             "academic_years"=>$this->academic_years,
             "value"=>$this->value,
             "description"=>$this->description,
