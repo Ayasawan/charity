@@ -18,4 +18,10 @@ class Challenge extends Model
     protected $primaryKey = "id";
 
     public $timestamps=true ;
+
+
+    public function challs()
+    {
+        return $this->hasMany(Chall::class,'challenge_id');
+    }
 }
