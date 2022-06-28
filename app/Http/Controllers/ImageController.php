@@ -11,18 +11,17 @@ class ImageController extends Controller
 {
     use  ApiResponseTrait;
 
+    
     public function index()
     {
         $conect = ImageResource::collection(Image::get());
         return $this->apiResponse($conect, 'ok', 200);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+   
+
+
+    
     public function store(Request $request)
     {
 
@@ -48,6 +47,8 @@ class ImageController extends Controller
         return $this->apiResponse(null, 'the imag  not save', 400);
     }
 
+    
+
 
 
     public function show($id)
@@ -62,6 +63,9 @@ class ImageController extends Controller
 
 
 
+
+
+
     public function update(Request $request,  $id)
     {
         $image= Image::find($id);
@@ -69,6 +73,12 @@ class ImageController extends Controller
         {
             return $this->apiResponse(null ,'the image not found ',404);
         }
+        $imag->update($request->all());
+        $file_name=$this->saveImage($request->imag,'images/charity');
+        $imag->img_url= $file_name;
+        $imag->update(['img_url' => $file_name]);
+     
+        if($imag)
         $image->update($request->all());
         if($image)
         {
@@ -78,6 +88,10 @@ class ImageController extends Controller
 
         }
     }
+
+    
+
+
 
 
     public function destroy($id)

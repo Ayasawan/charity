@@ -59,12 +59,10 @@ class ApplicantController extends Controller
     public function update(Request $request,$id)
     {
 
-
         $applicant = Applicant::find($id);
         if(!$applicant){
             return $this->apiResponse(null, 'This  applicant not found', 404);
         }
-
         $applicant->update($request->all());
         if($applicant) {
             return $this->apiResponse(new ApplicantResource(  $applicant), 'This  applicant updated', 201);

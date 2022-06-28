@@ -17,4 +17,12 @@ class Sponsor extends Model
     protected $primaryKey = "id";
 
     public $timestamps=true ;
+
+
+
+    public function requests()
+    {
+        return $this->hasMany(Req::class,'sponsor_id');
+    }
+
 }

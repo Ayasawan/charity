@@ -14,6 +14,8 @@ class Donation extends Model
 
     protected $fillable = [
         'user_id', 'd_amount','d_date'];
+
+
     public function users()
     {
         return $this->belongsTo(User::class,'user_id');
