@@ -18,4 +18,6 @@ class Charity extends Model
     protected $primaryKey = "id";
 
     public $timestamps=true ;
+
+   
 }

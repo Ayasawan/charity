@@ -11,9 +11,11 @@ class Scolarship extends Model
     protected $table = "scolarships";
 
     protected $fillable = [
-        'max_number','image', 'description','academic_years','charity_id','college_id' ];
+        'max_number','image', 'description','academic_years','charityx_id','college_id' ];
 
     protected $primaryKey = "id";
 
     public $timestamps=true ;
+
+   
 }

@@ -11,23 +11,17 @@ class ImageController extends Controller
 {
     use  ApiResponseTrait;
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function index()
     {
         $conect = ImageResource::collection(Image::get());
         return $this->apiResponse($conect, 'ok', 200);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+   
+
+
+    
     public function store(Request $request)
     {
 
@@ -53,12 +47,10 @@ class ImageController extends Controller
         return $this->apiResponse(null, 'the imag  not save', 400);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Contentinfo  $contentinfo
-     * @return \Illuminate\Http\Response
-     */
+    
+
+
+
     public function show($id)
     {
         $imag= Image::find($id);
@@ -70,13 +62,10 @@ class ImageController extends Controller
     }
 
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Location  $location
-     * @return \Illuminate\Http\Response
-     */
+
+
+
+
     public function update(Request $request,  $id)
     {
         $imag= Image::find($id);
@@ -85,6 +74,10 @@ class ImageController extends Controller
             return $this->apiResponse(null ,'the imag not found ',404);
         }
         $imag->update($request->all());
+        $file_name=$this->saveImage($request->imag,'images/charity');
+        $imag->img_url= $file_name;
+        $imag->update(['img_url' => $file_name]);
+     
         if($imag)
         {
             return $this->apiResponse(new  ImageResource($imag) , 'the imag update',201);
@@ -92,12 +85,11 @@ class ImageController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Location  $location
-     * @return \Illuminate\Http\Response
-     */
+    
+
+
+
+
     public function destroy($id)
     {
         $imag= Image::find($id);

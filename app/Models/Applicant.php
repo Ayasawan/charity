@@ -16,4 +16,6 @@ class Applicant extends Model
     protected $primaryKey = "id";
 
     public $timestamps=true ;
+
+    
 }
