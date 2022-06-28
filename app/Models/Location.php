@@ -9,8 +9,7 @@ class Location extends Model
 {
     use HasFactory;
     protected $table = "locations";
-    protected $primaryKey = "id";
-    public $timestamps=true ;
+
     /**
      * @var string[]
      */
@@ -18,6 +17,16 @@ class Location extends Model
      'govemorate',
         'city' ,
         'street' ,
-//        'charity_id',
+       'charity_id',
     ];
+    protected $primaryKey = "id";
+    public $timestamps=true ;
+
+//    public function charities(){
+//        return $this->belongsTo( Charity::class,'charity_id');
+//    }
+//    public function charity()
+//    {
+//        return $this->belongsTo(Charity::class,'charity_id');
+//    }
 }

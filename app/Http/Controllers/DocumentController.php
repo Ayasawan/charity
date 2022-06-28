@@ -12,13 +12,15 @@ use Illuminate\Support\Facades\Validator;
 class DocumentController extends Controller
 {
     use  ApiResponseTrait;
+
+    
     public function index()
     {
         $document = DocumentResource::collection(Document::get());
         return $this->apiResponse($document, 'ok', 200);
     }
 
-   
+
     public function store(Request $request)
     {
         $input=$request->all();
@@ -56,9 +58,9 @@ class DocumentController extends Controller
     }
 
 
-   
+
     public function update(Request $request,  $id)
-    {
+    {  
         $document= Document::find($id);
         if(!$document)
         {
@@ -74,7 +76,7 @@ class DocumentController extends Controller
         {return $this->apiResponse(new  DocumentResource($document) , 'the document update',201); }
     }
 
-  
+
     public function destroy($id)
     {
         $document= Document::find($id);

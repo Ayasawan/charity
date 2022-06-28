@@ -17,7 +17,7 @@ class CreateDocumentsTable extends Migration
         Schema::create('documents', function (Blueprint $table) {
             $table->id();
             $table->text('name');
-            $table->bigInteger('applicant_id');
+            $table->foreignId('applicant_id')->constrained('applicants')->cascadeOnDelete();
             $table->timestamps();
         });
     }

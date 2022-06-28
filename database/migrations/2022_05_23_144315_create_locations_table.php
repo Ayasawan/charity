@@ -18,8 +18,11 @@ class CreateLocationsTable extends Migration
             $table->string('govemorate');
             $table->string('city');
             $table->string('street');
-//            $table->bigInteger('charity_id');
+         //  $table->foreignId('charity_id')->constrained('charities')->cascadeOnDelete();
             $table->timestamps();
+           // $table->bigInteger('charity_id')->unsigned()->index();
+         //   $table->foreign('charity_id')->references('id')->on('charities')->onDelete('cascade');
+
         });
     }
 

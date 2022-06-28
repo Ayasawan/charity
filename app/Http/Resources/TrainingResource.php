@@ -14,7 +14,7 @@ class TrainingResource extends JsonResource
             "id"=>$this->id,
             "name"=>$this->name,
             "about"=>$this->about,
-            "out_date"=>$this->date,
+            "out_date"=>$this->out_date,
             "phone"=>$this->phone,
             "charity_id"=>$this->charity_id,
 

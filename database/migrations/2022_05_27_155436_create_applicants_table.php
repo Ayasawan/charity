@@ -15,12 +15,13 @@ class CreateApplicantsTable extends Migration
     {
         Schema::create('applicants', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('user_id');
-            $table->bigInteger('scolarship_id');
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+            $table->foreignId('scolarship_id')->constrained('scolarships')->cascadeOnDelete();
             $table->integer('age');
             $table->string('gender');
             $table->string('location');
             $table->string('phone');
+
             $table->timestamps();
         });
     }
