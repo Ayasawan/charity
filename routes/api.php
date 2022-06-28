@@ -5,6 +5,11 @@ use App\Http\Controllers\ZoneController;
 use App\Http\Controllers\PicController;
 use App\Http\Controllers\ReqController;
 use App\Http\Controllers\SponsorController;
+use App\Http\Controllers\ChallengeController;
+use App\Http\Controllers\ChallController;
+
+
+
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -29,6 +34,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     Route::middleware(['auth:api']) ->group(function (){
         Route::get('logout', [\App\Http\Controllers\PassportAuthController::class, 'logout']);
     });
+
+
+
     // location
 Route::post('Location',[\App\Http\Controllers\LocationController::class,'store']);
 Route::get('Location',[\App\Http\Controllers\LocationController::class,'index']);
@@ -49,15 +57,58 @@ Route::prefix("jobs")->group(function () {
 
     Route::post('/{id}', [JobController::class, 'destroy']);
 });
-// Training
-
-Route::post('Training',[\App\Http\Controllers\TrainingController::class,'store']);
-Route::get('Training',[\App\Http\Controllers\TrainingController::class,'index']);
-Route::delete('Training/{id}',[\App\Http\Controllers\TrainingController::class,'destroy']);
-Route::put('Training/{id}',[\App\Http\Controllers\TrainingController::class,'update']);
-Route::get('Training/{id}',[\App\Http\Controllers\TrainingController::class,'show']);
 
 
+//      trainings routes
+Route::prefix("trainings")->group(function () {
+    Route::get('/', [TrainingController::class, 'index']);
+
+    Route::post('/', [TrainingController::class, 'store']);
+
+    Route::get('/{id}', [TrainingController::class, 'show']);
+
+    Route::post('/update/{id}', [TrainingController::class, 'update']);
+
+    Route::post('/{id}', [TrainingController::class, 'destroy']);
+});
+
+
+
+//// Training
+//
+//Route::post('Training',[\App\Http\Controllers\TrainingController::class,'store']);
+//Route::get('Training',[\App\Http\Controllers\TrainingController::class,'index']);
+//Route::delete('Training/{id}',[\App\Http\Controllers\TrainingController::class,'destroy']);
+//Route::put('Training/{id}',[\App\Http\Controllers\TrainingController::class,'update']);
+//Route::get('Training/{id}',[\App\Http\Controllers\TrainingController::class,'show']);
+
+
+//      challenges routes
+Route::prefix("challenges")->group(function () {
+    Route::get('/', [ChallengeController::class, 'index']);
+
+    Route::post('/', [ChallengeController::class, 'store']);
+
+    Route::get('/{id}', [ChallengeController::class, 'show']);
+
+    Route::post('/update/{id}', [ChallengeController::class, 'update']);
+
+    Route::post('/{id}', [ChallengeController::class, 'destroy']);
+});
+
+
+//      challs routes
+Route::prefix("challs")->group(function () {
+    Route::get('/', [ChallController::class, 'index']);
+
+    Route::post('/', [ChallController::class, 'store']);
+
+    Route::get('/{id}', [ChallController::class, 'show']);
+
+    Route::post('/update/{id}', [ChallController::class, 'update']);
+
+    Route::post('/{id}', [ChallController::class, 'destroy']);
+});
 
 
 

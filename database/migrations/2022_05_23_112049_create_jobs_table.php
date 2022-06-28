@@ -18,7 +18,7 @@ class CreateJobsTable extends Migration
             $table->string('name');
             $table->text('about');
             $table->date('out_date');
-            $table->integer('phone');
+            $table->string('phone');
             $table->bigInteger('charity_id');
             $table->timestamps();
         });
