@@ -16,4 +16,8 @@ class Pic extends Model
     ];
     protected $primaryKey = "id";
     public $timestamps=true ;
+
+    public function requests(){
+        return $this->belongsTo( Req::class,'request_id');
+    }
 }

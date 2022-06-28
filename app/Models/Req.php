@@ -19,4 +19,19 @@ class Req extends Model
     protected $primaryKey = "id";
 
     public $timestamps=true ;
+
+
+    public function sponsors(){
+        return $this->belongsTo( Sponsor::class,'sponsor_id');
+    }
+
+    public function users(){
+        return $this->belongsTo( User::class,'user_id');
+    }
+
+
+    public function pics()
+    {
+        return $this->hasMany(Pic::class,'request_id');
+    }
 }

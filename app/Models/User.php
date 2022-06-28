@@ -18,7 +18,7 @@ class User extends Authenticatable
         'email',
         'password',
     ];
-<<<<<<< Updated upstream
+
     public function donations()
     {
         return $this->hasMany(Donation ::class,'user_id');
@@ -27,15 +27,19 @@ class User extends Authenticatable
     {
         return $this->hasMany(Applicant ::class,'user_id');
     }
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
-=======
 
 
->>>>>>> Stashed changes
+    public function challs()
+    {
+        return $this->hasMany(Chall::class,'user_id');
+    }
+
+    public function requests()
+    {
+        return $this->hasMany(Req::class,'user_id');
+    }
+
+
     protected $hidden = [
         'password',
         'remember_token',
@@ -47,8 +51,4 @@ class User extends Authenticatable
     ];
 
 
-    public function challs()
-    {
-        return $this->hasMany(Chall::class,'user_id');
-    }
 }
