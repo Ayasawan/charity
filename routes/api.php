@@ -2,6 +2,14 @@
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\TrainingController;
 use App\Http\Controllers\ZoneController;
+use App\Http\Controllers\PicController;
+use App\Http\Controllers\ReqController;
+use App\Http\Controllers\SponsorController;
+use App\Http\Controllers\ChallengeController;
+use App\Http\Controllers\ChallController;
+
+
+
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -26,6 +34,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     Route::middleware(['auth:api']) ->group(function (){
         Route::get('logout', [\App\Http\Controllers\PassportAuthController::class, 'logout']);
     });
+
+
+
     // location
 Route::post('Location',[\App\Http\Controllers\LocationController::class,'store']);
 Route::get('Location',[\App\Http\Controllers\LocationController::class,'index']);
@@ -46,21 +57,71 @@ Route::prefix("jobs")->group(function () {
 
     Route::post('/{id}', [JobController::class, 'destroy']);
 });
-// Training
-
-Route::post('Training',[\App\Http\Controllers\TrainingController::class,'store']);
-Route::get('Training',[\App\Http\Controllers\TrainingController::class,'index']);
-Route::delete('Training/{id}',[\App\Http\Controllers\TrainingController::class,'destroy']);
-Route::put('Training/{id}',[\App\Http\Controllers\TrainingController::class,'update']);
-Route::get('Training/{id}',[\App\Http\Controllers\TrainingController::class,'show']);
 
 
-//      zone
+//      trainings routes
+Route::prefix("trainings")->group(function () {
+    Route::get('/', [TrainingController::class, 'index']);
+
+    Route::post('/', [TrainingController::class, 'store']);
+
+    Route::get('/{id}', [TrainingController::class, 'show']);
+
+    Route::post('/update/{id}', [TrainingController::class, 'update']);
+
+    Route::post('/{id}', [TrainingController::class, 'destroy']);
+});
+
+
+
+//// Training
+//
+//Route::post('Training',[\App\Http\Controllers\TrainingController::class,'store']);
+//Route::get('Training',[\App\Http\Controllers\TrainingController::class,'index']);
+//Route::delete('Training/{id}',[\App\Http\Controllers\TrainingController::class,'destroy']);
+//Route::put('Training/{id}',[\App\Http\Controllers\TrainingController::class,'update']);
+//Route::get('Training/{id}',[\App\Http\Controllers\TrainingController::class,'show']);
+
+
+//      challenges routes
+Route::prefix("challenges")->group(function () {
+    Route::get('/', [ChallengeController::class, 'index']);
+
+    Route::post('/', [ChallengeController::class, 'store']);
+
+    Route::get('/{id}', [ChallengeController::class, 'show']);
+
+    Route::post('/update/{id}', [ChallengeController::class, 'update']);
+
+    Route::post('/{id}', [ChallengeController::class, 'destroy']);
+});
+
+
+//      challs routes
+Route::prefix("challs")->group(function () {
+    Route::get('/', [ChallController::class, 'index']);
+
+    Route::post('/', [ChallController::class, 'store']);
+
+    Route::get('/{id}', [ChallController::class, 'show']);
+
+    Route::post('/update/{id}', [ChallController::class, 'update']);
+
+    Route::post('/{id}', [ChallController::class, 'destroy']);
+});
+
+
+
+//      zones routes
 Route::prefix("zones")->group(function () {
     Route::get('/', [ZoneController::class, 'index']);
+
     Route::post('/', [ZoneController::class, 'store']);
+
     Route::get('/{id}', [ZoneController::class, 'show']);
+
     Route::post('/update/{id}', [ZoneController::class, 'update']);
+
     Route::post('/{id}', [ZoneController::class, 'destroy']);
 });
 
@@ -134,4 +195,74 @@ Route::get('beneficiary',[\App\Http\Controllers\BeneficiariesController::class,'
 Route::post('beneficiary/{id}',[\App\Http\Controllers\BeneficiariesController::class,'destroy']);
 Route::post('beneficiary/update/{id}',[\App\Http\Controllers\BeneficiariesController::class,'update']);
 Route::get('beneficiary/{id}',[\App\Http\Controllers\BeneficiariesController::class,'show']);
+
+
+
+//      requests routes
+Route::prefix("requests")->group(function () {
+    Route::get('/', [ReqController::class, 'index']);
+
+    Route::post('/', [ReqController::class, 'store']);
+
+    Route::get('/{id}', [ReqController::class, 'show']);
+
+    Route::post('/update/{id}', [ReqController::class, 'update']);
+
+    Route::post('/{id}', [ReqController::class, 'destroy']);
+});
+
+
+//      sponsors routes
+Route::prefix("sponsors")->group(function () {
+    Route::get('/', [SponsorController::class, 'index']);
+
+    Route::post('/', [SponsorController::class, 'store']);
+
+    Route::get('/{id}', [SponsorController::class, 'show']);
+
+    Route::post('/update/{id}', [SponsorController::class, 'update']);
+
+    Route::post('/{id}', [SponsorController::class, 'destroy']);
+});
+
+
+
+//      pics routes
+Route::prefix("pics")->group(function () {
+    Route::get('/', [PicController::class, 'index']);
+
+    Route::post('/', [PicController::class, 'store']);
+
+    Route::get('/{id}', [PicController::class, 'show']);
+
+    Route::post('/update/{id}', [PicController::class, 'update']);
+
+    Route::post('/{id}', [PicController::class, 'destroy']);
+});
+
+
+////roles
+//Route::group[('middleware')->get('/user', function (Request $request) {
+//    return $request->user();
+//});
+//
+//
+////protected routes
+//Route :: group(['middleware'=>['auth:api','access.control']],function(){
+//
+//// Other Routes
+//    Route :: prefix('test')->group(function(){
+//        Route :: get('',[TestController :: class,'list'])->name('list_test');
+//        Route :: post('',[TestController :: class,'add'])->name('add_test');
+//
+//}
+//    Route :: prefix('{id}'))->group(function(){
+//         Route :: put( '',[TestController :: class,'update'])->name('update_test');
+//        Route :: delete('',[TestController :: class,'delete'])->name('delete_test');
+//         Route :: get('',[TestController::class,'view'])->name('view_test');
+//    });
+//
+//});
+
+
 

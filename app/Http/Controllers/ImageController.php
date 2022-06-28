@@ -11,11 +11,6 @@ class ImageController extends Controller
 {
     use  ApiResponseTrait;
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $conect = ImageResource::collection(Image::get());
@@ -53,12 +48,8 @@ class ImageController extends Controller
         return $this->apiResponse(null, 'the imag  not save', 400);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Contentinfo  $contentinfo
-     * @return \Illuminate\Http\Response
-     */
+
+
     public function show($id)
     {
         $imag= Image::find($id);
@@ -70,43 +61,34 @@ class ImageController extends Controller
     }
 
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Location  $location
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request,  $id)
     {
-        $imag= Image::find($id);
-        if(!$imag)
+        $image= Image::find($id);
+        if(!$image)
         {
-            return $this->apiResponse(null ,'the imag not found ',404);
+            return $this->apiResponse(null ,'the image not found ',404);
         }
-        $imag->update($request->all());
-        if($imag)
+        $image->update($request->all());
+        if($image)
         {
-            return $this->apiResponse(new  ImageResource($imag) , 'the imag update',201);
+
+            return $this->apiResponse(new  ImageResource($image) , 'the imag update',201);
+
 
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Location  $location
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy($id)
     {
-        $imag= Image::find($id);
-        if(!$imag)
+        $image= Image::find($id);
+        if(!$image)
         {
-            return $this->apiResponse(null ,'the imag not found ',404);
+            return $this->apiResponse(null ,'the image not found ',404);
         }
-        $imag->delete($id);
-        if($imag)
-            return $this->apiResponse(null ,'the imag delete ',200);
+        $image->delete($id);
+        if($image)
+            return $this->apiResponse(null ,'the image delete ',200);
     }
 }

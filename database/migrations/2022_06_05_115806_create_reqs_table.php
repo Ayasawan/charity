@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateApplicantsTable extends Migration
+class CreateReqsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,19 @@ class CreateApplicantsTable extends Migration
      */
     public function up()
     {
-        Schema::create('applicants', function (Blueprint $table) {
+        Schema::create('reqs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
-            $table->foreignId('scolarship_id')->constrained('scolarships')->cascadeOnDelete();
+            $table->bigInteger('user_id');
+            $table->bigInteger('sponsor_id');
             $table->integer('age');
             $table->string('gender');
             $table->string('location');
+            $table->string('specialize')->nullable();
+            $table->integer('academic_years');
+            $table->double('value');
+            $table->text('description');
             $table->string('phone');
-
+            $table->boolean('status');
             $table->timestamps();
         });
     }
@@ -33,6 +37,6 @@ class CreateApplicantsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('applicants');
+        Schema::dropIfExists('reqs');
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Http\Resources\ChallengeResource;
+use App\Models\Scolarship;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Validator;
 
@@ -25,7 +26,7 @@ class ChallengeController extends Controller
         $validator = Validator::make($input , [
             'name'=>'required',
             'description'=>'required',
-            'image'=>'required',
+            'image'=>['nullable',],
             'in_date'=>'required',
             'out_date'=>'required',
             'amount'=>'required',
@@ -33,10 +34,26 @@ class ChallengeController extends Controller
             'charity_id'=>'required',
         ]);
 
+        $file_name=$this->saveImage($request->image,'images/challenge');
+
         if ($validator->fails()){
             return $this->apiResponse(null,$validator ->errors() , 400);
         }
-        $challenge =Challenge::create($request->all());
+
+        $challenge =Challenge::query()->create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'image' => $file_name,
+            'in_date' => $request->in_date,
+            'out_date' => $request->out_date,
+            'amount' => $request->amount,
+            'amount_paid' => $request->amount_paid,
+            'charity_id' => $request->charity_id,
+           // 'user_id' => auth()->id(),
+
+
+        ]);
+
         if($challenge) {
             return $this->apiResponse(new ChallengeResource($challenge), 'This Challenge save', 201);
         }
