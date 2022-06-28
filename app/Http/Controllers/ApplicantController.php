@@ -18,9 +18,6 @@ class ApplicantController extends Controller
 
     }
 
-
-
-
     public function store(Request $request)
     {
         $input=$request->all();
@@ -44,7 +41,7 @@ class ApplicantController extends Controller
         return $this->apiResponse(null, 'This  applicant not save', 400);
     }
 
-    
+
 
 
     public function show($id)
@@ -56,12 +53,12 @@ class ApplicantController extends Controller
         return $this->apiResponse(null, 'This  applicant not found', 404);
     }
 
-    
+
 
 
     public function update(Request $request,$id)
     {
-       
+
 
         $applicant = Applicant::find($id);
         if(!$applicant){

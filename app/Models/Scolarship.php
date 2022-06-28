@@ -13,7 +13,11 @@ class Scolarship extends Model
     protected $fillable = [
         'max_number','image', 'description','academic_years','charity_id','college_id' ];
 
+    public function applicants(){
+        return $this->hasMany(Applicant::class,'scolarship_id');
+    }
     protected $primaryKey = "id";
 
     public $timestamps=true ;
+
 }

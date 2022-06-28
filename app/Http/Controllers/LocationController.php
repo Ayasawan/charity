@@ -36,6 +36,7 @@ class LocationController extends Controller
             'govemorate' => 'required',
             'city' => 'required',
             'street' => 'required',
+            'charity_id'=>'charity_id',
 
         ]);
 
@@ -46,6 +47,7 @@ class LocationController extends Controller
             'govemorate' =>$request->govemorate,
             'city' =>$request->city,
             'street' =>$request->street,
+           // 'charity_id' =>$request->charity_id,
         ]);
         if ($location) {
             return $this->apiResponse(new LocationResource($location), 'the Location  save', 201);

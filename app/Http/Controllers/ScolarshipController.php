@@ -15,7 +15,7 @@ class ScolarshipController extends Controller
     public function index()
 
     {
-        $scolarships  =ScolarshipResource::collection(Scolarship::get());
+        $scolarships =ScolarshipResource::collection(Scolarship::get());
         return $this->apiResponse($scolarships,'ok',200);
 
     }
@@ -39,7 +39,7 @@ class ScolarshipController extends Controller
         $file_name=$this->saveImage($request->image,'images/scolarship');
 
 
-      
+
 
         if ($validator->fails()){
             return $this->apiResponse(null,$validator ->errors() , 400);
@@ -60,25 +60,25 @@ class ScolarshipController extends Controller
         return $this->apiResponse(null, 'This Scolarship not save', 400);
     }
 
-    
+
 
 
     public function show($id)
     {
         $scolarship = Scolarship::find($id);
-        if( $scolarship) {
+        if($scolarship) {
             return $this->apiResponse(new ScolarshipResource($scolarship), 'ok', 200);
         }
         return $this->apiResponse(null, 'This Scolarship not found', 404);
     }
 
-    
+
 
 
     public function update(Request $request,$id)
     {
 
-       
+
         $scolarship = Scolarship::find($id);
         if(!$scolarship){
             return $this->apiResponse(null, 'This  Scolarship  not found', 404);

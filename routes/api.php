@@ -29,8 +29,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     // location
 Route::post('Location',[\App\Http\Controllers\LocationController::class,'store']);
 Route::get('Location',[\App\Http\Controllers\LocationController::class,'index']);
-Route::delete('Location/{id}',[\App\Http\Controllers\LocationController::class,'destroy']);
-Route::put('Location/{id}',[\App\Http\Controllers\LocationController::class,'update']);
+Route::post('Location/{id}',[\App\Http\Controllers\LocationController::class,'destroy']);
+Route::post('Location/update/{id}',[\App\Http\Controllers\LocationController::class,'update']);
 Route::get('Location/{id}',[\App\Http\Controllers\LocationController::class,'show']);
 
 
@@ -65,14 +65,6 @@ Route::prefix("zones")->group(function () {
 });
 
 
-// //      scolarship
-// Route::prefix("scolarships")->group(function () {
-//     Route::get('/', [ScolarshipController::class, 'index']);
-//     Route::post('/', [ScolarshipController::class, 'store']);
-//     Route::get('/{id}', [ScolarshipController::class, 'show']);
-//     Route::post('/update/{id}', [ScolarshipController::class, 'update']);
-//     Route::post('/{id}', [ScolarshipController::class, 'destroy']);
-// });
 
 
 // scolarships
@@ -106,40 +98,40 @@ Route::post('documents/{id}',[\App\Http\Controllers\DocumentController::class,'d
 
 Route::post('conection',[\App\Http\Controllers\ContentinfoController::class,'store']);
 Route::get('conection',[\App\Http\Controllers\ContentinfoController::class,'index']);
-Route::delete('conection/{id}',[\App\Http\Controllers\ContentinfoController::class,'destroy']);
-Route::put('conection/{id}',[\App\Http\Controllers\ContentinfoController::class,'update']);
+Route::post('conection/{id}',[\App\Http\Controllers\ContentinfoController::class,'destroy']);
+Route::post('conection/update/{id}',[\App\Http\Controllers\ContentinfoController::class,'update']);
 Route::get('conection/{id}',[\App\Http\Controllers\ContentinfoController::class,'show']);
 
 // image_charity
 
 Route::post('charity',[\App\Http\Controllers\CharityController::class,'store']);
 Route::get('charity',[\App\Http\Controllers\CharityController::class,'index']);
-Route::delete('charity/{id}',[\App\Http\Controllers\CharityController::class,'destroy']);
-Route::put('charity/{id}',[\App\Http\Controllers\CharityController::class,'update']);
+Route::post('charity/{id}',[\App\Http\Controllers\CharityController::class,'destroy']);
+Route::post('charity/update/{id}',[\App\Http\Controllers\CharityController::class,'update']);
 Route::get('charity/{id}',[\App\Http\Controllers\CharityController::class,'show']);
 
-
-// images_charity
-
-Route::post('image',[\App\Http\Controllers\ImageController::class,'store']);
-Route::get('image',[\App\Http\Controllers\ImageController::class,'index']);
-Route::delete('image/{id}',[\App\Http\Controllers\ImageController::class,'destroy']);
-Route::put('image/{id}',[\App\Http\Controllers\ImageController::class,'update']);
-Route::get('image/{id}',[\App\Http\Controllers\ImageController::class,'show']);
+//
+//// images_charity
+//
+//Route::post('image',[\App\Http\Controllers\ImageController::class,'store']);
+//Route::get('image',[\App\Http\Controllers\ImageController::class,'index']);
+//Route::delete('image/{id}',[\App\Http\Controllers\ImageController::class,'destroy']);
+//Route::put('image/{id}',[\App\Http\Controllers\ImageController::class,'update']);
+//Route::get('image/{id}',[\App\Http\Controllers\ImageController::class,'show']);
 
 
 //donation
 Route::post('donation',[\App\Http\Controllers\DonationController::class,'store']);
 Route::get('donation',[\App\Http\Controllers\DonationController::class,'index']);
-Route::delete('donation/{id}',[\App\Http\Controllers\DonationController::class,'destroy']);
-Route::put('donation/{id}',[\App\Http\Controllers\DonationController::class,'update']);
+Route::post('donation/{id}',[\App\Http\Controllers\DonationController::class,'destroy']);
+Route::post('donation/update/{id}',[\App\Http\Controllers\DonationController::class,'update']);
 Route::get('donation/{id}',[\App\Http\Controllers\DonationController::class,'show']);
 
 
 //beneficiary
 Route::post('beneficiary',[\App\Http\Controllers\BeneficiariesController::class,'store']);
 Route::get('beneficiary',[\App\Http\Controllers\BeneficiariesController::class,'index']);
-Route::delete('beneficiary/{id}',[\App\Http\Controllers\BeneficiariesController::class,'destroy']);
-Route::put('beneficiary/{id}',[\App\Http\Controllers\BeneficiariesController::class,'update']);
+Route::post('beneficiary/{id}',[\App\Http\Controllers\BeneficiariesController::class,'destroy']);
+Route::post('beneficiary/update/{id}',[\App\Http\Controllers\BeneficiariesController::class,'update']);
 Route::get('beneficiary/{id}',[\App\Http\Controllers\BeneficiariesController::class,'show']);
 
