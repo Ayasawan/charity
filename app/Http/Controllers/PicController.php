@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Validator;
 
 class PicController extends Controller
 {
-
+    use  ApiResponseTrait;
     public function index()
     {
         $pic = PicResource::collection(Pic::get());
@@ -23,19 +23,18 @@ class PicController extends Controller
     {
         $input=$request->all();
         $validator = Validator::make( $input, [
-            'name' => ['nullable',],
-            'request_id' => 'required',
-
+            'name' =>['nullable',],
+            'request_id' =>'required',
         ]);
 
         if ($validator->fails()) {
             return $this->apiResponse(null, $validator->errors(), 400);
         }
-        $file_name = $this->saveImage($request->name, 'images/request');
+        $file_name=$this->saveImage($request->name,'images/request');
 
         $pic =Pic::query()->create([
-            'name' =>$file_name,
-            'request_id' =>$request->request_id,
+            'name'=>$file_name,
+            'request_id'=>$request->request_id,
         ]);
         if ($pic) {
             return $this->apiResponse(new  PicResource($pic), 'the picture  save', 201);
@@ -58,33 +57,20 @@ class PicController extends Controller
 
     public function update(Request $request,  $id)
     {
-        $validator = Validator::make($request->all(), [
-
-            'name' => ['nullable',],
-            'request_id' => 'required',
-
-        ]);
-
-        $file_name = $this->saveImage($request->name, 'images/request');
-
-
-        if ($validator->fails()) {
-            return $this->apiResponse(null, $validator->errors(), 400);
+        $pic= Pic::find($id);
+        if(!$pic)
+        {
+            return $this->apiResponse(null ,'the picture not found ',404);
         }
-        $pic = Pic::find($id);
-        if (!$pic) {
-            return $this->apiResponse(null, 'the picture not found ', 404);
-        }
+
         $pic->update($request->all());
-        $pic = Pic::query()->update([
-            'name' => $file_name,
-            'request_id' => $request->request_id,
-        ]);
-        // dd($document->toArray());
+        $file_name=$this->saveImage($request->name,'images/request');
+        $pic->name= $file_name;
+        $pic->update(['name' => $file_name]);
 
-        if ($pic) {
-            return $this->apiResponse(new  PicResource($pic), 'the picture update', 201);
-
+        if($pic)
+        {
+            return $this->apiResponse(new  PicResource($pic) , 'the picture update',201);
         }
     }
 

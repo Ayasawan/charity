@@ -15,4 +15,12 @@ class Chall extends Model
         'challenge_id','user_id', 'c_amount','c_date'];
 
     protected $primaryKey = "id";
+
+    public function challenge(){
+        return $this->belongsTo(Challenge::class,'challenge_id');
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class,'user_id');
+    }
 }
