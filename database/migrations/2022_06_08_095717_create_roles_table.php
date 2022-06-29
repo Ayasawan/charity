@@ -6,18 +6,13 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateRolesTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
+
     public function up()
     {
         Schema::create('roles', function (Blueprint $table) {
             $table->id();
             $table->string('title')->unique();
              $table->string('display');
-            // $table-> tinyInteger("level");
              $table->boolean('active')->default( true);
               $table->timestamps();
         });

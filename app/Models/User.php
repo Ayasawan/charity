@@ -14,9 +14,14 @@ class User extends Authenticatable
 
 
     protected $fillable = [
-        'name',
+        'role_id',
         'email',
         'password',
+        'active',
+        'first_name',
+        'last_name',
+
+
     ];
 
     public function donations()
