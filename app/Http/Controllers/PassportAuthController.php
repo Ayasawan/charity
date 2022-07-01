@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Role;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -26,14 +27,21 @@ class PassportAuthController extends Controller
         if(!Auth::attempt($credentials)){
             throw new AuthenticationException();
         }
+
         $user = $request->user();
         $tokenResult = $user->createToken('Personal Access Token');
-        $role=Role::where('id','=',$user->role_id)-first();//aa
+
+        $user=User::where('id','=',auth()->id())->first();//aa
+
+        $role=Role::where('id','=',$user->role_id)->first();//aa
+
         $data["user"] = $user;
         $data["token_type"] = 'Bearer';
         $data["access_token"] = $tokenResult->accessToken;
+
         $data["role"]=$role;//aa
-        $data["permissions"]=$role-permissions()->get();//aa
+        $data["permissions"]=$role->permissions()->get();//aa
+
         return response()->json($data,Response::HTTP_OK);
     }
 

@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Role;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -29,7 +30,7 @@ class RoleSeeder extends Seeder
          Role::insert($roles);
 
          $adminRole=Role::all()->where('title','=','admin')->first();
-         $userRole=Role::all()->where('title','=','users')->first();
+         $userRole=Role::all()->where('title','=','user')->first();
 
 
 // admin user
@@ -40,16 +41,20 @@ class RoleSeeder extends Seeder
          $adminUser->password=bcrypt('123123');
          $adminUser->first_name='name1';
          $adminUser->last_name= 'name2';
-         $adminUser->save();
-// user
-        $userrUser=new User();
 
-        $userrUser->role_id= $userRole->id;
-        $userrUser->email= 'shaz@a.com';
-        $userrUser->password=bcrypt('1231234');
-        $userrUser->first_name='name1';
-        $userrUser->last_name= 'name2';
-        $userrUser->save();
+         $adminUser->save();
+
+
+// user
+        $userUser=new User();
+
+        $userUser->role_id= $userRole->id;
+        $userUser->email= 'shaz@a.com';
+        $userUser->password=bcrypt('1231234');
+        $userUser->first_name='name1';
+        $userUser->last_name= 'name2';
+
+        $userUser->save();
 
 
     }
