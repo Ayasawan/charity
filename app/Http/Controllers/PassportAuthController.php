@@ -17,7 +17,7 @@ class PassportAuthController extends Controller
     {
         $validator = Validator::make($request->all(),[
             'email' => ['required', 'string', 'email', 'max:255'],
-            'password' => ['required', 'string', 'min:8'],
+            'password' => ['required', 'string', 'min:8','max:15'],
         ]);
         if($validator->fails()){
             return response()->json( $validator->errors()->all(), Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -28,11 +28,18 @@ class PassportAuthController extends Controller
         }
         $user = $request->user();
         $tokenResult = $user->createToken('Personal Access Token');
+        $role=Role::where('id','=',$user->role_id)-first();//aa
         $data["user"] = $user;
         $data["token_type"] = 'Bearer';
         $data["access_token"] = $tokenResult->accessToken;
+        $data["role"]=$role;//aa
+        $data["permissions"]=$role-permissions()->get();//aa
         return response()->json($data,Response::HTTP_OK);
     }
+
+
+
+
     public function register(Request $request){
         $validator = Validator::make($request->all(),[
             'name' => ['required', 'string', 'max:255', 'min:8'],

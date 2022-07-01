@@ -241,6 +241,12 @@ Route::prefix("pics")->group(function () {
 });
 
 
+
+// college routes
+Route::get('college',[\App\Http\Controllers\CollegeController::class,'index']);
+Route::get('college/{id}',[\App\Http\Controllers\CollegeController::class,'show']);
+
+
 ////roles
 //Route::group[('middleware')->get('/user', function (Request $request) {
 //    return $request->user();
