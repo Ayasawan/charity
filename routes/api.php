@@ -7,6 +7,7 @@ use App\Http\Controllers\ReqController;
 use App\Http\Controllers\SponsorController;
 use App\Http\Controllers\ChallengeController;
 use App\Http\Controllers\ChallController;
+use App\Http\Controllers\ImageController;
 
 
 
@@ -176,8 +177,8 @@ Route::get('charity/{id}',[\App\Http\Controllers\CharityController::class,'show'
 
 Route::post('image',[\App\Http\Controllers\ImageController::class,'store']);
 Route::get('image',[\App\Http\Controllers\ImageController::class,'index']);
-Route::delete('image/{id}',[\App\Http\Controllers\ImageController::class,'destroy']);
-Route::put('image/{id}',[\App\Http\Controllers\ImageController::class,'update']);
+Route::post('image/{id}',[\App\Http\Controllers\ImageController::class,'destroy']);
+Route::post('image/update/{id}',[\App\Http\Controllers\ImageController::class,'update']);
 Route::get('image/{id}',[\App\Http\Controllers\ImageController::class,'show']);
 
 

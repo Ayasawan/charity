@@ -67,22 +67,24 @@ class ImageController extends Controller
 
 
 
-    public function update(Request $request,  $id)
+    public function update(Request $request,$id)
     {
         $imag= Image::find($id);
         if(!$imag)
         {
             return $this->apiResponse(null ,'the image not found ',404);
         }
-
           $imag->update($request->all());
           $file_name=$this->saveImage($request->img_url,'images/charity');
            $imag->img_url= $file_name;
            $imag->update(['img_url' => $file_name]);
         
         if($imag)
-        {return $this->apiResponse(new  ImageResource($document) , 'the image update',201); }
+        {return $this->apiResponse(new  ImageResource($imag) , 'the image updated',201); }
     
+        
+        
+        
     }
 
     

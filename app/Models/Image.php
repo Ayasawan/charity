@@ -16,7 +16,7 @@ class Image extends Model
     protected $primaryKey = "id";
     public $timestamps=true ;
 //
-//    public function charities(){
-//        return $this->belongsTo( Charity::class,'charity_id');
-//    }
+   public function charities(){
+       return $this->belongsTo( Charity::class,'charity_id');
+   }
 }
