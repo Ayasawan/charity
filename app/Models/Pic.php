@@ -12,12 +12,16 @@ class Pic extends Model
     protected $table = "pics";
     protected $fillable = [
         'name',
-        'request_id',
+        'requ_id',
     ];
+    public function requests()
+    {
+        return $this->belongsTo(Req::class,'requ_id');
+    }
+
     protected $primaryKey = "id";
     public $timestamps=true ;
 
-    public function requests(){
-        return $this->belongsTo( Req::class,'request_id');
-    }
+
+
 }

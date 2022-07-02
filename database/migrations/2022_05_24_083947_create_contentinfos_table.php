@@ -17,7 +17,7 @@ class CreateContentinfosTable extends Migration
             $table->id();
             $table->string('department');
             $table->string('contact');
-            $table->bigInteger('charity_id');
+            $table->foreignId('charity_id')->constrained('charities')->cascadeOnDelete();
             $table->timestamps();
         });
     }

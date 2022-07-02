@@ -5,11 +5,8 @@ use App\Http\Controllers\ZoneController;
 use App\Http\Controllers\PicController;
 use App\Http\Controllers\ReqController;
 use App\Http\Controllers\SponsorController;
-use App\Http\Controllers\ChallengeController;
 use App\Http\Controllers\ChallController;
-
-
-
+use App\Http\Controllers\ChallengeController;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -30,6 +27,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
     Route::post('register', [\App\Http\Controllers\PassportAuthController::class, 'register']);
     Route::post('Login', [\App\Http\Controllers\PassportAuthController::class, 'Login']);
+Route::post('delete/{id}', [\App\Http\Controllers\PassportAuthController::class, 'destroy']);
 
     Route::middleware(['auth:api']) ->group(function (){
         Route::get('logout', [\App\Http\Controllers\PassportAuthController::class, 'logout']);
@@ -71,16 +69,6 @@ Route::prefix("trainings")->group(function () {
 
     Route::post('/{id}', [TrainingController::class, 'destroy']);
 });
-
-
-
-//// Training
-//
-//Route::post('Training',[\App\Http\Controllers\TrainingController::class,'store']);
-//Route::get('Training',[\App\Http\Controllers\TrainingController::class,'index']);
-//Route::delete('Training/{id}',[\App\Http\Controllers\TrainingController::class,'destroy']);
-//Route::put('Training/{id}',[\App\Http\Controllers\TrainingController::class,'update']);
-//Route::get('Training/{id}',[\App\Http\Controllers\TrainingController::class,'show']);
 
 
 //      challenges routes
@@ -163,7 +151,7 @@ Route::post('conection/{id}',[\App\Http\Controllers\ContentinfoController::class
 Route::post('conection/update/{id}',[\App\Http\Controllers\ContentinfoController::class,'update']);
 Route::get('conection/{id}',[\App\Http\Controllers\ContentinfoController::class,'show']);
 
-// image_charity
+// charity
 
 Route::post('charity',[\App\Http\Controllers\CharityController::class,'store']);
 Route::get('charity',[\App\Http\Controllers\CharityController::class,'index']);
@@ -172,13 +160,13 @@ Route::post('charity/update/{id}',[\App\Http\Controllers\CharityController::clas
 Route::get('charity/{id}',[\App\Http\Controllers\CharityController::class,'show']);
 
 //
-//// images_charity
-//
-//Route::post('image',[\App\Http\Controllers\ImageController::class,'store']);
-//Route::get('image',[\App\Http\Controllers\ImageController::class,'index']);
-//Route::delete('image/{id}',[\App\Http\Controllers\ImageController::class,'destroy']);
-//Route::put('image/{id}',[\App\Http\Controllers\ImageController::class,'update']);
-//Route::get('image/{id}',[\App\Http\Controllers\ImageController::class,'show']);
+// images_charity
+
+Route::post('image',[\App\Http\Controllers\ImageController::class,'store']);
+Route::get('image',[\App\Http\Controllers\ImageController::class,'index']);
+Route::post('image/{id}',[\App\Http\Controllers\ImageController::class,'destroy']);
+Route::post('image/update/{id}',[\App\Http\Controllers\ImageController::class,'update']);
+Route::get('image/{id}',[\App\Http\Controllers\ImageController::class,'show']);
 
 
 //donation
@@ -224,7 +212,6 @@ Route::prefix("sponsors")->group(function () {
 
     Route::post('/{id}', [SponsorController::class, 'destroy']);
 });
-
 
 
 //      pics routes

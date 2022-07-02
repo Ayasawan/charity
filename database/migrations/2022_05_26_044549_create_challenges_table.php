@@ -22,7 +22,7 @@ class CreateChallengesTable extends Migration
             $table->date('out_date');
             $table->double('amount');
             $table->double('amount_paid');
-            $table->bigInteger('charity_id');
+            $table->foreignId('charity_id')->constrained('charities')->cascadeOnDelete();
             $table->timestamps();
         });
     }

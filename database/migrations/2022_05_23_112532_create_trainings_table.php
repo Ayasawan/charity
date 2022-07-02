@@ -19,7 +19,7 @@ class CreateTrainingsTable extends Migration
             $table->text('about');
             $table->date('out_date');
             $table->integer('phone');
-            $table->bigInteger('charity_id');
+            $table->foreignId('charity_id')->constrained('charities')->cascadeOnDelete();
             $table->timestamps();
         });
     }
