@@ -30,6 +30,8 @@ class AuthServiceProvider extends ServiceProvider
             'admin' => 'Admin User Type',
         ]);
 
+       // Passport::personalAccessClientId('client-id');
+
         //
     }
 

@@ -24,7 +24,7 @@ class AdminSeeder extends Seeder
             ],
             [
                 'name'=> 'shaza',
-                'location' =>'shaz@a.com',
+                'email' =>'shaz@a.com',
                'password'=>bcrypt('123123123'),
             ]
         ];

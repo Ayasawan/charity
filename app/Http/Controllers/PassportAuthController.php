@@ -64,15 +64,11 @@ class PassportAuthController extends Controller
            // 'mobile' => [ 'required' , 'string','min:10'],
            'first_name' => [ 'required' , 'string','min:3'],
            'last_name' => [ 'required' , 'string','min:3'],
-
-
         ]);
         if ($validator->fails()) {
             return $validator->errors()->all();
         }
-
         $request['password'] = Hash::make($request['password']);
-
         $user = User::create([
             'first_name'=> $request->first_name,
             'last_name'=> $request->last_name,
