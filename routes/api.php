@@ -226,13 +226,9 @@ Route::prefix("sponsors")->group(function () {
 //      pics routes
 Route::prefix("pics")->group(function () {
     Route::get('/', [PicController::class, 'index']);
-
     Route::post('/', [PicController::class, 'store']);
-
     Route::get('/{id}', [PicController::class, 'show']);
-
     Route::post('/update/{id}', [PicController::class, 'update']);
-
     Route::post('/{id}', [PicController::class, 'destroy']);
 });
 
@@ -262,3 +258,9 @@ Route::prefix("pics")->group(function () {
 
 
 
+// //Route::post('admin/login',[PassportAuthController::class,'adminLogin'])->name('adminLogin');
+// Route::post('admin/adminlogin',[\App\Http\Controllers\PassportAuthController::class,'adminLogin'])->name('adminLogin');
+// Route::group( ['prefix' => 'admin','middleware' => ['auth:admin-api','scopes:admin'] ],function(){
+//    // authenticated staff routes here 
+//     Route::get('dashboard',[PassportAuthController::class,'adminDashboard']);
+// });
