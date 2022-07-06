@@ -15,7 +15,11 @@ class CreateReqsTable extends Migration
     {
         Schema::create('reqs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+            $table->foreignId('user_id')
+                ->constrained('users')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+           // $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->foreignId('sponsor_id')->constrained('sponsors')->cascadeOnDelete();
             $table->integer('age');
             $table->string('gender');
