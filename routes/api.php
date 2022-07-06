@@ -51,7 +51,9 @@ Route::prefix("jobs")->group(function () {
 
     Route::get('/{id}', [JobController::class, 'show']);
 
-     Route::post('/update/{id}', [JobController::class, 'update']);
+    Route::get('search/{id}', [JobController::class, 'search']);
+
+    Route::post('/update/{id}', [JobController::class, 'update']);
 
     Route::post('/{id}', [JobController::class, 'destroy']);
 });
@@ -65,6 +67,8 @@ Route::prefix("trainings")->group(function () {
 
     Route::get('/{id}', [TrainingController::class, 'show']);
 
+    Route::get('search/{id}', [TrainingController::class, 'search']);
+
     Route::post('/update/{id}', [TrainingController::class, 'update']);
 
     Route::post('/{id}', [TrainingController::class, 'destroy']);
@@ -74,14 +78,17 @@ Route::prefix("trainings")->group(function () {
 //      challenges routes
 Route::prefix("challenges")->group(function () {
     Route::get('/', [ChallengeController::class, 'index']);
-
+    Route::get('date/', [ChallengeController::class, 'index_date']);
     Route::post('/', [ChallengeController::class, 'store']);
 
     Route::get('/{id}', [ChallengeController::class, 'show']);
 
+    Route::get('search/{id}', [ChallengeController::class, 'search']);
+
     Route::post('/update/{id}', [ChallengeController::class, 'update']);
 
     Route::post('/{id}', [ChallengeController::class, 'destroy']);
+
 });
 
 
@@ -107,6 +114,8 @@ Route::prefix("zones")->group(function () {
     Route::post('/', [ZoneController::class, 'store']);
 
     Route::get('/{id}', [ZoneController::class, 'show']);
+
+    Route::get('search/{id}', [ZoneController::class, 'search']);
 
     Route::post('/update/{id}', [ZoneController::class, 'update']);
 
@@ -183,7 +192,7 @@ Route::get('beneficiary',[\App\Http\Controllers\BeneficiariesController::class,'
 Route::post('beneficiary/{id}',[\App\Http\Controllers\BeneficiariesController::class,'destroy']);
 Route::post('beneficiary/update/{id}',[\App\Http\Controllers\BeneficiariesController::class,'update']);
 Route::get('beneficiary/{id}',[\App\Http\Controllers\BeneficiariesController::class,'show']);
-
+Route::get("beneficiary/search/{name}",[\App\Http\Controllers\BeneficiariesController::class,'search']);
 
 
 //      requests routes

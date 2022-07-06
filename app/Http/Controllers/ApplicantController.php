@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Http\Resources\ApplicantResource;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Applicant;
 use Illuminate\Http\Request;
@@ -15,20 +16,17 @@ class ApplicantController extends Controller
     {
         $applicants  =ApplicantResource::collection(Applicant::get());
         return $this->apiResponse($applicants,'ok',200);
-
     }
-
     public function store(Request $request)
     {
         $input=$request->all();
         $validator = Validator::make($input , [
             'user_id'=>'required',
             'scolarship_id'=>'required',
-            'age'=>'required',
+            'age'=> ['required', 'string', 'min:2'] ,
             'gender'=>'required',
             'location'=>'required',
-            'phone'=>'required',
-
+            'phone'=> ['required', 'string', 'min:10'] ,
         ]);
 
         if ($validator->fails()){
@@ -40,10 +38,6 @@ class ApplicantController extends Controller
         }
         return $this->apiResponse(null, 'This  applicant not save', 400);
     }
-
-
-
-
     public function show($id)
     {
         $applicant = Applicant::find($id);
@@ -83,4 +77,5 @@ class ApplicantController extends Controller
             return $this->apiResponse(null, 'This  applicant deleted', 200);
         }
     }
+
 }

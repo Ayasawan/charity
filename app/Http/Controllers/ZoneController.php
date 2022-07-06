@@ -41,9 +41,6 @@ class ZoneController extends Controller
         return $this->apiResponse(null, 'This  Study Zone not save', 400);
     }
 
-
-
-
     public function show($id)
     {
         $zone = Zone::find($id);
@@ -52,10 +49,6 @@ class ZoneController extends Controller
         }
         return $this->apiResponse(null, 'This  Study Zone not found', 404);
     }
-
-
-
-
     public function update(Request $request,$id)
     {
 
@@ -83,6 +76,15 @@ class ZoneController extends Controller
         $zone->delete($id);
         if( $zone) {
             return $this->apiResponse(null, 'This  Study Zone deleted', 200);
+        }
+    }
+
+    //search on one product
+    public function search($name)
+    {
+        $zone=Zone::where("name","like","%".$name."%")->get();
+        if($zone) {
+            return $this->apiResponse($zone, 'ok', 200);
         }
     }
 }

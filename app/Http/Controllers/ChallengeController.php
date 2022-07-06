@@ -5,6 +5,7 @@ use Carbon\Carbon;
 use App\Http\Resources\ChallengeResource;
 use App\Models\Scolarship;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Validator;
 
 
@@ -16,7 +17,12 @@ class ChallengeController extends Controller
     use  ApiResponseTrait;
     public function index()
     {
-        $challenges  =ChallengeResource::collection(Challenge::get());
+        $challenges = ChallengeResource::collection(Challenge::get()->sortByDesc('amount'));
+        return $this->apiResponse($challenges,'ok',200);
+    }
+    public function index_date()
+    {
+        $challenges = ChallengeResource::collection(Challenge::get()->sortByDesc('in_date'));
         return $this->apiResponse($challenges,'ok',200);
     }
 
@@ -100,5 +106,14 @@ class ChallengeController extends Controller
         $challenge->delete($id);
         if($challenge)
             return $this->apiResponse(null ,'the Challenge delete ',200);
+    }
+
+    //search on one product
+    public function search($name)
+    {
+        $challenge=Challenge::where("name","like","%".$name."%")->get();
+        if($challenge) {
+            return $this->apiResponse($challenge, 'ok', 200);
+        }
     }
 }

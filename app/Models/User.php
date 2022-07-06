@@ -43,9 +43,13 @@ class User extends Authenticatable
 
     public function requests()
     {
-        return $this->hasMany(Req::class,'user_id');
+        return $this->hasOne(Req::class,'user_id');
     }
-
+//
+//    public function requests()
+//    {
+//        return $this->hasOne('App\Model\Req');
+//    }
 
     protected $hidden = [
         'password',

@@ -81,4 +81,13 @@ class BeneficiariesController extends Controller
         if($beneficiary)
             return $this->apiResponse(null ,'the beneficiary delete ',200);
     }
+
+    //search on one product
+    public function search($name)
+    {
+        $beneficiary=Beneficiary::where("name","like","%".$name."%")->get();
+        if($beneficiary) {
+            return $this->apiResponse($beneficiary, 'ok', 200);
+        }
+    }
 }

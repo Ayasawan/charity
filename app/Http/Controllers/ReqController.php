@@ -33,7 +33,7 @@ class ReqController extends Controller
             'academic_years'=>'required',
             'value'=>'required',
             'description'=>'required',
-            'phone'=>'required',
+            'phone'=> ['required', 'string', 'min:10'] ,
             'status'=>'required',
         ]);
 
