@@ -20,7 +20,7 @@ class CreateZonesTable extends Migration
             $table->string('phone');
             $table->text('available_times');
             $table->text('description');
-            $table->bigInteger('charity_id');
+            $table->foreignId('charity_id')->constrained('charities')->cascadeOnDelete();
             $table->timestamps();
         });
     }

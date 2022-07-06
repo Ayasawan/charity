@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Http\Resources\ChallResource;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Validator;
 
 use App\Models\Chall;
@@ -16,8 +17,6 @@ class ChallController extends Controller
         $chall = ChallResource::collection(Chall::get());
         return $this->apiResponse($chall, 'ok', 200);
     }
-
-
     public function store(Request $request)
     {
         $input=$request->all();

@@ -5,18 +5,17 @@ namespace App\Http\Controllers;
 use App\Http\Resources\BeneficiaryResource;
 use App\Models\Beneficiary;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Validator;
 
 class BeneficiariesController extends Controller
 {
     use  ApiResponseTrait;
-
     public function index()
     {
         $beneficiary = BeneficiaryResource::collection(Beneficiary::get());
         return $this->apiResponse($beneficiary, 'ok', 200);
     }
-
 
     public function store(Request $request)
     {
@@ -29,7 +28,6 @@ class BeneficiariesController extends Controller
             'amount' => 'required',
             'reason_off_benefit' => 'required',
             'charity_id' => 'required',
-
         ]);
 
         if ($validator->fails()) {
@@ -49,14 +47,6 @@ class BeneficiariesController extends Controller
         }
         return $this->apiResponse(null, 'the beneficiary  not save', 400);
     }
-
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Location  $location
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         $beneficiary= Beneficiary::find($id);
@@ -66,15 +56,6 @@ class BeneficiariesController extends Controller
         return $this->apiResponse(null ,'the beneficiary not found' ,404);
 
     }
-
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Location  $location
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request,  $id)
     {
         $beneficiary= Beneficiary::find($id);
@@ -89,13 +70,6 @@ class BeneficiariesController extends Controller
 
         }
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Location  $location
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $beneficiary= Beneficiary::find($id);

@@ -5,12 +5,8 @@ use App\Http\Controllers\ZoneController;
 use App\Http\Controllers\PicController;
 use App\Http\Controllers\ReqController;
 use App\Http\Controllers\SponsorController;
-use App\Http\Controllers\ChallengeController;
 use App\Http\Controllers\ChallController;
-use App\Http\Controllers\ImageController;
-
-
-
+use App\Http\Controllers\ChallengeController;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -30,7 +26,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
     Route::post('register', [\App\Http\Controllers\PassportAuthController::class, 'register']);
-  //  Route::post('Login', [\App\Http\Controllers\PassportAuthController::class, 'Login']);
+    Route::post('Login', [\App\Http\Controllers\PassportAuthController::class, 'Login']);
+Route::post('delete/{id}', [\App\Http\Controllers\PassportAuthController::class, 'destroy']);
 
     Route::middleware(['auth:api']) ->group(function (){
         Route::get('logout', [\App\Http\Controllers\PassportAuthController::class, 'logout']);
@@ -72,7 +69,6 @@ Route::prefix("trainings")->group(function () {
 
     Route::post('/{id}', [TrainingController::class, 'destroy']);
 });
-
 
 
 //      challenges routes
@@ -218,7 +214,6 @@ Route::prefix("sponsors")->group(function () {
 });
 
 
-
 //      pics routes
 Route::prefix("pics")->group(function () {
     Route::get('/', [PicController::class, 'index']);
@@ -227,12 +222,6 @@ Route::prefix("pics")->group(function () {
     Route::post('/update/{id}', [PicController::class, 'update']);
     Route::post('/{id}', [PicController::class, 'destroy']);
 });
-
-
-
-// college routes
-Route::get('college',[\App\Http\Controllers\CollegeController::class,'index']);
-Route::get('college/{id}',[\App\Http\Controllers\CollegeController::class,'show']);
 
 
 ////roles

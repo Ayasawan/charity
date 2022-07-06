@@ -18,7 +18,10 @@ class Beneficiary extends Model
         'age',
         'charity_id',
     ];
-    protected $primaryKey = "id";
+    public function charities(){
+        return $this->belongsTo( Charity::class,'charity_id');
+    }
 
+    protected $primaryKey = "id";
     public $timestamps=true ;
 }

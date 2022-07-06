@@ -16,16 +16,11 @@ class CreatePicsTable extends Migration
         Schema::create('pics', function (Blueprint $table) {
             $table->id();
             $table->text('name');
-            $table->bigInteger('request_id');
+            $table->foreignId('requ_id')->constrained('reqs')->cascadeOnDelete();
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('pics');

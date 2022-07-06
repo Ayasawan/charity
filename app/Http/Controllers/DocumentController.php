@@ -13,7 +13,7 @@ class DocumentController extends Controller
 {
     use  ApiResponseTrait;
 
-    
+
     public function index()
     {
         $document = DocumentResource::collection(Document::get());
@@ -43,11 +43,6 @@ class DocumentController extends Controller
         }
         return $this->apiResponse(null, 'the document  not save', 400);
     }
-
-
-
-
-
     public function show($id)
     {
         $document= Document::find($id);
@@ -56,11 +51,8 @@ class DocumentController extends Controller
         }
         return $this->apiResponse(null ,'the document not found' ,404);
     }
-
-
-
     public function update(Request $request,  $id)
-    {  
+    {
         $document= Document::find($id);
         if(!$document)
         {
@@ -71,12 +63,10 @@ class DocumentController extends Controller
           $file_name=$this->saveImage($request->name,'images/applicant');
            $document->name= $file_name;
            $document->update(['name' => $file_name]);
-        
+
         if($document)
         {return $this->apiResponse(new  DocumentResource($document) , 'the document update',201); }
     }
-
-
     public function destroy($id)
     {
         $document= Document::find($id);

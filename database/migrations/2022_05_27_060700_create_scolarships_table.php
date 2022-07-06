@@ -20,7 +20,7 @@ class CreateScolarshipsTable extends Migration
             $table->text('image');
             $table->integer('academic_years');
             $table->bigInteger('college_id');
-            $table->bigInteger('charity_id');
+            $table->foreignId('charity_id')->constrained('charities')->cascadeOnDelete();
             $table->timestamps();
         });
     }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Http\Resources\TrainingResource;
-// use App\Models\Job;
+
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Validator;
 
@@ -17,7 +17,6 @@ class TrainingController extends Controller
         $training  =TrainingResource::collection(Training::get());
         return $this->apiResponse($training,'ok',200);
     }
-
 
     public function store(Request $request)
     {

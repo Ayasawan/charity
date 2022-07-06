@@ -16,9 +16,12 @@ class Scolarship extends Model
     public function applicants(){
         return $this->hasMany(Applicant::class,'scolarship_id');
     }
+    public function charities(){
+        return $this->belongsTo( Charity::class,'charity_id');
+    }
     protected $primaryKey = "id";
 
     public $timestamps=true ;
 
-   
+
 }

@@ -14,6 +14,9 @@ class Zone extends Model
     protected $fillable = [
         'name','location', 'phone','available_times','description','charity_id' ];
 
+    public function charities(){
+        return $this->belongsTo( Charity::class,'charity_id');
+    }
     protected $primaryKey = "id";
 
     public $timestamps=true ;
