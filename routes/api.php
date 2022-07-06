@@ -30,7 +30,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
     Route::post('register', [\App\Http\Controllers\PassportAuthController::class, 'register']);
-    Route::post('Login', [\App\Http\Controllers\PassportAuthController::class, 'Login']);
+  //  Route::post('Login', [\App\Http\Controllers\PassportAuthController::class, 'Login']);
 
     Route::middleware(['auth:api']) ->group(function (){
         Route::get('logout', [\App\Http\Controllers\PassportAuthController::class, 'logout']);
@@ -73,15 +73,6 @@ Route::prefix("trainings")->group(function () {
     Route::post('/{id}', [TrainingController::class, 'destroy']);
 });
 
-
-
-//// Training
-//
-//Route::post('Training',[\App\Http\Controllers\TrainingController::class,'store']);
-//Route::get('Training',[\App\Http\Controllers\TrainingController::class,'index']);
-//Route::delete('Training/{id}',[\App\Http\Controllers\TrainingController::class,'destroy']);
-//Route::put('Training/{id}',[\App\Http\Controllers\TrainingController::class,'update']);
-//Route::get('Training/{id}',[\App\Http\Controllers\TrainingController::class,'show']);
 
 
 //      challenges routes
@@ -231,13 +222,9 @@ Route::prefix("sponsors")->group(function () {
 //      pics routes
 Route::prefix("pics")->group(function () {
     Route::get('/', [PicController::class, 'index']);
-
     Route::post('/', [PicController::class, 'store']);
-
     Route::get('/{id}', [PicController::class, 'show']);
-
     Route::post('/update/{id}', [PicController::class, 'update']);
-
     Route::post('/{id}', [PicController::class, 'destroy']);
 });
 
@@ -273,3 +260,9 @@ Route::get('college/{id}',[\App\Http\Controllers\CollegeController::class,'show'
 
 
 
+// //Route::post('admin/login',[PassportAuthController::class,'adminLogin'])->name('adminLogin');
+// Route::post('admin/adminlogin',[\App\Http\Controllers\PassportAuthController::class,'adminLogin'])->name('adminLogin');
+// Route::group( ['prefix' => 'admin','middleware' => ['auth:admin-api','scopes:admin'] ],function(){
+//    // authenticated staff routes here 
+//     Route::get('dashboard',[PassportAuthController::class,'adminDashboard']);
+// });
