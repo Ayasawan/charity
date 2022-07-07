@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Http\Resources\TrainingResource;
-// use App\Models\Job;
+
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Validator;
 
@@ -18,7 +18,6 @@ class TrainingController extends Controller
         return $this->apiResponse($training,'ok',200);
     }
 
-
     public function store(Request $request)
     {
         $input=$request->all();
@@ -26,7 +25,7 @@ class TrainingController extends Controller
             'name'=>'required',
             'about'=>'required',
             'out_date'=>'required',
-            'phone'=>'required',
+            'phone'=> ['required', 'string', 'min:10'] ,
             'charity_id'=>'required',
         ]);
 
@@ -53,18 +52,6 @@ class TrainingController extends Controller
 
     public function update(Request $request, $id)
     {
-//        $validator = Validator::make($request->all() , [
-//            'name'=>'required',
-//            'about'=>'required',
-//            'out_date'=>'required',
-//            'phone'=>'required',
-//            'charity_id'=>'required',
-//        ]);
-
-//        if ($validator->fails()){
-//            return $this->apiResponse(null,$validator ->errors() , 400);
-//        }
-
         $training = Training::find($id);
         if(!$training){
             return $this->apiResponse(null, 'This training not found', 404);
@@ -86,6 +73,15 @@ class TrainingController extends Controller
         $training->delete($id);
         if( $training) {
             return $this->apiResponse(null, 'This Training deleted', 200);
+        }
+    }
+
+    //search on one product
+    public function search($name)
+    {
+        $training=Training::where("name","like","%".$name."%")->get();
+        if($training) {
+            return $this->apiResponse($training, 'ok', 200);
         }
     }
 }

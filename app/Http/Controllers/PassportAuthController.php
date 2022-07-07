@@ -4,46 +4,54 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Role;
+use App\Models\Admin;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+// use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Laravel\Passport\HasApiTokens;
+use Laravel\Passport\RefreshToken;
+use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Validation\Rule;
 
 class PassportAuthController extends Controller
 {
+    use  ApiResponseTrait;
 
-    public function Login(Request $request)
-    {
-        $validator = Validator::make($request->all(),[
-            'email' => ['required', 'string', 'email', 'max:255'],
-            'password' => ['required', 'string', 'min:8','max:15'],
-        ]);
-        if($validator->fails()){
-            return response()->json( $validator->errors()->all(), Response::HTTP_UNPROCESSABLE_ENTITY);
-        }
-        $credentials = request(['email', 'password']);
-        if(!Auth::attempt($credentials)){
-            throw new AuthenticationException();
-        }
 
-        $user = $request->user();
-        $tokenResult = $user->createToken('Personal Access Token');
+    // public function Login(Request $request)
+    // {
+    //     $validator = Validator::make($request->all(),[
+    //         'email' => ['required', 'string', 'email', 'max:255'],
+    //         'password' => ['required', 'string', 'min:8','max:15'],
+    //     ]);
+    //     if($validator->fails()){
+    //         return response()->json( $validator->errors()->all(), Response::HTTP_UNPROCESSABLE_ENTITY);
+    //     }
+    //     $credentials = request(['email', 'password']);
+    //     if(!Auth::attempt($credentials)){
+    //         throw new AuthenticationException();
+    //     }
 
-        $user=User::where('id','=',auth()->id())->first();//aa
+    //     $user = $request->user();
+    //     $tokenResult = $user->createToken('Personal Access Token');
 
-        $role=Role::where('id','=',$user->role_id)->first();//aa
+    //     $user=User::where('id','=',auth()->id())->first();//aa
 
-        $data["user"] = $user;
-        $data["token_type"] = 'Bearer';
-        $data["access_token"] = $tokenResult->accessToken;
+    //     $role=Role::where('id','=',$user->role_id)->first();//aa
 
-        $data["role"]=$role;//aa
-        $data["permissions"]=$role->permissions()->get();//aa
+    //     $data["user"] = $user;
+    //     $data["token_type"] = 'Bearer';
+    //     $data["access_token"] = $tokenResult->accessToken;
 
-        return response()->json($data,Response::HTTP_OK);
-    }
+    //     $data["role"]=$role;//aa
+    //     $data["permissions"]=$role->permissions()->get();//aa
+
+    //     return response()->json($data,Response::HTTP_OK);
+    // }
+   
 
 
 
@@ -57,19 +65,16 @@ class PassportAuthController extends Controller
             'first_name' => ['required', 'string', 'max:255', 'min:3'],
             'last_name' => ['required', 'string', 'max:255', 'min:3'],
         ]);
-        if($validator->fails()){
+        if ($validator->fails()) {
             return $validator->errors()->all();
         }
-
         $request['password'] = Hash::make($request['password']);
-
         $user = User::create([
-
-            'email' => $request->email,
-            'password' => $request->password,
             'first_name'=> $request->first_name,
             'last_name'=> $request->last_name,
-
+            'email' => $request->email,
+            'password' => $request->password,
+           // 'mobile' => $request->mobile,
         ]);
         $tokenResult = $user->createToken('Personal Access Token');
         $data["message"] = 'User Successfully registered';
@@ -77,9 +82,69 @@ class PassportAuthController extends Controller
         $data["token_type"] = 'Bearer';
         $data["access_token"] = $tokenResult->accessToken;
 
-        return response()->json($data,Response::HTTP_OK);
+        return response()->json($data, Response::HTTP_OK);
     }
+
+
+
+    
     public function logout(Request $request)
+    {
+        $token = $request->user()->token();
+        $token->revoke();
+        return response()->json([
+            'message' => 'Successfully logged out'
+        ]);
+    }
+
+
+
+
+
+
+
+    public function adminLogin(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+        if($validator->fails()){
+            return response()->json(['error' => $validator->errors()->all()]);
+        }
+
+        if(auth()->guard('admin')->attempt(['email' => request('email'), 'password' => request('password')])){
+
+            config(['auth.guards.api.provider' => 'admin']);
+            
+            $admin = Admin::select('admins.*')->find(auth()->guard('admin')->user()->id);
+            $success =  $admin;
+            $success['token'] =  $admin->createToken('MyApp',['admin'])->accessToken; 
+
+            return response()->json($success, 200);
+        }else{ 
+            return response()->json(['error' => ['Email and Password are Wrong.']], 200);
+        }
+    }
+
+
+
+
+
+    public function adminDashboard()
+    {
+        $users = Admin::all();
+        $success =  $users;
+
+        return response()->json($success, 200);
+
+    }
+
+
+
+
+    public function adminlogout(Request $request)
     {
         $token=$request->user()->token();
         $token->revoke();
@@ -88,4 +153,65 @@ class PassportAuthController extends Controller
         ]);
     }
 
+  
+
+
+
+
+
+    public function userLogin(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+        if($validator->fails()){
+            return response()->json(['error' => $validator->errors()->all()]);
+        }
+
+        if(auth()->guard('user')->attempt(['email' => request('email'), 'password' => request('password')])){
+
+            config(['auth.guards.api.provider' => 'user']);
+            
+            $user = User::select('users.*')->find(auth()->guard('user')->user()->id);
+            $success =  $user;
+            $success['token'] =  $user->createToken('MyApp',['user'])->accessToken; 
+
+            return response()->json($success, 200);
+        }else{ 
+            return response()->json(['error' => ['Email and Password are Wrong.']], 200);
+        }
+    }
+
+    
+
+public function destroy($id)
+{
+
+//        $res = User::find($id)->delete();
+//        if ($res) {
+//            $data = [
+//                'status' => 'delete done',
+//                'msg' => 'success'
+//            ];
+//        } else {
+//            $data = [
+//                'status' => '0',
+//                'msg' => 'fail'
+//            ];
+////            return response()->json($data);
+//
+//        }
+
+    $res= User::find($id);
+    if(!$res)
+    {
+        return $this->apiResponse(null ,'the user not found ',404);
+    }
+    $res->delete($id);
+    if($res)
+        return $this->apiResponse(null ,'the user delete ',200);
+
+}
 }

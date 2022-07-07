@@ -24,7 +24,7 @@ class PicController extends Controller
         $input=$request->all();
         $validator = Validator::make( $input, [
             'name' =>['nullable',],
-            'request_id' =>'required',
+          'requ_id' =>'required',
         ]);
 
         if ($validator->fails()) {
@@ -34,7 +34,7 @@ class PicController extends Controller
 
         $pic =Pic::query()->create([
             'name'=>$file_name,
-            'request_id'=>$request->request_id,
+            'requ_id'=>$request->requ_id,
         ]);
         if ($pic) {
             return $this->apiResponse(new  PicResource($pic), 'the picture  save', 201);
@@ -73,7 +73,6 @@ class PicController extends Controller
             return $this->apiResponse(new  PicResource($pic) , 'the picture update',201);
         }
     }
-
 
     public function destroy( $id)
     {

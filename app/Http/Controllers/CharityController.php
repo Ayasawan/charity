@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\CharityfoResource;
 use App\Models\Charity;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Validator;
 class CharityController extends Controller
 {

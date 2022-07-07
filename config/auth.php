@@ -35,18 +35,63 @@ return [
     |
     */
 
-    'guards' => [
-        'web' => [
-            'driver' => 'session',
-            'provider' => 'users',
-        ],
-        'api' => [
 
-            'driver' => 'passport',
-            'provider' => 'users',
-        ],
 
+
+
+
+    // 'guards' => [
+    //     'web' => [
+    //         'driver' => 'session',
+    //         'provider' => 'users',
+    //     ],
+    //     'api' => [
+
+    //         'driver' => 'passport',
+
+    //         'provider' => 'users',
+
+    //     ],
+
+    // ],
+
+
+
+
+
+    // Add Guards
+'guards' => [
+    'web' => [
+                'driver' => 'session',
+                'provider' => 'users',
+            ],
+
+  'api' => [
+              'driver' => 'passport',
+              'provider' => 'users',
+            ],
+            
+    'user' => [
+        'driver' => 'session',
+        'provider' => 'users',
     ],
+
+    'user-api' => [
+        'driver' => 'passport',
+        'provider' => 'users',
+    ],
+
+    'admin' => [
+        'driver' => 'session',
+        'provider' => 'admins',
+    ],
+
+    'admin-api' => [
+        'driver' => 'passport',
+        'provider' => 'admins',
+    ],
+],
+
 
     /*
     |--------------------------------------------------------------------------
@@ -65,17 +110,36 @@ return [
     |
     */
 
-    'providers' => [
-        'users' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\User::class,
-        ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+
+
+    
+
+    // 'providers' => [
+    //     'users' => [
+    //         'driver' => 'eloquent',
+    //         'model' => App\Models\User::class,
+    //     ],
+
+    //     // 'users' => [
+    //     //     'driver' => 'database',
+    //     //     'table' => 'users',
+    //     // ],
+    // ],
+
+
+    // Add Provider
+'providers' => [
+    'users' => [
+        'driver' => 'eloquent',
+        'model' => App\Models\User::class,
     ],
+
+    'admins' => [
+        'driver' => 'eloquent',
+        'model' => App\Models\Admin::class,
+    ],
+],
 
     /*
     |--------------------------------------------------------------------------

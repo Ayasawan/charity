@@ -13,7 +13,7 @@ class ScolarshipController extends Controller
     use  ApiResponseTrait;
     public function index()
     {
-        $scolarships =ScolarshipResource::collection(Scolarship::get());
+        $scolarships=ScolarshipResource::collection(Scolarship::get());
         return $this->apiResponse($scolarships,'ok',200);
     }
 
@@ -74,19 +74,24 @@ class ScolarshipController extends Controller
 
     public function update(Request $request,$id)
     {
+
+
         $scolarship = Scolarship::find($id);
         if(!$scolarship){
             return $this->apiResponse(null, 'This  Scolarship  not found', 404);
         }
+
+
        $scolarship->update($request->all());
        $file_name=$this->saveImage($request->image,'images/scolarship');
         $scolarship->image= $file_name;
         $scolarship->update(['image' => $file_name]);
-    
+
+
         if($scolarship) {
             return $this->apiResponse(new ScolarshipResource(  $scolarship), 'This  Scolarship updated', 201);
         }
-        
+
     }
 
 

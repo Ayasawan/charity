@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\DonationResource;
 use App\Models\Donation;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Validator;
 
 class DonationController extends Controller

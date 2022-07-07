@@ -8,18 +8,20 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 //use Laravel\Sanctum\HasApiTokens;
 use Laravel\Passport\HasApiTokens;
+
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
 
     protected $fillable = [
-       // 'role_id',
-        'email',
-        'password',
-       // 'active',
+        //'role_id',
         'first_name',
         'last_name',
+        'email',
+        'password',
+     //   'active',
+       
 
 
     ];
@@ -41,9 +43,13 @@ class User extends Authenticatable
 
     public function requests()
     {
-        return $this->hasMany(Req::class,'user_id');
+        return $this->hasOne(Req::class,'user_id');
     }
-
+//
+//    public function requests()
+//    {
+//        return $this->hasOne('App\Model\Req');
+//    }
 
     protected $hidden = [
         'password',

@@ -10,12 +10,8 @@ class College extends Model
     use HasFactory;
     protected $table = "colleges";
     protected $fillable = [
-        'name',
-        'location' ,
-        'contiection',
+        'name', 'location', 'contiection',
     ];
-    protected $primaryKey = "id";
 
     public $timestamps=true ;
-
 }

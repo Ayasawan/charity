@@ -9,10 +9,6 @@ class Location extends Model
 {
     use HasFactory;
     protected $table = "locations";
-
-    /**
-     * @var string[]
-     */
     protected $fillable = [
      'govemorate',
         'city' ,
@@ -20,13 +16,11 @@ class Location extends Model
        'charity_id',
     ];
     protected $primaryKey = "id";
+
+    public function charities(){
+        return $this->belongsTo( Charity::class,'charity_id');
+    }
+
     public $timestamps=true ;
 
-//    public function charities(){
-//        return $this->belongsTo( Charity::class,'charity_id');
-//    }
-//    public function charity()
-//    {
-//        return $this->belongsTo(Charity::class,'charity_id');
-//    }
 }

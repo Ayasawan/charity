@@ -13,8 +13,10 @@ class Job extends Model
 
     protected $fillable = [
         'name','about', 'out_date','phone','charity_id' ];
+    public function charities(){
+        return $this->belongsTo( Charity::class,'charity_id');
+    }
 
     protected $primaryKey = "id";
-
     public $timestamps=true ;
 }

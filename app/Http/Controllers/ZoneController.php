@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Http\Resources\ZoneResource;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\ZoneResource;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Zone;
 use Illuminate\Http\Request;
@@ -17,10 +18,6 @@ class ZoneController extends Controller
         return $this->apiResponse($zones,'ok',200);
 
     }
-
-
-
-
     public function store(Request $request)
     {
         $input=$request->all();
@@ -44,9 +41,6 @@ class ZoneController extends Controller
         return $this->apiResponse(null, 'This  Study Zone not save', 400);
     }
 
-    
-
-
     public function show($id)
     {
         $zone = Zone::find($id);
@@ -55,13 +49,9 @@ class ZoneController extends Controller
         }
         return $this->apiResponse(null, 'This  Study Zone not found', 404);
     }
-
-    
-
-
     public function update(Request $request,$id)
     {
-       
+
 
         $zone = Zone::find($id);
         if(!$zone){
@@ -86,6 +76,15 @@ class ZoneController extends Controller
         $zone->delete($id);
         if( $zone) {
             return $this->apiResponse(null, 'This  Study Zone deleted', 200);
+        }
+    }
+
+    //search on one product
+    public function search($name)
+    {
+        $zone=Zone::where("name","like","%".$name."%")->get();
+        if($zone) {
+            return $this->apiResponse($zone, 'ok', 200);
         }
     }
 }

@@ -5,12 +5,8 @@ use App\Http\Controllers\ZoneController;
 use App\Http\Controllers\PicController;
 use App\Http\Controllers\ReqController;
 use App\Http\Controllers\SponsorController;
-use App\Http\Controllers\ChallengeController;
 use App\Http\Controllers\ChallController;
-use App\Http\Controllers\ImageController;
-
-
-
+use App\Http\Controllers\ChallengeController;
 
 
 
@@ -33,6 +29,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
     Route::post('register', [\App\Http\Controllers\PassportAuthController::class, 'register']);
     Route::post('Login', [\App\Http\Controllers\PassportAuthController::class, 'Login']);
+Route::post('delete/{id}', [\App\Http\Controllers\PassportAuthController::class, 'destroy']);
 
     Route::middleware(['auth:api']) ->group(function (){
         Route::get('logout', [\App\Http\Controllers\PassportAuthController::class, 'logout']);
@@ -57,7 +54,9 @@ Route :: group(['middleware'=>['auth:api','access.control']],function(){
 
             Route::get('/{id}', [JobController::class, 'show']);
 
-             Route::post('/update/{id}', [JobController::class, 'update']);
+    Route::get('search/{id}', [JobController::class, 'search']);
+
+    Route::post('/update/{id}', [JobController::class, 'update']);
 
             Route::post('/{id}', [JobController::class, 'destroy']);
         });
@@ -72,33 +71,28 @@ Route::prefix("trainings")->group(function () {
 
     Route::get('/{id}', [TrainingController::class, 'show']);
 
+    Route::get('search/{id}', [TrainingController::class, 'search']);
+
     Route::post('/update/{id}', [TrainingController::class, 'update']);
 
     Route::post('/{id}', [TrainingController::class, 'destroy']);
 });
 
 
-
-//// Training
-//
-//Route::post('Training',[\App\Http\Controllers\TrainingController::class,'store']);
-//Route::get('Training',[\App\Http\Controllers\TrainingController::class,'index']);
-//Route::delete('Training/{id}',[\App\Http\Controllers\TrainingController::class,'destroy']);
-//Route::put('Training/{id}',[\App\Http\Controllers\TrainingController::class,'update']);
-//Route::get('Training/{id}',[\App\Http\Controllers\TrainingController::class,'show']);
-
-
 //      challenges routes
 Route::prefix("challenges")->group(function () {
     Route::get('/', [ChallengeController::class, 'index']);
-
+    Route::get('date/', [ChallengeController::class, 'index_date']);
     Route::post('/', [ChallengeController::class, 'store']);
 
     Route::get('/{id}', [ChallengeController::class, 'show']);
 
+    Route::get('search/{id}', [ChallengeController::class, 'search']);
+
     Route::post('/update/{id}', [ChallengeController::class, 'update']);
 
     Route::post('/{id}', [ChallengeController::class, 'destroy']);
+
 });
 
 
@@ -124,6 +118,8 @@ Route::prefix("zones")->group(function () {
     Route::post('/', [ZoneController::class, 'store']);
 
     Route::get('/{id}', [ZoneController::class, 'show']);
+
+    Route::get('search/{id}', [ZoneController::class, 'search']);
 
     Route::post('/update/{id}', [ZoneController::class, 'update']);
 
@@ -200,7 +196,7 @@ Route::get('beneficiary',[\App\Http\Controllers\BeneficiariesController::class,'
 Route::post('beneficiary/{id}',[\App\Http\Controllers\BeneficiariesController::class,'destroy']);
 Route::post('beneficiary/update/{id}',[\App\Http\Controllers\BeneficiariesController::class,'update']);
 Route::get('beneficiary/{id}',[\App\Http\Controllers\BeneficiariesController::class,'show']);
-
+Route::get("beneficiary/search/{name}",[\App\Http\Controllers\BeneficiariesController::class,'search']);
 
 
 //      requests routes
@@ -231,17 +227,12 @@ Route::prefix("sponsors")->group(function () {
 });
 
 
-
 //      pics routes
 Route::prefix("pics")->group(function () {
     Route::get('/', [PicController::class, 'index']);
-
     Route::post('/', [PicController::class, 'store']);
-
     Route::get('/{id}', [PicController::class, 'show']);
-
     Route::post('/update/{id}', [PicController::class, 'update']);
-
     Route::post('/{id}', [PicController::class, 'destroy']);
 });
 
@@ -257,6 +248,9 @@ Route::get('college/{id}',[\App\Http\Controllers\CollegeController::class,'show'
 
 //Route::prefix('auth')->group(function (){
 //    Route::post('login',[UserController::class,'login']);
+////roles
+//Route::group[('middleware')->get('/user', function (Request $request) {
+//    return $request->user();
 //});
 //
 //

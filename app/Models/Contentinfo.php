@@ -16,6 +16,9 @@ class Contentinfo extends Model
         'contact' ,
         'charity_id',
     ];
+    public function charities(){
+        return $this->belongsTo( Charity::class,'charity_id');
+    }
     protected $primaryKey = "id";
 
     public $timestamps=true ;

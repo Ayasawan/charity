@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Http\Resources\JobResource;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Validator;
 
 use App\Models\Job;
@@ -25,7 +26,7 @@ class JobController extends Controller
             'name'=>'required',
             'about'=>'required',
             'out_date'=>'required',
-            'phone'=>'required',
+            'phone'=> ['required', 'string', 'min:10'] ,
             'charity_id'=>'required',
         ]);
 
@@ -77,6 +78,15 @@ class JobController extends Controller
         $job->delete($id);
         if( $job) {
             return $this->apiResponse(null, 'This Job deleted', 200);
+        }
+    }
+
+    //search on one product
+    public function search($name)
+    {
+        $job=Job::where("name","like","%".$name."%")->get();
+        if($job) {
+            return $this->apiResponse($job, 'ok', 200);
         }
     }
 }

@@ -15,8 +15,8 @@ class CreateChallsTable extends Migration
     {
         Schema::create('challs', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('challenge_id');
-            $table->bigInteger('user_id');
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+            $table->foreignId('challenge_id')->constrained('challenges')->cascadeOnDelete();
             $table->double('c_amount');
             $table->date('c_date');
             $table->timestamps();
