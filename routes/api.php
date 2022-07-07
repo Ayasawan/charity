@@ -12,6 +12,8 @@ use App\Http\Controllers\ImageController;
 
 
 
+
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -47,16 +49,18 @@ Route::get('Location/{id}',[\App\Http\Controllers\LocationController::class,'sho
 
 
 //      jobs routes
-Route::prefix("jobs")->group(function () {
-    Route::get('/', [JobController::class, 'index']);
+Route :: group(['middleware'=>['auth:api','access.control']],function(){
+        Route::prefix("jobs")->group(function () {
+            Route::get('/', [JobController::class, 'index']);
 
-    Route::post('/', [JobController::class, 'store']);
+            Route::post('/', [JobController::class, 'store']);
 
-    Route::get('/{id}', [JobController::class, 'show']);
+            Route::get('/{id}', [JobController::class, 'show']);
 
-     Route::post('/update/{id}', [JobController::class, 'update']);
+             Route::post('/update/{id}', [JobController::class, 'update']);
 
-    Route::post('/{id}', [JobController::class, 'destroy']);
+            Route::post('/{id}', [JobController::class, 'destroy']);
+        });
 });
 
 
@@ -248,28 +252,27 @@ Route::get('college',[\App\Http\Controllers\CollegeController::class,'index']);
 Route::get('college/{id}',[\App\Http\Controllers\CollegeController::class,'show']);
 
 
-////roles
-//Route::group[('middleware')->get('/user', function (Request $request) {
-//    return $request->user();
+
+
+
+//Route::prefix('auth')->group(function (){
+//    Route::post('login',[UserController::class,'login']);
 //});
 //
 //
-////protected routes
-//Route :: group(['middleware'=>['auth:api','access.control']],function(){
+//Route::group(['middleware'=>['auth:api','access.control']],function (){
 //
-//// Other Routes
-//    Route :: prefix('test')->group(function(){
-//        Route :: get('',[TestController :: class,'list'])->name('list_test');
-//        Route :: post('',[TestController :: class,'add'])->name('add_test');
+//    Route::prefix('test')->group(function (){
+//        Route::get('list',[TestController::class,'list'])->name('list_test');
+//        Route::post('',[TestController::class,'add'])->name('add_test');
 //
-//}
-//    Route :: prefix('{id}'))->group(function(){
-//         Route :: put( '',[TestController :: class,'update'])->name('update_test');
-//        Route :: delete('',[TestController :: class,'delete'])->name('delete_test');
-//         Route :: get('',[TestController::class,'view'])->name('view_test');
+//        Route::prefix('{id}')->group(function (){
+//            Route::put('',[TestController::class,'update'])->name('update_test');
+//            Route::delete('',[TestController::class,'delete'])->name('delete_test');
+//            Route::get('',[TestController::class,'view'])->name('view_test');
+//        });
 //    });
 //
 //});
-
 
 

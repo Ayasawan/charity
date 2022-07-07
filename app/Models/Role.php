@@ -38,4 +38,20 @@ class Role extends Model
             ->exists();
 
     }
+
+    // $param is Permission Name
+    public function givePermission($param)
+    {
+        $permission = Permission::getPermission($param);
+
+        if(!$permission) return;
+
+        if($this->check($param)) return;
+
+        $rolePerm = new RolePermission();
+        $rolePerm->role_id = $this->id;
+        $rolePerm->permission_id = $permission->id;
+
+        $rolePerm->save();
+    }
 }

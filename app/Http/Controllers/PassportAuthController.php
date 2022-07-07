@@ -48,12 +48,14 @@ class PassportAuthController extends Controller
 
 
 
-    public function register(Request $request){
+    public function register(Request $request)
+    {
         $validator = Validator::make($request->all(),[
-            'name' => ['required', 'string', 'max:255', 'min:8'],
+
             'email' => ['required', 'string', 'email', 'max:255' ,'unique:users',],
             'password' => ['required', 'string', 'min:8'],
-            'mobile' => [ 'required' , 'string','min:10'],
+            'first_name' => ['required', 'string', 'max:255', 'min:3'],
+            'last_name' => ['required', 'string', 'max:255', 'min:3'],
         ]);
         if($validator->fails()){
             return $validator->errors()->all();
@@ -62,10 +64,12 @@ class PassportAuthController extends Controller
         $request['password'] = Hash::make($request['password']);
 
         $user = User::create([
-            'name'=> $request->name,
+
             'email' => $request->email,
             'password' => $request->password,
-            'mobile' => $request->mobile,
+            'first_name'=> $request->first_name,
+            'last_name'=> $request->last_name,
+
         ]);
         $tokenResult = $user->createToken('Personal Access Token');
         $data["message"] = 'User Successfully registered';
