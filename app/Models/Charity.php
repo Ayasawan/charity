@@ -43,4 +43,11 @@ class Charity extends Model
     protected $primaryKey = "id";
     public $timestamps=true ;
 
+
+
+//   public function images()
+//   {
+//    return $this->hasMany(Image::class,'charity_id');
+//   }
+
 }

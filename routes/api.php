@@ -8,6 +8,8 @@ use App\Http\Controllers\SponsorController;
 use App\Http\Controllers\ChallController;
 use App\Http\Controllers\ChallengeController;
 
+
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -44,18 +46,20 @@ Route::get('Location/{id}',[\App\Http\Controllers\LocationController::class,'sho
 
 
 //      jobs routes
-Route::prefix("jobs")->group(function () {
-    Route::get('/', [JobController::class, 'index']);
+Route :: group(['middleware'=>['auth:api','access.control']],function(){
+        Route::prefix("jobs")->group(function () {
+            Route::get('/', [JobController::class, 'index']);
 
-    Route::post('/', [JobController::class, 'store']);
+            Route::post('/', [JobController::class, 'store']);
 
-    Route::get('/{id}', [JobController::class, 'show']);
+            Route::get('/{id}', [JobController::class, 'show']);
 
     Route::get('search/{id}', [JobController::class, 'search']);
 
     Route::post('/update/{id}', [JobController::class, 'update']);
 
-    Route::post('/{id}', [JobController::class, 'destroy']);
+            Route::post('/{id}', [JobController::class, 'destroy']);
+        });
 });
 
 
@@ -233,34 +237,36 @@ Route::prefix("pics")->group(function () {
 });
 
 
+
+// college routes
+Route::get('college',[\App\Http\Controllers\CollegeController::class,'index']);
+Route::get('college/{id}',[\App\Http\Controllers\CollegeController::class,'show']);
+
+
+
+
+
+//Route::prefix('auth')->group(function (){
+//    Route::post('login',[UserController::class,'login']);
 ////roles
 //Route::group[('middleware')->get('/user', function (Request $request) {
 //    return $request->user();
 //});
 //
 //
-////protected routes
-//Route :: group(['middleware'=>['auth:api','access.control']],function(){
+//Route::group(['middleware'=>['auth:api','access.control']],function (){
 //
-//// Other Routes
-//    Route :: prefix('test')->group(function(){
-//        Route :: get('',[TestController :: class,'list'])->name('list_test');
-//        Route :: post('',[TestController :: class,'add'])->name('add_test');
+//    Route::prefix('test')->group(function (){
+//        Route::get('list',[TestController::class,'list'])->name('list_test');
+//        Route::post('',[TestController::class,'add'])->name('add_test');
 //
-//}
-//    Route :: prefix('{id}'))->group(function(){
-//         Route :: put( '',[TestController :: class,'update'])->name('update_test');
-//        Route :: delete('',[TestController :: class,'delete'])->name('delete_test');
-//         Route :: get('',[TestController::class,'view'])->name('view_test');
+//        Route::prefix('{id}')->group(function (){
+//            Route::put('',[TestController::class,'update'])->name('update_test');
+//            Route::delete('',[TestController::class,'delete'])->name('delete_test');
+//            Route::get('',[TestController::class,'view'])->name('view_test');
+//        });
 //    });
 //
 //});
 
 
-
-// //Route::post('admin/login',[PassportAuthController::class,'adminLogin'])->name('adminLogin');
-// Route::post('admin/adminlogin',[\App\Http\Controllers\PassportAuthController::class,'adminLogin'])->name('adminLogin');
-// Route::group( ['prefix' => 'admin','middleware' => ['auth:admin-api','scopes:admin'] ],function(){
-//    // authenticated staff routes here 
-//     Route::get('dashboard',[PassportAuthController::class,'adminDashboard']);
-// });
