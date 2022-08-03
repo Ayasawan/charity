@@ -39,12 +39,18 @@ Route::post('admin/login',[\App\Http\Controllers\PassportAuthController::class,'
 
 
 Route::group( ['prefix' => 'admin','middleware' => ['auth:admin-api','scopes:admin'] ],function(){
-   // authenticated staff routes here 
+   // authenticated staff routes here
     Route::get('dashboard',[PassportAuthController::class,'adminDashboard']);
     Route::get('logout',[PassportAuthController::class,'adminlogout'])->name('adminLogout');
+<<<<<<< Updated upstream
     Route::post('delete/{id}', [\App\Http\Controllers\PassportAuthController::class, 'destroy']);
     
     
+=======
+
+
+
+>>>>>>> Stashed changes
 
         // location
     Route::post('Location',[\App\Http\Controllers\LocationController::class,'store']);
@@ -210,9 +216,5 @@ Route::group( ['prefix' => 'admin','middleware' => ['auth:admin-api','scopes:adm
 
 
 
-    // college routes
-    Route::get('college',[\App\Http\Controllers\CollegeController::class,'index']);
-    Route::get('college/{id}',[\App\Http\Controllers\CollegeController::class,'show']);
 
-    
     });

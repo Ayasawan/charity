@@ -29,7 +29,7 @@ class ScolarshipController extends Controller
             'image'=>['nullable',],
             'academic_years'=>'required',
             'charity_id'=>'required',
-            'college_id'=>'required',
+            'collage'=>'required',
 
         ]);
 
@@ -48,7 +48,7 @@ class ScolarshipController extends Controller
             'description' => $request->description,
             'academic_years' => $request->academic_years,
             'charity_id' => $request->charity_id,
-            'college_id' => $request->college_id,
+            'collage' => $request->collage,
 
         ]);
         if($scolarship) {
