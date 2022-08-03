@@ -26,13 +26,24 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+Route::middleware('auth:api')->get('/user', function (Request $request) {
+  return $request->user();
+});
+
 Route::post('user/register',[PassportAuthController::class, 'register'])->name('register');
 Route::post('user/login',[PassportAuthController::class, 'userLogin'])->name('userLogin');
 
-Route::group( ['prefix' => 'user','middleware' => ['auth:user-api','scopes:user'] ],function(){
+
+// scolarships
+Route::get('scolarships',[\App\Http\Controllers\ScolarshipController::class,'index']);
+Route::get('scolarships/{id}',[\App\Http\Controllers\ScolarshipController::class,'show']);
+
+Route::group( ['prefix' =>'user','middleware' => ['auth:user-api','scopes:user'] ],function(){
    // authenticated staff routes here 
     Route::get('dashboard',[PassportAuthController::class, 'userDashboard']);
-    Route::get('logout',[PassportAuthController::class, 'logout']);
+    Route::get('logout',[PassportAuthController::class,'logout'])->name('userLogout');
+    //Route::get('logout',[PassportAuthController::class, 'logout']);
 
       // location
       Route::get('Location',[\App\Http\Controllers\LocationController::class,'index']);
@@ -76,9 +87,9 @@ Route::group( ['prefix' => 'user','middleware' => ['auth:user-api','scopes:user'
 
 
 
-    // scolarships
-    Route::get('scolarships',[\App\Http\Controllers\ScolarshipController::class,'index']);
-    Route::get('scolarships/{id}',[\App\Http\Controllers\ScolarshipController::class,'show']);
+    // // scolarships
+    // Route::get('scolarships',[\App\Http\Controllers\ScolarshipController::class,'index']);
+    // Route::get('scolarships/{id}',[\App\Http\Controllers\ScolarshipController::class,'show']);
 
 
 
