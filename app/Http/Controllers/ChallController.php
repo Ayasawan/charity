@@ -17,6 +17,11 @@ class ChallController extends Controller
         $chall = ChallResource::collection(Chall::get());
         return $this->apiResponse($chall, 'ok', 200);
     }
+    public function us_index()
+    {
+        $chall = ChallResource::collection(Chall::get());
+        return $this->apiResponse($chall, 'ok', 200);
+    }
     public function store(Request $request)
     {
         $input=$request->all();
@@ -52,7 +57,14 @@ class ChallController extends Controller
         }
         return $this->apiResponse(null ,'the Chall not found' ,404);
     }
-
+    public function us_show( $id)
+    {
+        $chall= Chall::find($id);
+        if($chall){
+            return $this->apiResponse(new ChallResource($chall) , 'ok' ,200);
+        }
+        return $this->apiResponse(null ,'the Chall not found' ,404);
+    }
 
     public function update(Request $request,  $id)
     {

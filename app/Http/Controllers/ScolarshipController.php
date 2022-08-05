@@ -16,9 +16,11 @@ class ScolarshipController extends Controller
         $scolarships=ScolarshipResource::collection(Scolarship::get());
         return $this->apiResponse($scolarships,'ok',200);
     }
-
-
-
+    public function us_index()
+    {
+        $scolarships=ScolarshipResource::collection(Scolarship::get());
+        return $this->apiResponse($scolarships,'ok',200);
+    }
 
     public function store(Request $request)
     {
@@ -29,7 +31,7 @@ class ScolarshipController extends Controller
             'image'=>['nullable',],
             'academic_years'=>'required',
             'charity_id'=>'required',
-            'collage'=>'required',
+            'college'=>'required',
 
         ]);
 
@@ -48,7 +50,7 @@ class ScolarshipController extends Controller
             'description' => $request->description,
             'academic_years' => $request->academic_years,
             'charity_id' => $request->charity_id,
-            'collage' => $request->collage,
+            'college' => $request->college,
 
         ]);
         if($scolarship) {
@@ -61,6 +63,15 @@ class ScolarshipController extends Controller
 
 
     public function show($id)
+    {
+        $scolarship = Scolarship::find($id);
+        if($scolarship) {
+            return $this->apiResponse(new ScolarshipResource($scolarship), 'ok', 200);
+        }
+        return $this->apiResponse(null, 'This Scolarship not found', 404);
+    }
+
+    public function us_show($id)
     {
         $scolarship = Scolarship::find($id);
         if($scolarship) {

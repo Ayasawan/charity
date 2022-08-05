@@ -29,6 +29,7 @@ class CreateReqsTable extends Migration
             $table->double('value');
             $table->text('description');
             $table->string('phone');
+//            $table->boolean('status')->nullable();
             $table->boolean('status');
             $table->timestamps();
         });

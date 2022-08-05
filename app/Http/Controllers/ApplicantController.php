@@ -17,6 +17,12 @@ class ApplicantController extends Controller
         $applicants  =ApplicantResource::collection(Applicant::get());
         return $this->apiResponse($applicants,'ok',200);
     }
+
+    public function us_index()
+    {
+        $applicants  =ApplicantResource::collection(Applicant::get());
+        return $this->apiResponse($applicants,'ok',200);
+    }
     public function store(Request $request)
     {
         $input=$request->all();
@@ -39,6 +45,14 @@ class ApplicantController extends Controller
         return $this->apiResponse(null, 'This  applicant not save', 400);
     }
     public function show($id)
+    {
+        $applicant = Applicant::find($id);
+        if( $applicant) {
+            return $this->apiResponse(new ApplicantResource($applicant), 'ok', 200);
+        }
+        return $this->apiResponse(null, 'This  applicant not found', 404);
+    }
+    public function us_show($id)
     {
         $applicant = Applicant::find($id);
         if( $applicant) {

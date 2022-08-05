@@ -19,7 +19,11 @@ class DocumentController extends Controller
         $document = DocumentResource::collection(Document::get());
         return $this->apiResponse($document, 'ok', 200);
     }
-
+    public function us_index()
+    {
+        $document = DocumentResource::collection(Document::get());
+        return $this->apiResponse($document, 'ok', 200);
+    }
 
     public function store(Request $request)
     {
@@ -44,6 +48,14 @@ class DocumentController extends Controller
         return $this->apiResponse(null, 'the document  not save', 400);
     }
     public function show($id)
+    {
+        $document= Document::find($id);
+        if($document){
+            return $this->apiResponse(new  DocumentResource($document) , 'ok' ,200);
+        }
+        return $this->apiResponse(null ,'the document not found' ,404);
+    }
+    public function us_show($id)
     {
         $document= Document::find($id);
         if($document){

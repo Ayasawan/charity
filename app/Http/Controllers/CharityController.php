@@ -21,6 +21,11 @@ class CharityController extends Controller
         $charity =CharityfoResource ::collection(Charity::get());
         return $this->apiResponse($charity, 'ok', 200);
     }
+    public function us_index()
+    {
+        $charity =CharityfoResource ::collection(Charity::get());
+        return $this->apiResponse($charity, 'ok', 200);
+    }
 
     /**
      * Store a newly created resource in storage.

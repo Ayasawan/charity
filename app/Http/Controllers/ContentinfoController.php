@@ -20,7 +20,11 @@ class ContentinfoController extends Controller
         $conect =ContentinfoResource::collection(Contentinfo::get());
         return $this->apiResponse($conect, 'ok', 200);
     }
-
+    public function us_index()
+    {
+        $conect =ContentinfoResource::collection(Contentinfo::get());
+        return $this->apiResponse($conect, 'ok', 200);
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -68,7 +72,15 @@ class ContentinfoController extends Controller
 
     }
 
+    public function us_show($id)
+    {
+        $conect= Contentinfo::find($id);
+        if($conect){
+            return $this->apiResponse(new ContentinfoResource($conect) , 'ok' ,200);
+        }
+        return $this->apiResponse(null ,'the conect not found' ,404);
 
+    }
     /**
      * Update the specified resource in storage.
      *

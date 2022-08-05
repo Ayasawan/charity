@@ -12,7 +12,7 @@ class Training extends Model
     protected $table = "trainings";
 
     protected $fillable = [
-        'name','about', 'out_date','phone','charity_id' ];
+        'name','about', 'out_date','phone','charity_id','location'  ];
     public function charities(){
         return $this->belongsTo( Charity::class,'charity_id');
     }

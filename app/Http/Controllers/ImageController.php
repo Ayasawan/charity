@@ -18,6 +18,11 @@ class ImageController extends Controller
         $imag = ImageResource::collection(Image::get());
         return $this->apiResponse($imag, 'ok', 200);
     }
+    public function us_index()
+    {
+        $imag = ImageResource::collection(Image::get());
+        return $this->apiResponse($imag, 'ok', 200);
+    }
     public function store(Request $request)
     {
 
@@ -43,6 +48,15 @@ class ImageController extends Controller
         return $this->apiResponse(null, 'the imag  not save', 400);
     }
     public function show($id)
+    {
+        $imag= Image::find($id);
+        if($imag){
+            return $this->apiResponse(new  ImageResource($imag) , 'ok' ,200);
+        }
+        return $this->apiResponse(null ,'the imag not found' ,404);
+
+    }
+    public function us_show($id)
     {
         $imag= Image::find($id);
         if($imag){

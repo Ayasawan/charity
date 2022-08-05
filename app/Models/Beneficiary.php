@@ -17,6 +17,7 @@ class Beneficiary extends Model
         'reason_off_benefit',
         'age',
         'charity_id',
+        'phone',
     ];
     public function charities(){
         return $this->belongsTo( Charity::class,'charity_id');

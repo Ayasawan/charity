@@ -17,6 +17,8 @@ class JobResource extends JsonResource
             "out_date"=>$this->out_date,
             "phone"=>$this->phone,
             "charity_id"=>$this->charity_id,
+            "location"=>$this->location,
+
 
         ];
     }

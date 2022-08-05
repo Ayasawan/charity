@@ -26,9 +26,6 @@ class Req extends Model
     public function users(){
         return $this->belongsTo( User::class,'user_id');
     }
-//    public function users(){
-//        return $this->belongsTo( 'App\Model\User');
-//    }
 
 
     protected $primaryKey = "id";

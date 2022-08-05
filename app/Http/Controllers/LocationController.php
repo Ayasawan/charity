@@ -20,6 +20,11 @@ class LocationController extends Controller
         $location = LocationResource::collection(Location::get());
         return $this->apiResponse($location, 'ok', 200);
     }
+    public function us_index()
+    {
+        $location = LocationResource::collection(Location::get());
+        return $this->apiResponse($location, 'ok', 200);
+    }
 
     public function store(Request $request)
     {
@@ -29,9 +34,7 @@ class LocationController extends Controller
             'city' => 'required',
             'street' => 'required',
           'charity_id'=>'required',
-
         ]);
-
         if ($validator->fails()) {
             return $this->apiResponse(null, $validator->errors(), 400);
         }
@@ -52,9 +55,15 @@ class LocationController extends Controller
         return $this->apiResponse(null ,'the location not found' ,404);
 
     }
+    public function us_show($id)
+    {
+        $location= Location::find($id);
+        if($location){
+            return $this->apiResponse(new LocationResource($location) , 'ok' ,200);
+        }
+        return $this->apiResponse(null ,'the location not found' ,404);
 
-
-
+    }
     public function update(Request $request,  $id)
     {
         $location = Location::find($id);

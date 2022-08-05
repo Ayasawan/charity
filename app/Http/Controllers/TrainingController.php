@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\TrainingResource;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Validator;
 
 use App\Models\Training;
@@ -14,7 +15,12 @@ class TrainingController extends Controller
     use  ApiResponseTrait;
     public function index()
     {
-        $training  =TrainingResource::collection(Training::get());
+        $training  =TrainingResource::collection(Training::get()->sortBy('out_date'));
+        return $this->apiResponse($training,'ok',200);
+    }
+    public function us_index()
+    {
+        $training  =TrainingResource::collection(Training::get()->sortBy('out_date'));
         return $this->apiResponse($training,'ok',200);
     }
 
@@ -27,6 +33,7 @@ class TrainingController extends Controller
             'out_date'=>'required',
             'phone'=> ['required', 'string', 'min:10'] ,
             'charity_id'=>'required',
+            'location'=>'required',
         ]);
 
         if ($validator->fails()){
@@ -41,6 +48,14 @@ class TrainingController extends Controller
 
 
     public function show($id )
+    {
+        $training = Training::find($id);
+        if( $training) {
+            return $this->apiResponse(new TrainingResource($training), 'ok', 200);
+        }
+        return $this->apiResponse(null, 'This Training not found', 404);
+    }
+    public function us_show($id )
     {
         $training = Training::find($id);
         if( $training) {

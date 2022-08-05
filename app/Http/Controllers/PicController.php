@@ -18,7 +18,28 @@ class PicController extends Controller
         return $this->apiResponse($pic, 'ok', 200);
     }
 
+    public function us_store(Request $request)
+    {
+        $input=$request->all();
+        $validator = Validator::make( $input, [
+            'name' =>['nullable',],
+            'requ_id' =>'required',
+        ]);
 
+        if ($validator->fails()) {
+            return $this->apiResponse(null, $validator->errors(), 400);
+        }
+        $file_name=$this->saveImage($request->name,'images/request');
+
+        $pic =Pic::query()->create([
+            'name'=>$file_name,
+            'requ_id'=>$request->requ_id,
+        ]);
+        if ($pic) {
+            return $this->apiResponse(new  PicResource($pic), 'the picture  save', 201);
+        }
+        return $this->apiResponse(null, 'the picture  not save', 400);
+    }
     public function store(Request $request)
     {
         $input=$request->all();
