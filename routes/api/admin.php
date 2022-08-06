@@ -44,8 +44,11 @@ Route::group( ['prefix' => 'admin','middleware' => ['auth:admin-api','scopes:adm
     Route::get('logout',[PassportAuthController::class,'adminlogout'])->name('adminLogout');
     Route::post('delete/{id}', [\App\Http\Controllers\PassportAuthController::class, 'destroy']);
 
+<<<<<<< Updated upstream
 
 
+=======
+>>>>>>> Stashed changes
         // location
     Route::post('Location',[\App\Http\Controllers\LocationController::class,'store']);
     Route::get('Location',[\App\Http\Controllers\LocationController::class,'index']);
@@ -54,14 +57,14 @@ Route::group( ['prefix' => 'admin','middleware' => ['auth:admin-api','scopes:adm
     Route::get('Location/{id}',[\App\Http\Controllers\LocationController::class,'show']);
 
 
-    //      jobs routes
-    Route::prefix("jobs")->group(function () {
-        Route::get('/', [JobController::class, 'index']);
-        Route::post('/', [JobController::class, 'store']);
-        Route::get('/{id}', [JobController::class, 'show']);
-        Route::post('/update/{id}', [JobController::class, 'update']);
-        Route::post('/{id}', [JobController::class, 'destroy']);
-    });
+//    //      jobs routes
+//    Route::prefix("jobs")->group(function () {
+//        Route::get('/', [JobController::class, 'index']);
+//        Route::post('/', [JobController::class, 'store']);
+//        Route::get('/{id}', [JobController::class, 'show']);
+//        Route::post('/update/{id}', [JobController::class, 'update']);
+//        Route::post('/{id}', [JobController::class, 'destroy']);
+//    });
 
 
     //      trainings routes
@@ -143,13 +146,13 @@ Route::group( ['prefix' => 'admin','middleware' => ['auth:admin-api','scopes:adm
     Route::post('conection/update/{id}',[\App\Http\Controllers\ContentinfoController::class,'update']);
     Route::get('conection/{id}',[\App\Http\Controllers\ContentinfoController::class,'show']);
 
-    // charity
-
-    Route::post('charity',[\App\Http\Controllers\CharityController::class,'store']);
-    Route::get('charity',[\App\Http\Controllers\CharityController::class,'index']);
-    Route::post('charity/{id}',[\App\Http\Controllers\CharityController::class,'destroy']);
-    Route::post('charity/update/{id}',[\App\Http\Controllers\CharityController::class,'update']);
-    Route::get('charity/{id}',[\App\Http\Controllers\CharityController::class,'show']);
+//    // charity
+//
+//    Route::post('charity',[\App\Http\Controllers\CharityController::class,'store']);
+//    Route::get('charity',[\App\Http\Controllers\CharityController::class,'index']);
+//    Route::post('charity/{id}',[\App\Http\Controllers\CharityController::class,'destroy']);
+//    Route::post('charity/update/{id}',[\App\Http\Controllers\CharityController::class,'update']);
+//    Route::get('charity/{id}',[\App\Http\Controllers\CharityController::class,'show']);
 
     //
     // images_charity

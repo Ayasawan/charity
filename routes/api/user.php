@@ -24,14 +24,39 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+<<<<<<< Updated upstream
 Route::post('user/register', [PassportAuthController::class, 'register'])->name('register');
 Route::post('user/login', [PassportAuthController::class, 'userLogin'])->name('userLogin');
+=======
+//      jobs routes
+Route::prefix("jobs")->group(function () {
+    Route::get('/', [JobController::class, 'index']);
+    Route::post('/', [JobController::class, 'store']);
+    Route::get('/{id}', [JobController::class, 'show']);
+});
+// charity
+
+Route::post('charity',[\App\Http\Controllers\CharityController::class,'store']);
+Route::get('charity',[\App\Http\Controllers\CharityController::class,'index']);
+Route::post('charity/{id}',[\App\Http\Controllers\CharityController::class,'destroy']);
+Route::post('charity/update/{id}',[\App\Http\Controllers\CharityController::class,'update']);
+Route::get('charity/{id}',[\App\Http\Controllers\CharityController::class,'show']);
+
+Route::middleware('auth:api')->get('/user', function (Request $request) {
+  return $request->user();
+});
+
+Route::post('user/register',[PassportAuthController::class, 'register'])->name('register');
+Route::post('user/login',[PassportAuthController::class, 'userLogin'])->name('userLogin');
+
+>>>>>>> Stashed changes
 
 Route::group(['prefix' => 'user', 'middleware' => ['auth:user-api', 'scopes:user']], function () {
     // authenticated staff routes here
    // Route::get('dashboard', [PassportAuthController::class, 'userDashboard']);
     Route::get('logout', [PassportAuthController::class, 'logout']);
 
+<<<<<<< Updated upstream
     // location
     Route::get('Location', [\App\Http\Controllers\LocationController::class, 'us_index']);
     Route::get('Location/{id}', [\App\Http\Controllers\LocationController::class, 'us_show']);
@@ -43,6 +68,24 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth:user-api', 'scopes:user
         Route::get('/{id}', [JobController::class, 'us_show']);
         Route::get('search/{id}', [JobController::class, 'search']);
     });
+=======
+Route::group( ['prefix' =>'user','middleware' => ['auth:user-api','scopes:user'] ],function(){
+   // authenticated staff routes here
+    Route::get('dashboard',[PassportAuthController::class, 'userDashboard']);
+    Route::get('logout',[PassportAuthController::class,'logout'])->name('userLogout');
+    //Route::get('logout',[PassportAuthController::class, 'logout']);
+
+      // location
+      Route::get('Location',[\App\Http\Controllers\LocationController::class,'index']);
+      Route::get('Location/{id}',[\App\Http\Controllers\LocationController::class,'show']);
+
+//
+//      //      jobs routes
+//    Route::prefix("jobs")->group(function () {
+//        Route::get('/', [JobController::class, 'index']);
+//        Route::get('/{id}', [JobController::class, 'show']);
+//    });
+>>>>>>> Stashed changes
 
 
     //      trainings routes
@@ -103,6 +146,12 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth:user-api', 'scopes:user
     Route::get('charity', [\App\Http\Controllers\CharityController::class, 'us_index']);
   //  Route::get('charity/{id}', [\App\Http\Controllers\CharityController::class, 'us_show']);
 
+<<<<<<< Updated upstream
+=======
+//     // charity
+//     Route::get('charity',[\App\Http\Controllers\CharityController::class,'index']);
+//     Route::get('charity/{id}',[\App\Http\Controllers\CharityController::class,'show']);
+>>>>>>> Stashed changes
 
     // images_charity
     Route::get('image', [\App\Http\Controllers\ImageController::class, 'us_index']);
@@ -126,3 +175,12 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth:user-api', 'scopes:user
 
 });
 
+<<<<<<< Updated upstream
+=======
+    // college routes
+    Route::get('college',[\App\Http\Controllers\CollegeController::class,'index']);
+    Route::get('college/{id}',[\App\Http\Controllers\CollegeController::class,'show']);
+
+
+});
+>>>>>>> Stashed changes
