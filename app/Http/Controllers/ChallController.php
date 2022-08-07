@@ -7,6 +7,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Validator;
 
 use App\Models\Chall;
+use App\Models\Challenge;
 use Illuminate\Http\Request;
 
 class ChallController extends Controller
@@ -80,5 +81,55 @@ class ChallController extends Controller
         $chall->delete($id);
         if($chall)
             return $this->apiResponse(null ,'the Chall delete ',200);
+    }
+
+
+
+
+
+
+
+    public function pay(Request $request , $id)
+    {
+
+        $challenge= Challenge::find($id);
+        if(!$challenge)
+        {
+            return $this->apiResponse(null ,'the Challenge not found ',404);
+        }
+        if($challenge){
+        $input=$request->all();
+        $validator = Validator::make( $input, [
+           // 'challenge_id' => 'required',
+          //  'user_id' => 'required',
+            'c_amount' => 'required',
+           // 'c_date' => 'required',
+
+        ]);
+
+        if ($validator->fails()) {
+            return $this->apiResponse(null, $validator->errors(), 400);
+        }
+        $chall =Chall::query()->create([
+            'challenge_id' =>$id,
+            'user_id' =>auth()->id(),
+            'c_amount' =>$request->c_amount,
+            'c_date' =>date("d/m/y"),
+        ]);
+
+      //  $challen=Challenge::where( 'challenge_id',$request->challenge_id);
+      
+      $ww=$challenge->amount_paid+ $chall->c_amount;
+        $challenge->amount_paid= $ww;
+        $challenge->update(['amount_paid' => $ww]);
+        if ($chall) {
+            return $this->apiResponse(new ChallResource($chall), 'thanks for your help ..your donation saved', 201);
+        }
+        return $this->apiResponse(null, 'your donation  not saved ', 400);
+
+
+    }
+
+    
     }
 }

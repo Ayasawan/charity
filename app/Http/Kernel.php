@@ -68,6 +68,7 @@ class Kernel extends HttpKernel
        // 'access.control'=> \App\Http\Middleware\AccessControl::class,
         'scopes' => \Laravel\Passport\Http\Middleware\CheckScopes::class,//aa
         'scope' => \Laravel\Passport\Http\Middleware\CheckForAnyScope::class,//aa
+    
 
     ];
 }

@@ -38,6 +38,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('admin/login',[\App\Http\Controllers\PassportAuthController::class,'adminLogin'])->name('adminLogin');
 
 
+
+
 Route::group( ['prefix' => 'admin','middleware' => ['auth:admin-api','scopes:admin'] ],function(){
    // authenticated staff routes here 
     Route::get('dashboard',[PassportAuthController::class,'adminDashboard']);
@@ -45,7 +47,7 @@ Route::group( ['prefix' => 'admin','middleware' => ['auth:admin-api','scopes:adm
     Route::post('delete/{id}', [\App\Http\Controllers\PassportAuthController::class, 'destroy']);
     
     
-
+    Route::post('pay/{id}',[\App\Http\Controllers\ChallController::class, 'pay']);
         // location
     Route::post('Location',[\App\Http\Controllers\LocationController::class,'store']);
     Route::get('Location',[\App\Http\Controllers\LocationController::class,'index']);
@@ -115,7 +117,10 @@ Route::group( ['prefix' => 'admin','middleware' => ['auth:admin-api','scopes:adm
     Route::get('scolarships/{id}',[\App\Http\Controllers\ScolarshipController::class,'show']);
     Route::post('scolarships/update/{id}',[\App\Http\Controllers\ScolarshipController::class,'update']);
     Route::post('scolarships/{id}',[\App\Http\Controllers\ScolarshipController::class,'destroy']);
+    //Route::post('pay/{id}',[\App\Http\Controllers\ChallController::class,'pay']);
 
+
+    //Route::post('pay/{id}', [ChallController::class, 'pay']);
     // applicants
 
     Route::get('applicants',[\App\Http\Controllers\ApplicantController::class,'index']);
@@ -185,9 +190,16 @@ Route::group( ['prefix' => 'admin','middleware' => ['auth:admin-api','scopes:adm
         Route::get('/{id}', [ReqController::class, 'show']);
         Route::post('/update/{id}', [ReqController::class, 'update']);
         Route::post('/{id}', [ReqController::class, 'destroy']);
+        Route::post('/spons/{id}', [ReqController::class, 'spons']);
     });
 
-
+   
+   
+    //Route::post('spons/{id}',[\App\Http\Controllers\SponsorController::class,'spons']);
+   
+   
+   
+   
     //      sponsors routes
     Route::prefix("sponsors")->group(function () {
         Route::get('/', [SponsorController::class, 'index']);
@@ -195,6 +207,8 @@ Route::group( ['prefix' => 'admin','middleware' => ['auth:admin-api','scopes:adm
         Route::get('/{id}', [SponsorController::class, 'show']);
         Route::post('/update/{id}', [SponsorController::class, 'update']);
         Route::post('/{id}', [SponsorController::class, 'destroy']);
+       
+        
     });
 
 
@@ -216,3 +230,141 @@ Route::group( ['prefix' => 'admin','middleware' => ['auth:admin-api','scopes:adm
 
     
     });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // Route::group( ['prefix' =>'user','middleware' => ['auth:user-api','scopes:user'] ],function(){
+    //     // authenticated staff routes here 
+    //      Route::get('dashboard',[PassportAuthController::class, 'userDashboard']);
+    //      Route::get('logout',[PassportAuthController::class,'logout'])->name('userLogout');
+    //      //Route::get('logout',[PassportAuthController::class, 'logout']);
+     
+    //        // location
+    //        Route::get('Location',[\App\Http\Controllers\LocationController::class,'index']);
+    //        Route::get('Location/{id}',[\App\Http\Controllers\LocationController::class,'show']);
+         
+     
+    //        //      jobs routes
+    //      Route::prefix("jobs")->group(function () {
+    //          Route::get('/', [JobController::class, 'index']);
+    //          Route::get('/{id}', [JobController::class, 'show']);
+    //      });
+     
+
+         
+     
+    //       //      trainings routes
+    //       Route::prefix("trainings")->group(function () {
+    //          Route::get('/', [TrainingController::class, 'index']);
+    //          Route::get('/{id}', [TrainingController::class, 'show']);
+    //      });
+     
+     
+    //       //      challenges routes
+    //       Route::prefix("challenges")->group(function () {
+    //          Route::get('/', [ChallengeController::class, 'index']);
+    //          Route::get('/{id}', [ChallengeController::class, 'show']);
+    //      });
+     
+     
+     
+    //      //      challs routes
+    //      Route::prefix("challs")->group(function () {
+    //          Route::get('/', [ChallController::class, 'index']);
+    //          Route::get('/{id}', [ChallController::class, 'show']);
+    //      });
+     
+     
+    //      //      zones routes
+    //      Route::prefix("zones")->group(function () {
+    //          Route::get('/', [ZoneController::class, 'index']);
+    //          Route::get('/{id}', [ZoneController::class, 'show']);
+    //      });
+     
+     
+     
+    //      // scolarships
+    //      Route::get('scolarships',[\App\Http\Controllers\ScolarshipController::class,'index']);
+    //      Route::get('scolarships/{id}',[\App\Http\Controllers\ScolarshipController::class,'show']);
+     
+     
+     
+    //       // applicants
+    //       Route::get('applicants',[\App\Http\Controllers\ApplicantController::class,'index']);
+    //       Route::get('applicants/{id}',[\App\Http\Controllers\ApplicantController::class,'show']);
+     
+     
+     
+    //        // Documents_applicants
+    //      Route::get('documents',[\App\Http\Controllers\DocumentController::class,'index']);
+    //      Route::get('documents/{id}',[\App\Http\Controllers\DocumentController::class,'show']);
+     
+     
+    //       // conection
+    //       Route::get('conection',[\App\Http\Controllers\ContentinfoController::class,'index']);
+    //       Route::get('conection/{id}',[\App\Http\Controllers\ContentinfoController::class,'show']);
+     
+    //       // charity
+    //       Route::get('charity',[\App\Http\Controllers\CharityController::class,'index']);
+    //       Route::get('charity/{id}',[\App\Http\Controllers\CharityController::class,'show']);
+     
+    //       // images_charity
+    //       Route::get('image',[\App\Http\Controllers\ImageController::class,'index']);
+    //       Route::get('image/{id}',[\App\Http\Controllers\ImageController::class,'show']);
+     
+     
+    //       //donation
+    //       Route::post('donation',[\App\Http\Controllers\DonationController::class,'store']);
+     
+     
+    //     //      requests routes
+    //       Route::prefix("requests")->group(function (){
+    //       Route::post('/', [ReqController::class, 'store']);
+    //      });
+     
+     
+    //         //      pics routes
+    //         Route::prefix("pics")->group(function () {
+    //          Route::post('/', [PicController::class, 'store']);
+    //      });
+     
+     
+    //      // college routes
+    //      Route::get('college',[\App\Http\Controllers\CollegeController::class,'index']);
+    //      Route::get('college/{id}',[\App\Http\Controllers\CollegeController::class,'show']);
+         
+         
+    //  }); 

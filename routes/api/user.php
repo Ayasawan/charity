@@ -35,16 +35,14 @@ Route::post('user/register',[PassportAuthController::class, 'register'])->name('
 Route::post('user/login',[PassportAuthController::class, 'userLogin'])->name('userLogin');
 
 
-// scolarships
-Route::get('scolarships',[\App\Http\Controllers\ScolarshipController::class,'index']);
-Route::get('scolarships/{id}',[\App\Http\Controllers\ScolarshipController::class,'show']);
+//Route::post('pay/{id}',[\App\Http\Controllers\ChallengeController::class, 'pay']);
 
 Route::group( ['prefix' =>'user','middleware' => ['auth:user-api','scopes:user'] ],function(){
    // authenticated staff routes here 
     Route::get('dashboard',[PassportAuthController::class, 'userDashboard']);
     Route::get('logout',[PassportAuthController::class,'logout'])->name('userLogout');
-    //Route::get('logout',[PassportAuthController::class, 'logout']);
-
+    
+    
       // location
       Route::get('Location',[\App\Http\Controllers\LocationController::class,'index']);
       Route::get('Location/{id}',[\App\Http\Controllers\LocationController::class,'show']);
@@ -76,6 +74,8 @@ Route::group( ['prefix' =>'user','middleware' => ['auth:user-api','scopes:user']
     Route::prefix("challs")->group(function () {
         Route::get('/', [ChallController::class, 'index']);
         Route::get('/{id}', [ChallController::class, 'show']);
+        //Route::post('/pay/{id}', [ChallController::class, 'pay']);
+     
     });
 
 
@@ -87,9 +87,9 @@ Route::group( ['prefix' =>'user','middleware' => ['auth:user-api','scopes:user']
 
 
 
-    // // scolarships
-    // Route::get('scolarships',[\App\Http\Controllers\ScolarshipController::class,'index']);
-    // Route::get('scolarships/{id}',[\App\Http\Controllers\ScolarshipController::class,'show']);
+    // scolarships
+    Route::get('scolarships',[\App\Http\Controllers\ScolarshipController::class,'index']);
+    Route::get('scolarships/{id}',[\App\Http\Controllers\ScolarshipController::class,'show']);
 
 
 
@@ -121,9 +121,18 @@ Route::group( ['prefix' =>'user','middleware' => ['auth:user-api','scopes:user']
      Route::post('donation',[\App\Http\Controllers\DonationController::class,'store']);
 
 
+
+
+
+     // sponsor
+    //  Route::post('spons/{id}',[\App\Http\Controllers\SponsorController::class,'spons']);
+
+
    //      requests routes
      Route::prefix("requests")->group(function (){
      Route::post('/', [ReqController::class, 'store']);
+
+     //Route::post('/spons/id', [SponsorController::class, 'spons']);
     });
 
 
