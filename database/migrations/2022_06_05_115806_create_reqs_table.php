@@ -19,7 +19,8 @@ class CreateReqsTable extends Migration
                 ->constrained('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->foreignId('sponsor_id')->constrained('sponsors')->cascadeOnDelete();
+           // $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+            $table->foreignId('sponsor_id')->constrained('sponsors')->cascadeOnDelete()->default(null);
             $table->integer('age');
             $table->string('gender');
             $table->string('location');
@@ -28,7 +29,7 @@ class CreateReqsTable extends Migration
             $table->double('value');
             $table->text('description');
             $table->string('phone');
-            $table->boolean('status');
+            $table->boolean('status')->default(false);
             $table->timestamps();
         });
     }

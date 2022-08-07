@@ -12,7 +12,10 @@ class Sponsor extends Model
     protected $table = "sponsors";
 
     protected $fillable = [
-        'submission_date', ];
+        'submission_date', 
+        'first_paid',
+        'bank_num',
+    ];
 
     protected $primaryKey = "id";
 

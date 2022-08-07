@@ -15,6 +15,8 @@ class CreateSponsorsTable extends Migration
     {
         Schema::create('sponsors', function (Blueprint $table) {
             $table->id();
+            $table->string('bank_num');
+            $table->double('first_paid');
             $table->date('submission_date');
             $table->timestamps();
         });

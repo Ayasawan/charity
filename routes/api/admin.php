@@ -122,6 +122,8 @@ Route::group( ['prefix' => 'admin','middleware' => ['auth:admin-api','scopes:adm
     Route::post('scolarships/search/{id}',[\App\Http\Controllers\ScolarshipController::class,'search']);
 
 
+
+    //Route::post('pay/{id}', [ChallController::class, 'pay']);
     // applicants
 
     Route::get('applicants',[\App\Http\Controllers\ApplicantController::class,'index']);
@@ -190,9 +192,16 @@ Route::group( ['prefix' => 'admin','middleware' => ['auth:admin-api','scopes:adm
         Route::get('/{id}', [ReqController::class, 'show']);
 //        Route::post('/update/{id}', [ReqController::class, 'update']);
         Route::post('/{id}', [ReqController::class, 'destroy']);
+        Route::post('/spons/{id}', [ReqController::class, 'spons']);
     });
 
-
+   
+   
+    //Route::post('spons/{id}',[\App\Http\Controllers\SponsorController::class,'spons']);
+   
+   
+   
+   
     //      sponsors routes
     Route::prefix("sponsors")->group(function () {
         Route::get('/', [SponsorController::class, 'index']);
@@ -200,6 +209,8 @@ Route::group( ['prefix' => 'admin','middleware' => ['auth:admin-api','scopes:adm
         Route::get('/{id}', [SponsorController::class, 'show']);
         Route::post('/update/{id}', [SponsorController::class, 'update']);
         Route::post('/{id}', [SponsorController::class, 'destroy']);
+       
+        
     });
 
 
