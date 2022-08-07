@@ -195,4 +195,14 @@ class ChallengeController extends Controller
             return $this->apiResponse($challenge, 'ok', 200);
         }
     }
+    public function count()
+    {
+        $challenges = ChallengeResource::collection(Challenge::get());
+        return $challenges->count();
+    }
+    public function us_count()
+    {
+        $challenges = ChallengeResource::collection(Challenge::get());
+        return $challenges->count();
+    }
 }

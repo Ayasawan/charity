@@ -78,6 +78,7 @@ Route::group( ['prefix' => 'admin','middleware' => ['auth:admin-api','scopes:adm
     Route::prefix("challenges")->group(function () {
         Route::get('/', [ChallengeController::class, 'index']);
         Route::post('/', [ChallengeController::class, 'store']);
+        Route::get('/count', [ChallengeController::class, 'us_count']);
         Route::get('/{id}', [ChallengeController::class, 'show']);
         Route::post('/update/{id}', [ChallengeController::class, 'update']);
         Route::post('/{id}', [ChallengeController::class, 'destroy']);
@@ -166,6 +167,7 @@ Route::group( ['prefix' => 'admin','middleware' => ['auth:admin-api','scopes:adm
     //donation
     Route::post('donation',[\App\Http\Controllers\DonationController::class,'store']);
     Route::get('donation',[\App\Http\Controllers\DonationController::class,'index']);
+    Route::get('donation/count',[\App\Http\Controllers\DonationController::class,'count']);
     Route::post('donation/{id}',[\App\Http\Controllers\DonationController::class,'destroy']);
     Route::post('donation/update/{id}',[\App\Http\Controllers\DonationController::class,'update']);
     Route::get('donation/{id}',[\App\Http\Controllers\DonationController::class,'show']);
@@ -173,6 +175,7 @@ Route::group( ['prefix' => 'admin','middleware' => ['auth:admin-api','scopes:adm
 
     //beneficiary
     Route::post('beneficiary',[\App\Http\Controllers\BeneficiariesController::class,'store']);
+    Route::get('beneficiary/count',[\App\Http\Controllers\BeneficiariesController::class,'count']);
     Route::get('beneficiary',[\App\Http\Controllers\BeneficiariesController::class,'index']);
     Route::post('beneficiary/{id}',[\App\Http\Controllers\BeneficiariesController::class,'destroy']);
     Route::post('beneficiary/update/{id}',[\App\Http\Controllers\BeneficiariesController::class,'update']);
