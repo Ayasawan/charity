@@ -40,15 +40,12 @@ Route::post('admin/login',[\App\Http\Controllers\PassportAuthController::class,'
 
 Route::group( ['prefix' => 'admin','middleware' => ['auth:admin-api','scopes:admin'] ],function(){
    // authenticated staff routes here
-    Route::get('dashboard',[PassportAuthController::class,'adminDashboard']);
+    //Route::get('dashboard',[PassportAuthController::class,'adminDashboard']);
     Route::get('logout',[PassportAuthController::class,'adminlogout'])->name('adminLogout');
     Route::post('delete/{id}', [\App\Http\Controllers\PassportAuthController::class, 'destroy']);
 
-<<<<<<< Updated upstream
 
 
-=======
->>>>>>> Stashed changes
         // location
     Route::post('Location',[\App\Http\Controllers\LocationController::class,'store']);
     Route::get('Location',[\App\Http\Controllers\LocationController::class,'index']);
@@ -57,14 +54,16 @@ Route::group( ['prefix' => 'admin','middleware' => ['auth:admin-api','scopes:adm
     Route::get('Location/{id}',[\App\Http\Controllers\LocationController::class,'show']);
 
 
-//    //      jobs routes
-//    Route::prefix("jobs")->group(function () {
-//        Route::get('/', [JobController::class, 'index']);
-//        Route::post('/', [JobController::class, 'store']);
-//        Route::get('/{id}', [JobController::class, 'show']);
-//        Route::post('/update/{id}', [JobController::class, 'update']);
-//        Route::post('/{id}', [JobController::class, 'destroy']);
-//    });
+    //      jobs routes
+    Route::prefix("jobs")->group(function () {
+        Route::get('/', [JobController::class, 'index']);
+        Route::post('/', [JobController::class, 'store']);
+        Route::get('/{id}', [JobController::class, 'show']);
+        Route::post('/update/{id}', [JobController::class, 'update']);
+        Route::post('/{id}', [JobController::class, 'destroy']);
+        Route::get('search/{id}', [JobController::class, 'search']);
+
+    });
 
 
     //      trainings routes
@@ -74,6 +73,8 @@ Route::group( ['prefix' => 'admin','middleware' => ['auth:admin-api','scopes:adm
         Route::get('/{id}', [TrainingController::class, 'show']);
         Route::post('/update/{id}', [TrainingController::class, 'update']);
         Route::post('/{id}', [TrainingController::class, 'destroy']);
+        Route::get('search/{id}', [TrainingController::class, 'search']);
+
     });
 
 
@@ -85,6 +86,8 @@ Route::group( ['prefix' => 'admin','middleware' => ['auth:admin-api','scopes:adm
         Route::get('/{id}', [ChallengeController::class, 'show']);
         Route::post('/update/{id}', [ChallengeController::class, 'update']);
         Route::post('/{id}', [ChallengeController::class, 'destroy']);
+        Route::get('search/{id}', [ChallengeController::class, 'search']);
+
     });
 
 
@@ -106,6 +109,8 @@ Route::group( ['prefix' => 'admin','middleware' => ['auth:admin-api','scopes:adm
         Route::get('/{id}', [ZoneController::class, 'show']);
         Route::post('/update/{id}', [ZoneController::class, 'update']);
         Route::post('/{id}', [ZoneController::class, 'destroy']);
+        Route::get('search/{id}', [ZoneController::class, 'search']);
+
     });
 
 
@@ -118,13 +123,14 @@ Route::group( ['prefix' => 'admin','middleware' => ['auth:admin-api','scopes:adm
     Route::get('scolarships/{id}',[\App\Http\Controllers\ScolarshipController::class,'show']);
     Route::post('scolarships/update/{id}',[\App\Http\Controllers\ScolarshipController::class,'update']);
     Route::post('scolarships/{id}',[\App\Http\Controllers\ScolarshipController::class,'destroy']);
+    Route::post('scolarships/search/{id}',[\App\Http\Controllers\ScolarshipController::class,'search']);
+
 
     // applicants
 
     Route::get('applicants',[\App\Http\Controllers\ApplicantController::class,'index']);
-    Route::post('applicants',[\App\Http\Controllers\ApplicantController::class,'store']);
     Route::get('applicants/{id}',[\App\Http\Controllers\ApplicantController::class,'show']);
-    Route::post('applicants/update/{id}',[\App\Http\Controllers\ApplicantController::class,'update']);
+//    Route::post('applicants/update/{id}',[\App\Http\Controllers\ApplicantController::class,'update']);
     Route::post('applicants/{id}',[\App\Http\Controllers\ApplicantController::class,'destroy']);
 
 
@@ -132,9 +138,7 @@ Route::group( ['prefix' => 'admin','middleware' => ['auth:admin-api','scopes:adm
     // Documents_applicants
 
     Route::get('documents',[\App\Http\Controllers\DocumentController::class,'index']);
-    Route::post('documents',[\App\Http\Controllers\DocumentController::class,'store']);
     Route::get('documents/{id}',[\App\Http\Controllers\DocumentController::class,'show']);
-    Route::post('documents/update/{id}',[\App\Http\Controllers\DocumentController::class,'update']);
     Route::post('documents/{id}',[\App\Http\Controllers\DocumentController::class,'destroy']);
 
 
@@ -146,13 +150,13 @@ Route::group( ['prefix' => 'admin','middleware' => ['auth:admin-api','scopes:adm
     Route::post('conection/update/{id}',[\App\Http\Controllers\ContentinfoController::class,'update']);
     Route::get('conection/{id}',[\App\Http\Controllers\ContentinfoController::class,'show']);
 
-//    // charity
-//
-//    Route::post('charity',[\App\Http\Controllers\CharityController::class,'store']);
-//    Route::get('charity',[\App\Http\Controllers\CharityController::class,'index']);
-//    Route::post('charity/{id}',[\App\Http\Controllers\CharityController::class,'destroy']);
-//    Route::post('charity/update/{id}',[\App\Http\Controllers\CharityController::class,'update']);
-//    Route::get('charity/{id}',[\App\Http\Controllers\CharityController::class,'show']);
+    // charity
+
+    Route::post('charity',[\App\Http\Controllers\CharityController::class,'store']);
+    Route::get('charity',[\App\Http\Controllers\CharityController::class,'index']);
+    Route::post('charity/{id}',[\App\Http\Controllers\CharityController::class,'destroy']);
+    Route::post('charity/update/{id}',[\App\Http\Controllers\CharityController::class,'update']);
+    Route::get('charity/{id}',[\App\Http\Controllers\CharityController::class,'show']);
 
     //
     // images_charity
@@ -178,7 +182,7 @@ Route::group( ['prefix' => 'admin','middleware' => ['auth:admin-api','scopes:adm
     Route::post('beneficiary/{id}',[\App\Http\Controllers\BeneficiariesController::class,'destroy']);
     Route::post('beneficiary/update/{id}',[\App\Http\Controllers\BeneficiariesController::class,'update']);
     Route::get('beneficiary/{id}',[\App\Http\Controllers\BeneficiariesController::class,'show']);
-
+    Route::get('beneficiary/search/{id}', [\App\Http\Controllers\BeneficiariesController::class, 'search']);
 
 
     //      requests routes
@@ -186,7 +190,7 @@ Route::group( ['prefix' => 'admin','middleware' => ['auth:admin-api','scopes:adm
         Route::get('/', [ReqController::class, 'index']);
         Route::post('/', [ReqController::class, 'store']);
         Route::get('/{id}', [ReqController::class, 'show']);
-        Route::post('/update/{id}', [ReqController::class, 'update']);
+//        Route::post('/update/{id}', [ReqController::class, 'update']);
         Route::post('/{id}', [ReqController::class, 'destroy']);
     });
 
@@ -211,11 +215,6 @@ Route::group( ['prefix' => 'admin','middleware' => ['auth:admin-api','scopes:adm
         Route::post('/{id}', [PicController::class, 'destroy']);
     });
 
-
-
-    // college routes
-    Route::get('college',[\App\Http\Controllers\CollegeController::class,'index']);
-    Route::get('college/{id}',[\App\Http\Controllers\CollegeController::class,'show']);
 
 
     });

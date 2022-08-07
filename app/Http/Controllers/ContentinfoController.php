@@ -4,17 +4,13 @@ namespace App\Http\Controllers;
 use App\Http\Resources\ContentinfoResource;
 use App\Models\Contentinfo;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Validator;
 
 class ContentinfoController extends Controller
 {
     use  ApiResponseTrait;
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $conect =ContentinfoResource::collection(Contentinfo::get());
@@ -25,12 +21,7 @@ class ContentinfoController extends Controller
         $conect =ContentinfoResource::collection(Contentinfo::get());
         return $this->apiResponse($conect, 'ok', 200);
     }
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
 
@@ -56,12 +47,6 @@ class ContentinfoController extends Controller
         return $this->apiResponse(null, 'the conection  not save', 400);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Contentinfo  $contentinfo
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         $conect= Contentinfo::find($id);
@@ -81,13 +66,7 @@ class ContentinfoController extends Controller
         return $this->apiResponse(null ,'the conect not found' ,404);
 
     }
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Location  $location
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request,  $id)
     {
         $conect= Contentinfo::find($id);
@@ -103,12 +82,6 @@ class ContentinfoController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Location  $location
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $conect= Contentinfo::find($id);

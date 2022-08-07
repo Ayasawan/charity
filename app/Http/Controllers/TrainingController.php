@@ -99,4 +99,12 @@ class TrainingController extends Controller
             return $this->apiResponse($training, 'ok', 200);
         }
     }
+    //search on one product
+    public function us_search($name)
+    {
+        $training=Training::where("name","like","%".$name."%")->get();
+        if($training) {
+            return $this->apiResponse($training, 'ok', 200);
+        }
+    }
 }

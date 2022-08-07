@@ -102,4 +102,12 @@ class ZoneController extends Controller
             return $this->apiResponse($zone, 'ok', 200);
         }
     }
+    //search on one product
+    public function us_search($name)
+    {
+        $zone=Zone::where("name","like","%".$name."%")->get();
+        if($zone) {
+            return $this->apiResponse($zone, 'ok', 200);
+        }
+    }
 }

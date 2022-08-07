@@ -44,6 +44,7 @@ class BeneficiariesController extends Controller
             'charity_id' =>$request->charity_id,
             'phone' =>$request->phone,
         ]);
+
         if ($beneficiary) {
             return $this->apiResponse(new BeneficiaryResource($beneficiary), 'the beneficiary  save', 201);
         }

@@ -54,7 +54,6 @@ class ImageController extends Controller
             return $this->apiResponse(new  ImageResource($imag) , 'ok' ,200);
         }
         return $this->apiResponse(null ,'the imag not found' ,404);
-
     }
     public function us_show($id)
     {
@@ -87,11 +86,6 @@ class ImageController extends Controller
 
         }
     }
-
-
-
-
-
 
     public function destroy($id)
     {

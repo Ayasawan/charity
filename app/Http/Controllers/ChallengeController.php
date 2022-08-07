@@ -33,9 +33,11 @@ class ChallengeController extends Controller
             $out_date = Carbon::parse($exp['out_date']);
         $result = $now->diffInDays($out_date, false);
         if ($result < 0) {
-            $exp->distinct();
-//        $exp->delete();
-        }
+            $exp->delete();}
+//            return $this->apiResponse($result, 'ok', 200);
+//          //  $exp->revoke('1');
+//        }
+
         }
                 $challenges = ChallengeResource::collection(Challenge::get()->sortBy('out_date'));
         return $this->apiResponse($challenges, 'ok', 200);}
@@ -162,6 +164,13 @@ class ChallengeController extends Controller
 
     //search on one product
     public function search($name)
+    {
+        $challenge=Challenge::where("name","like","%".$name."%")->get();
+        if($challenge) {
+            return $this->apiResponse($challenge, 'ok', 200);
+        }
+    }
+    public function us_search($name)
     {
         $challenge=Challenge::where("name","like","%".$name."%")->get();
         if($challenge) {

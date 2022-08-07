@@ -76,4 +76,5 @@ class SponsorController extends Controller
             return $this->apiResponse(null, 'This Sponsor deleted', 200);
         }
     }
+
 }

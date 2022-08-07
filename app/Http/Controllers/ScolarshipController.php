@@ -16,11 +16,16 @@ class ScolarshipController extends Controller
         $scolarships=ScolarshipResource::collection(Scolarship::get());
         return $this->apiResponse($scolarships,'ok',200);
     }
+
+
+
     public function us_index()
     {
         $scolarships=ScolarshipResource::collection(Scolarship::get());
         return $this->apiResponse($scolarships,'ok',200);
     }
+
+
 
     public function store(Request $request)
     {
@@ -71,6 +76,8 @@ class ScolarshipController extends Controller
         return $this->apiResponse(null, 'This Scolarship not found', 404);
     }
 
+
+
     public function us_show($id)
     {
         $scolarship = Scolarship::find($id);
@@ -117,6 +124,24 @@ class ScolarshipController extends Controller
         $scolarship->delete($id);
         if( $scolarship) {
             return $this->apiResponse(null, 'This Scolarship deleted', 200);
+        }
+    }
+    //search
+    public function search($name)
+    {
+        $scolarship=Scolarship::where("name","like","%".$name."%")->get();
+        if($scolarship) {
+            return $this->apiResponse($scolarship, 'ok', 200);
+        }
+    }
+
+
+    //search
+    public function us_search($name)
+    {
+        $scolarship=Scolarship::where("name","like","%".$name."%")->get();
+        if($scolarship) {
+            return $this->apiResponse($scolarship, 'ok', 200);
         }
     }
 }

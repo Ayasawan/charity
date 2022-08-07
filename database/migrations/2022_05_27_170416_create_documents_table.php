@@ -12,6 +12,7 @@ class CreateDocumentsTable extends Migration
      *
      * @return void
      */
+
     public function up()
     {
         Schema::create('documents', function (Blueprint $table) {

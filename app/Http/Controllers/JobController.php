@@ -104,4 +104,13 @@ class JobController extends Controller
             return $this->apiResponse($job, 'ok', 200);
         }
     }
+
+    //search on one product
+    public function us_search($name)
+    {
+        $job=Job::where("name","like","%".$name."%")->get();
+        if($job) {
+            return $this->apiResponse($job, 'ok', 200);
+        }
+    }
 }
