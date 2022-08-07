@@ -11,6 +11,7 @@ class CreateBeneficiariesTable extends Migration
     {
         Schema::create('beneficiaries', function (Blueprint $table) {
             $table->id();
+            $table->string('phone');
             $table->string('name');
             $table->string('location');
             $table->text('reason_off_benefit');
@@ -19,7 +20,6 @@ class CreateBeneficiariesTable extends Migration
             $table->integer('age');
             $table->foreignId('charity_id')->constrained('charities')->cascadeOnDelete();
             $table->timestamps();
-
         });
     }
 

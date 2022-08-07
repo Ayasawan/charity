@@ -12,7 +12,7 @@ class Job extends Model
     protected $table = "jobs";
 
     protected $fillable = [
-        'name','about', 'out_date','phone','charity_id' ];
+        'name','about', 'out_date','phone','charity_id','location' ];
     public function charities(){
         return $this->belongsTo( Charity::class,'charity_id');
     }

@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\Role;
 use App\Models\Admin;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\Request;
 // use Illuminate\Http\Response;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -51,33 +51,30 @@ class PassportAuthController extends Controller
 
     //     return response()->json($data,Response::HTTP_OK);
     // }
-   
 
-
-
-
-    public function register(Request $request)
-    {
+    public function register(Request $request){
         $validator = Validator::make($request->all(),[
-
             'email' => ['required', 'string', 'email', 'max:255' ,'unique:users',],
             'password' => ['required', 'string', 'min:8'],
-            'first_name' => ['required', 'string', 'max:255', 'min:3'],
-            'last_name' => ['required', 'string', 'max:255', 'min:3'],
+           'first_name' => [ 'required' , 'string','min:3'],
+           'last_name' => [ 'required' , 'string','min:3'],
         ]);
         if ($validator->fails()) {
             return $validator->errors()->all();
         }
         $request['password'] = Hash::make($request['password']);
+
         $user = User::create([
             'first_name'=> $request->first_name,
             'last_name'=> $request->last_name,
             'email' => $request->email,
             'password' => $request->password,
-           // 'mobile' => $request->mobile,
+
         ]);
         $tokenResult = $user->createToken('Personal Access Token');
         $data["message"] = 'User Successfully registered';
+        $data["user_type"] = 'user ';
+
         $data["user"] = $user;
         $data["token_type"] = 'Bearer';
         $data["access_token"] = $tokenResult->accessToken;
@@ -85,9 +82,6 @@ class PassportAuthController extends Controller
         return response()->json($data, Response::HTTP_OK);
     }
 
-
-
-    
     public function logout(Request $request)
     {
         $token = $request->user()->token();
@@ -96,12 +90,6 @@ class PassportAuthController extends Controller
             'message' => 'Successfully logged out'
         ]);
     }
-
-
-
-
-
-
 
     public function adminLogin(Request $request)
     {
@@ -117,32 +105,24 @@ class PassportAuthController extends Controller
         if(auth()->guard('admin')->attempt(['email' => request('email'), 'password' => request('password')])){
 
             config(['auth.guards.api.provider' => 'admin']);
-            
+
             $admin = Admin::select('admins.*')->find(auth()->guard('admin')->user()->id);
             $success =  $admin;
-            $success['token'] =  $admin->createToken('MyApp',['admin'])->accessToken; 
+            $success['token'] =  $admin->createToken('MyApp',['admin'])->accessToken;
 
             return response()->json($success, 200);
-        }else{ 
+        }else{
             return response()->json(['error' => ['Email and Password are Wrong.']], 200);
         }
     }
-
-
-
-
-
-    public function adminDashboard()
-    {
-        $users = Admin::all();
-        $success =  $users;
-
-        return response()->json($success, 200);
-
-    }
-
-
-
+   // public function adminDashboard()
+//    {
+//        $users = Admin::all();
+//        $success =  $users;
+//
+//        return response()->json($success, 200);
+//
+//    }
 
     public function adminlogout(Request $request)
     {
@@ -153,14 +133,9 @@ class PassportAuthController extends Controller
         ]);
     }
 
-  
-
-
-
-
-
     public function userLogin(Request $request)
-    {
+    {           // $data["message"] = $success;
+
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
             'password' => 'required',
@@ -173,36 +148,23 @@ class PassportAuthController extends Controller
         if(auth()->guard('user')->attempt(['email' => request('email'), 'password' => request('password')])){
 
             config(['auth.guards.api.provider' => 'user']);
-            
+
             $user = User::select('users.*')->find(auth()->guard('user')->user()->id);
             $success =  $user;
-            $success['token'] =  $user->createToken('MyApp',['user'])->accessToken; 
+            $success["user_type"] = 'user ';
+            $success['token'] =  $user->createToken('MyApp',['user'])->accessToken;
 
             return response()->json($success, 200);
-        }else{ 
+        }else{
             return response()->json(['error' => ['Email and Password are Wrong.']], 200);
         }
     }
 
-    
+
 
 public function destroy($id)
 {
 
-//        $res = User::find($id)->delete();
-//        if ($res) {
-//            $data = [
-//                'status' => 'delete done',
-//                'msg' => 'success'
-//            ];
-//        } else {
-//            $data = [
-//                'status' => '0',
-//                'msg' => 'fail'
-//            ];
-////            return response()->json($data);
-//
-//        }
 
     $res= User::find($id);
     if(!$res)

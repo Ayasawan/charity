@@ -31,23 +31,16 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
-
-
-
 Route::post('admin/login',[\App\Http\Controllers\PassportAuthController::class,'adminLogin'])->name('adminLogin');
 
-
-
-
 Route::group( ['prefix' => 'admin','middleware' => ['auth:admin-api','scopes:admin'] ],function(){
-   // authenticated staff routes here 
-    Route::get('dashboard',[PassportAuthController::class,'adminDashboard']);
+   // authenticated staff routes here
+    //Route::get('dashboard',[PassportAuthController::class,'adminDashboard']);
     Route::get('logout',[PassportAuthController::class,'adminlogout'])->name('adminLogout');
     Route::post('delete/{id}', [\App\Http\Controllers\PassportAuthController::class, 'destroy']);
-    
-    
-    Route::post('pay/{id}',[\App\Http\Controllers\ChallController::class, 'pay']);
+
+
+
         // location
     Route::post('Location',[\App\Http\Controllers\LocationController::class,'store']);
     Route::get('Location',[\App\Http\Controllers\LocationController::class,'index']);
@@ -63,6 +56,8 @@ Route::group( ['prefix' => 'admin','middleware' => ['auth:admin-api','scopes:adm
         Route::get('/{id}', [JobController::class, 'show']);
         Route::post('/update/{id}', [JobController::class, 'update']);
         Route::post('/{id}', [JobController::class, 'destroy']);
+        Route::get('search/{id}', [JobController::class, 'search']);
+
     });
 
 
@@ -73,6 +68,8 @@ Route::group( ['prefix' => 'admin','middleware' => ['auth:admin-api','scopes:adm
         Route::get('/{id}', [TrainingController::class, 'show']);
         Route::post('/update/{id}', [TrainingController::class, 'update']);
         Route::post('/{id}', [TrainingController::class, 'destroy']);
+        Route::get('search/{id}', [TrainingController::class, 'search']);
+
     });
 
 
@@ -84,6 +81,8 @@ Route::group( ['prefix' => 'admin','middleware' => ['auth:admin-api','scopes:adm
         Route::get('/{id}', [ChallengeController::class, 'show']);
         Route::post('/update/{id}', [ChallengeController::class, 'update']);
         Route::post('/{id}', [ChallengeController::class, 'destroy']);
+        Route::get('search/{id}', [ChallengeController::class, 'search']);
+
     });
 
 
@@ -105,6 +104,8 @@ Route::group( ['prefix' => 'admin','middleware' => ['auth:admin-api','scopes:adm
         Route::get('/{id}', [ZoneController::class, 'show']);
         Route::post('/update/{id}', [ZoneController::class, 'update']);
         Route::post('/{id}', [ZoneController::class, 'destroy']);
+        Route::get('search/{id}', [ZoneController::class, 'search']);
+
     });
 
 
@@ -117,16 +118,16 @@ Route::group( ['prefix' => 'admin','middleware' => ['auth:admin-api','scopes:adm
     Route::get('scolarships/{id}',[\App\Http\Controllers\ScolarshipController::class,'show']);
     Route::post('scolarships/update/{id}',[\App\Http\Controllers\ScolarshipController::class,'update']);
     Route::post('scolarships/{id}',[\App\Http\Controllers\ScolarshipController::class,'destroy']);
-    //Route::post('pay/{id}',[\App\Http\Controllers\ChallController::class,'pay']);
+    Route::post('scolarships/search/{id}',[\App\Http\Controllers\ScolarshipController::class,'search']);
+
 
 
     //Route::post('pay/{id}', [ChallController::class, 'pay']);
     // applicants
 
     Route::get('applicants',[\App\Http\Controllers\ApplicantController::class,'index']);
-    Route::post('applicants',[\App\Http\Controllers\ApplicantController::class,'store']);
     Route::get('applicants/{id}',[\App\Http\Controllers\ApplicantController::class,'show']);
-    Route::post('applicants/update/{id}',[\App\Http\Controllers\ApplicantController::class,'update']);
+//    Route::post('applicants/update/{id}',[\App\Http\Controllers\ApplicantController::class,'update']);
     Route::post('applicants/{id}',[\App\Http\Controllers\ApplicantController::class,'destroy']);
 
 
@@ -134,9 +135,7 @@ Route::group( ['prefix' => 'admin','middleware' => ['auth:admin-api','scopes:adm
     // Documents_applicants
 
     Route::get('documents',[\App\Http\Controllers\DocumentController::class,'index']);
-    Route::post('documents',[\App\Http\Controllers\DocumentController::class,'store']);
     Route::get('documents/{id}',[\App\Http\Controllers\DocumentController::class,'show']);
-    Route::post('documents/update/{id}',[\App\Http\Controllers\DocumentController::class,'update']);
     Route::post('documents/{id}',[\App\Http\Controllers\DocumentController::class,'destroy']);
 
 
@@ -180,7 +179,7 @@ Route::group( ['prefix' => 'admin','middleware' => ['auth:admin-api','scopes:adm
     Route::post('beneficiary/{id}',[\App\Http\Controllers\BeneficiariesController::class,'destroy']);
     Route::post('beneficiary/update/{id}',[\App\Http\Controllers\BeneficiariesController::class,'update']);
     Route::get('beneficiary/{id}',[\App\Http\Controllers\BeneficiariesController::class,'show']);
-
+    Route::get('beneficiary/search/{id}', [\App\Http\Controllers\BeneficiariesController::class, 'search']);
 
 
     //      requests routes
@@ -188,7 +187,7 @@ Route::group( ['prefix' => 'admin','middleware' => ['auth:admin-api','scopes:adm
         Route::get('/', [ReqController::class, 'index']);
         Route::post('/', [ReqController::class, 'store']);
         Route::get('/{id}', [ReqController::class, 'show']);
-        Route::post('/update/{id}', [ReqController::class, 'update']);
+//        Route::post('/update/{id}', [ReqController::class, 'update']);
         Route::post('/{id}', [ReqController::class, 'destroy']);
         Route::post('/spons/{id}', [ReqController::class, 'spons']);
     });
@@ -224,147 +223,4 @@ Route::group( ['prefix' => 'admin','middleware' => ['auth:admin-api','scopes:adm
 
 
 
-    // college routes
-    Route::get('college',[\App\Http\Controllers\CollegeController::class,'index']);
-    Route::get('college/{id}',[\App\Http\Controllers\CollegeController::class,'show']);
-
-    
     });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // Route::group( ['prefix' =>'user','middleware' => ['auth:user-api','scopes:user'] ],function(){
-    //     // authenticated staff routes here 
-    //      Route::get('dashboard',[PassportAuthController::class, 'userDashboard']);
-    //      Route::get('logout',[PassportAuthController::class,'logout'])->name('userLogout');
-    //      //Route::get('logout',[PassportAuthController::class, 'logout']);
-     
-    //        // location
-    //        Route::get('Location',[\App\Http\Controllers\LocationController::class,'index']);
-    //        Route::get('Location/{id}',[\App\Http\Controllers\LocationController::class,'show']);
-         
-     
-    //        //      jobs routes
-    //      Route::prefix("jobs")->group(function () {
-    //          Route::get('/', [JobController::class, 'index']);
-    //          Route::get('/{id}', [JobController::class, 'show']);
-    //      });
-     
-
-         
-     
-    //       //      trainings routes
-    //       Route::prefix("trainings")->group(function () {
-    //          Route::get('/', [TrainingController::class, 'index']);
-    //          Route::get('/{id}', [TrainingController::class, 'show']);
-    //      });
-     
-     
-    //       //      challenges routes
-    //       Route::prefix("challenges")->group(function () {
-    //          Route::get('/', [ChallengeController::class, 'index']);
-    //          Route::get('/{id}', [ChallengeController::class, 'show']);
-    //      });
-     
-     
-     
-    //      //      challs routes
-    //      Route::prefix("challs")->group(function () {
-    //          Route::get('/', [ChallController::class, 'index']);
-    //          Route::get('/{id}', [ChallController::class, 'show']);
-    //      });
-     
-     
-    //      //      zones routes
-    //      Route::prefix("zones")->group(function () {
-    //          Route::get('/', [ZoneController::class, 'index']);
-    //          Route::get('/{id}', [ZoneController::class, 'show']);
-    //      });
-     
-     
-     
-    //      // scolarships
-    //      Route::get('scolarships',[\App\Http\Controllers\ScolarshipController::class,'index']);
-    //      Route::get('scolarships/{id}',[\App\Http\Controllers\ScolarshipController::class,'show']);
-     
-     
-     
-    //       // applicants
-    //       Route::get('applicants',[\App\Http\Controllers\ApplicantController::class,'index']);
-    //       Route::get('applicants/{id}',[\App\Http\Controllers\ApplicantController::class,'show']);
-     
-     
-     
-    //        // Documents_applicants
-    //      Route::get('documents',[\App\Http\Controllers\DocumentController::class,'index']);
-    //      Route::get('documents/{id}',[\App\Http\Controllers\DocumentController::class,'show']);
-     
-     
-    //       // conection
-    //       Route::get('conection',[\App\Http\Controllers\ContentinfoController::class,'index']);
-    //       Route::get('conection/{id}',[\App\Http\Controllers\ContentinfoController::class,'show']);
-     
-    //       // charity
-    //       Route::get('charity',[\App\Http\Controllers\CharityController::class,'index']);
-    //       Route::get('charity/{id}',[\App\Http\Controllers\CharityController::class,'show']);
-     
-    //       // images_charity
-    //       Route::get('image',[\App\Http\Controllers\ImageController::class,'index']);
-    //       Route::get('image/{id}',[\App\Http\Controllers\ImageController::class,'show']);
-     
-     
-    //       //donation
-    //       Route::post('donation',[\App\Http\Controllers\DonationController::class,'store']);
-     
-     
-    //     //      requests routes
-    //       Route::prefix("requests")->group(function (){
-    //       Route::post('/', [ReqController::class, 'store']);
-    //      });
-     
-     
-    //         //      pics routes
-    //         Route::prefix("pics")->group(function () {
-    //          Route::post('/', [PicController::class, 'store']);
-    //      });
-     
-     
-    //      // college routes
-    //      Route::get('college',[\App\Http\Controllers\CollegeController::class,'index']);
-    //      Route::get('college/{id}',[\App\Http\Controllers\CollegeController::class,'show']);
-         
-         
-    //  }); 

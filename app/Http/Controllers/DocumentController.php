@@ -20,7 +20,6 @@ class DocumentController extends Controller
         return $this->apiResponse($document, 'ok', 200);
     }
 
-
     public function store(Request $request)
     {
         $input=$request->all();
@@ -51,6 +50,7 @@ class DocumentController extends Controller
         }
         return $this->apiResponse(null ,'the document not found' ,404);
     }
+
     public function update(Request $request,  $id)
     {
         $document= Document::find($id);

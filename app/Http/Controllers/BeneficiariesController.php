@@ -28,6 +28,7 @@ class BeneficiariesController extends Controller
             'amount' => 'required',
             'reason_off_benefit' => 'required',
             'charity_id' => 'required',
+             'phone'=>'required',
         ]);
 
         if ($validator->fails()) {
@@ -41,7 +42,9 @@ class BeneficiariesController extends Controller
             'amount' =>$request->amount,
             'reason_off_benefit' =>$request->reason_off_benefit,
             'charity_id' =>$request->charity_id,
+            'phone' =>$request->phone,
         ]);
+
         if ($beneficiary) {
             return $this->apiResponse(new BeneficiaryResource($beneficiary), 'the beneficiary  save', 201);
         }

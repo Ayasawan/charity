@@ -11,16 +11,17 @@ use Illuminate\Http\Request;
 class ApplicantController extends Controller
 {
     use  ApiResponseTrait;
-
     public function index()
     {
         $applicants  =ApplicantResource::collection(Applicant::get());
         return $this->apiResponse($applicants,'ok',200);
     }
+
     public function store(Request $request)
     {
         $input=$request->all();
         $validator = Validator::make($input , [
+
             'user_id'=>'required',
             'scolarship_id'=>'required',
             'age'=> ['required', 'string', 'min:2'] ,
@@ -47,24 +48,19 @@ class ApplicantController extends Controller
         return $this->apiResponse(null, 'This  applicant not found', 404);
     }
 
-
-
-
-    public function update(Request $request,$id)
-    {
-
-        $applicant = Applicant::find($id);
-        if(!$applicant){
-            return $this->apiResponse(null, 'This  applicant not found', 404);
-        }
-        $applicant->update($request->all());
-        if($applicant) {
-            return $this->apiResponse(new ApplicantResource(  $applicant), 'This  applicant updated', 201);
-        }
-    }
-
-
-
+//
+//    public function update(Request $request,$id)
+//    {
+//
+//        $applicant = Applicant::find($id);
+//        if(!$applicant){
+//            return $this->apiResponse(null, 'This  applicant not found', 404);
+//        }
+//        $applicant->update($request->all());
+//        if($applicant) {
+//            return $this->apiResponse(new ApplicantResource(  $applicant), 'This  applicant updated', 201);
+//        }
+//    }
 
     public function destroy($id)
     {

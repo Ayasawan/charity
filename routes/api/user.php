@@ -1,4 +1,5 @@
 <?php
+
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\TrainingController;
 use App\Http\Controllers\ZoneController;
@@ -9,10 +10,6 @@ use App\Http\Controllers\ChallengeController;
 use App\Http\Controllers\ChallController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\PassportAuthController;
-
-
-
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -27,124 +24,128 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::post('user/register', [PassportAuthController::class, 'register'])->name('register');
+Route::post('user/login', [PassportAuthController::class, 'userLogin'])->name('userLogin');
+
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
   return $request->user();
 });
 
-Route::post('user/register',[PassportAuthController::class, 'register'])->name('register');
-Route::post('user/login',[PassportAuthController::class, 'userLogin'])->name('userLogin');
+//Route::post('user/register',[PassportAuthController::class, 'register'])->name('register');
+//Route::post('user/login',[PassportAuthController::class, 'userLogin'])->name('userLogin');
+//
 
-
-//Route::post('pay/{id}',[\App\Http\Controllers\ChallengeController::class, 'pay']);
+//Route::group(['prefix' => 'user', 'middleware' => ['auth:user-api', 'scopes:user']], function () {
+//    // authenticated staff routes here
+//   // Route::get('dashboard', [PassportAuthController::class, 'userDashboard']);
+//    Route::get('logout', [PassportAuthController::class, 'logout']);
+//
+//
 
 Route::group( ['prefix' =>'user','middleware' => ['auth:user-api','scopes:user'] ],function(){
-   // authenticated staff routes here 
-    Route::get('dashboard',[PassportAuthController::class, 'userDashboard']);
+   // authenticated staff routes here
+//    Route::get('dashboard',[PassportAuthController::class, 'userDashboard']);
     Route::get('logout',[PassportAuthController::class,'logout'])->name('userLogout');
-    
-    
-      // location
-      Route::get('Location',[\App\Http\Controllers\LocationController::class,'index']);
-      Route::get('Location/{id}',[\App\Http\Controllers\LocationController::class,'show']);
-    
 
-      //      jobs routes
+    // location
+    Route::get('Location', [\App\Http\Controllers\LocationController::class, 'us_index']);
+    Route::get('Location/{id}', [\App\Http\Controllers\LocationController::class, 'us_show']);
+
+    //      jobs routes
     Route::prefix("jobs")->group(function () {
-        Route::get('/', [JobController::class, 'index']);
-        Route::get('/{id}', [JobController::class, 'show']);
+        Route::get('/', [JobController::class, 'us_index']);
+        Route::get('/{id}', [JobController::class, 'us_show']);
+        Route::get('search/{id}', [JobController::class, 'us_search']);
+    });
+
+    //      trainings routes
+    Route::prefix("trainings")->group(function () {
+        Route::get('/', [TrainingController::class, 'us_index']);
+        Route::get('/{id}', [TrainingController::class, 'us_show']);
+        Route::get('search/{id}', [TrainingController::class, 'us_search']);
+
     });
 
 
-     //      trainings routes
-     Route::prefix("trainings")->group(function () {
-        Route::get('/', [TrainingController::class, 'index']);
-        Route::get('/{id}', [TrainingController::class, 'show']);
+    //      challenges routes
+    Route::prefix("challenges")->group(function () {
+        Route::get('/', [ChallengeController::class, 'us_index']);
+        Route::get('/date', [ChallengeController::class, 'index_date']);
+        Route::get('/{id}', [ChallengeController::class, 'us_show']);
+        Route::get('search/{id}', [ChallengeController::class, 'us_search']);
+
     });
 
 
-     //      challenges routes
-     Route::prefix("challenges")->group(function () {
-        Route::get('/', [ChallengeController::class, 'index']);
-        Route::get('/{id}', [ChallengeController::class, 'show']);
-    });
-
-
-
-    //      challs routes
-    Route::prefix("challs")->group(function () {
-        Route::get('/', [ChallController::class, 'index']);
-        Route::get('/{id}', [ChallController::class, 'show']);
-        //Route::post('/pay/{id}', [ChallController::class, 'pay']);
-     
-    });
+//    //      challs routes
+//    Route::prefix("challs")->group(function () {
+//        Route::get('/', [ChallController::class, 'us_index']);
+//        Route::get('/{id}', [ChallController::class, 'us_show']);
+//    });
 
 
     //      zones routes
     Route::prefix("zones")->group(function () {
-        Route::get('/', [ZoneController::class, 'index']);
-        Route::get('/{id}', [ZoneController::class, 'show']);
-    });
+        Route::get('/', [ZoneController::class, 'us_index']);
+        Route::get('/{id}', [ZoneController::class, 'us_show']);
+        Route::get('search/{id}', [ZoneController::class, 'us_search']);
 
+    });
 
 
     // scolarships
-    Route::get('scolarships',[\App\Http\Controllers\ScolarshipController::class,'index']);
-    Route::get('scolarships/{id}',[\App\Http\Controllers\ScolarshipController::class,'show']);
+    Route::get('scolarships', [\App\Http\Controllers\ScolarshipController::class, 'us_index']);
+    Route::get('scolarships/{id}', [\App\Http\Controllers\ScolarshipController::class, 'us_show']);
+    Route::post('scolarships/search/{id}',[\App\Http\Controllers\ScolarshipController::class,'us_search']);
 
 
 
-     // applicants
-     Route::get('applicants',[\App\Http\Controllers\ApplicantController::class,'index']);
-     Route::get('applicants/{id}',[\App\Http\Controllers\ApplicantController::class,'show']);
+    // applicants
+
+    Route::post('applicants',[\App\Http\Controllers\ApplicantController::class,'store']);
+
+
+//    // Documents_applicants
+    Route::post('documents',[\App\Http\Controllers\DocumentController::class,'store']);
+    Route::post('documents/update/{id}',[\App\Http\Controllers\DocumentController::class,'update']);
 
 
 
-      // Documents_applicants
-    Route::get('documents',[\App\Http\Controllers\DocumentController::class,'index']);
-    Route::get('documents/{id}',[\App\Http\Controllers\DocumentController::class,'show']);
+    // conection
+    Route::get('conection', [\App\Http\Controllers\ContentinfoController::class, 'us_index']);
+    Route::get('conection/{id}', [\App\Http\Controllers\ContentinfoController::class, 'us_show']);
 
-
-     // conection
-     Route::get('conection',[\App\Http\Controllers\ContentinfoController::class,'index']);
-     Route::get('conection/{id}',[\App\Http\Controllers\ContentinfoController::class,'show']);
-
-     // charity
-     Route::get('charity',[\App\Http\Controllers\CharityController::class,'index']);
-     Route::get('charity/{id}',[\App\Http\Controllers\CharityController::class,'show']);
-
-     // images_charity
-     Route::get('image',[\App\Http\Controllers\ImageController::class,'index']);
-     Route::get('image/{id}',[\App\Http\Controllers\ImageController::class,'show']);
-
-
-     //donation
-     Route::post('donation',[\App\Http\Controllers\DonationController::class,'store']);
+    // charity
+    Route::get('charity', [\App\Http\Controllers\CharityController::class, 'us_index']);
+//    Route::get('charity/{id}', [\App\Http\Controllers\CharityController::class, 'us_show']);
 
 
 
+    // images_charity
+    Route::get('image', [\App\Http\Controllers\ImageController::class, 'us_index']);
+    Route::get('image/{id}', [\App\Http\Controllers\ImageController::class, 'us_show']);
 
 
-     // sponsor
-    //  Route::post('spons/{id}',[\App\Http\Controllers\SponsorController::class,'spons']);
+    //donation
+    Route::post('donation', [\App\Http\Controllers\DonationController::class, 'us_store']);
 
 
-   //      requests routes
-     Route::prefix("requests")->group(function (){
-     Route::post('/', [ReqController::class, 'store']);
+    //      requests routes
+    Route::prefix("requests")->group(function () {
+        Route::post('/update/{id}', [ReqController::class, 'update']);
 
-     //Route::post('/spons/id', [SponsorController::class, 'spons']);
+        Route::post('/', [ReqController::class, 'us_store']);
     });
 
 
-       //      pics routes
-       Route::prefix("pics")->group(function () {
+    //      pics routes
+    Route::prefix("pics")->group(function () {
         Route::post('/', [PicController::class, 'store']);
     });
 
+});
 
-    // college routes
-    Route::get('college',[\App\Http\Controllers\CollegeController::class,'index']);
-    Route::get('college/{id}',[\App\Http\Controllers\CollegeController::class,'show']);
-    
-    
-}); 
+
+
+

@@ -18,6 +18,12 @@ class ZoneController extends Controller
         return $this->apiResponse($zones,'ok',200);
 
     }
+    public function us_index()
+    {
+        $zones  =ZoneResource::collection(Zone::get());
+        return $this->apiResponse($zones,'ok',200);
+
+    }
     public function store(Request $request)
     {
         $input=$request->all();
@@ -49,6 +55,15 @@ class ZoneController extends Controller
         }
         return $this->apiResponse(null, 'This  Study Zone not found', 404);
     }
+    public function us_show($id)
+    {
+        $zone = Zone::find($id);
+        if( $zone) {
+            return $this->apiResponse(new ZoneResource($zone), 'ok', 200);
+        }
+        return $this->apiResponse(null, 'This  Study Zone not found', 404);
+    }
+
     public function update(Request $request,$id)
     {
 
@@ -81,6 +96,14 @@ class ZoneController extends Controller
 
     //search on one product
     public function search($name)
+    {
+        $zone=Zone::where("name","like","%".$name."%")->get();
+        if($zone) {
+            return $this->apiResponse($zone, 'ok', 200);
+        }
+    }
+    //search on one product
+    public function us_search($name)
     {
         $zone=Zone::where("name","like","%".$name."%")->get();
         if($zone) {

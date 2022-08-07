@@ -11,6 +11,7 @@ use App\Http\Resources\JobResource;
 use App\Http\Resources\SponsorResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Validator;
 
 class ReqController extends Controller
@@ -67,6 +68,33 @@ class ReqController extends Controller
     }
 
 
+    public function us_store(Request $request)
+    {
+
+        $input=$request->all();
+        $validator = Validator::make($input , [
+            'user_id'=>'required',
+            'sponsor_id'=>'required',
+            'age'=>'required',
+            'gender'=>'required',
+            'location'=>'required',
+            'specialize'=>'required',
+            'academic_years'=>'required',
+            'value'=>'required',
+            'description'=>'required',
+            'phone'=> ['required', 'string', 'min:10'] ,
+            'status'=>'required',
+        ]);
+
+        if ($validator->fails()){
+            return $this->apiResponse(null,$validator ->errors() , 400);
+        }
+        $req =Req::create($request->all());
+        if($req) {
+            return $this->apiResponse(new ReqResource($req), 'This Request save', 201);
+        }
+        return $this->apiResponse(null, 'This Request not save', 400);
+    }
 
 
     public function show( $id)

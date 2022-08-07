@@ -11,23 +11,17 @@ class CharityController extends Controller
 {
     use  ApiResponseTrait;
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $charity =CharityfoResource ::collection(Charity::get());
         return $this->apiResponse($charity, 'ok', 200);
     }
+    public function us_index()
+    {
+        $charity =CharityfoResource ::collection(Charity::get());
+        return $this->apiResponse($charity, 'ok', 200);
+    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
 
@@ -53,12 +47,6 @@ class CharityController extends Controller
         return $this->apiResponse(null, 'the charity  not save', 400);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Contentinfo  $contentinfo
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         $charity= Charity::find($id);
@@ -69,14 +57,6 @@ class CharityController extends Controller
 
     }
 
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Location  $location
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request,  $id)
     {
         $charity= Charity::find($id);
@@ -92,12 +72,7 @@ class CharityController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Location  $location
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy($id)
     {
         $charity= Charity::find($id);

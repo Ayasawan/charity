@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Http\Resources\JobResource;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Validator;
 
@@ -14,7 +15,12 @@ class JobController extends Controller
     use  ApiResponseTrait;
     public function index()
     {
-        $jobs  =JobResource::collection(Job::get());
+        $jobs  =JobResource::collection(Job::get()->sortBy('out_date'));
+        return $this->apiResponse($jobs,'ok',200);
+    }
+    public function us_index()
+    {
+        $jobs  =JobResource::collection(Job::get()->sortBy('out_date'));
         return $this->apiResponse($jobs,'ok',200);
     }
 
@@ -28,6 +34,7 @@ class JobController extends Controller
             'out_date'=>'required',
             'phone'=> ['required', 'string', 'min:10'] ,
             'charity_id'=>'required',
+            'location'=>'required',
         ]);
 
         if ($validator->fails()){
@@ -45,6 +52,14 @@ class JobController extends Controller
 
 
     public function show( $id)
+    {
+        $job = Job::find($id);
+        if( $job) {
+            return $this->apiResponse(new JobResource($job), 'ok', 200);
+        }
+        return $this->apiResponse(null, 'This Job not found', 404);
+    }
+    public function us_show( $id)
     {
         $job = Job::find($id);
         if( $job) {
@@ -83,6 +98,15 @@ class JobController extends Controller
 
     //search on one product
     public function search($name)
+    {
+        $job=Job::where("name","like","%".$name."%")->get();
+        if($job) {
+            return $this->apiResponse($job, 'ok', 200);
+        }
+    }
+
+    //search on one product
+    public function us_search($name)
     {
         $job=Job::where("name","like","%".$name."%")->get();
         if($job) {

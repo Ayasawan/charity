@@ -11,7 +11,7 @@ class Scolarship extends Model
     protected $table = "scolarships";
 
     protected $fillable = [
-        'max_number','image', 'description','academic_years','charity_id','college_id' ];
+        'max_number','image', 'description','academic_years','charity_id','college' ];
 
     public function applicants(){
         return $this->hasMany(Applicant::class,'scolarship_id');
