@@ -32,17 +32,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
   return $request->user();
 });
 
-//Route::post('user/register',[PassportAuthController::class, 'register'])->name('register');
-//Route::post('user/login',[PassportAuthController::class, 'userLogin'])->name('userLogin');
-//
-
-//Route::group(['prefix' => 'user', 'middleware' => ['auth:user-api', 'scopes:user']], function () {
-//    // authenticated staff routes here
-//   // Route::get('dashboard', [PassportAuthController::class, 'userDashboard']);
-//    Route::get('logout', [PassportAuthController::class, 'logout']);
-//
-//
-
 Route::group( ['prefix' =>'user','middleware' => ['auth:user-api','scopes:user'] ],function(){
    // authenticated staff routes here
 //    Route::get('dashboard',[PassportAuthController::class, 'userDashboard']);

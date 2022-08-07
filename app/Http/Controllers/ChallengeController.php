@@ -26,21 +26,39 @@ class ChallengeController extends Controller
         return $this->apiResponse($challenges,'ok',200);
     }
        public function index_date(){
+           //نرتيب تصاعدي
+           foreach (Challenge::query()->get()as $exp) {
+               $now = Carbon::now();
+               $out_date = Carbon::parse($exp['out_date']);
+               $result = $now->diffInDays($out_date, false);
+               if ($result > 0) {
+                   $exp = ChallengeResource::collection(Challenge::get());
+                   return $this->apiResponse($exp, 'ok', 200);
+               }
+//               $challenges = ChallengeResource::collection(Challenge::get()->sortBy('out_date'));
+//               return $this->apiResponse($challenges, 'ok', 200);
+           }
+       }
 
-            //نرتيب تصاعدي
-        foreach (Challenge::query()->get()->sortBy('out_date') as $exp) {
-        $now = Carbon::now();
-            $out_date = Carbon::parse($exp['out_date']);
-        $result = $now->diffInDays($out_date, false);
-        if ($result < 0) {
-            $exp->delete();}
+//            //نرتيب تصاعدي
+//        foreach (Challenge::query()->get()->sortBy('out_date') as $exp) {
+//        $now = Carbon::now();
+//            $out_date = Carbon::parse($exp['out_date']);
+//        $result = $now->diffInDays($out_date, false);
+//        if ($result < 0) {
+//            $exp->delete();
+//        }
+//            $challenges = ChallengeResource::collection(Challenge::get()->sortBy('out_date'));
+//            return $this->apiResponse($challenges, 'ok', 200);
+//        }
+
+
+
 //            return $this->apiResponse($result, 'ok', 200);
 //          //  $exp->revoke('1');
 //        }
 
-        }
-                $challenges = ChallengeResource::collection(Challenge::get()->sortBy('out_date'));
-        return $this->apiResponse($challenges, 'ok', 200);}
+
 //    public function index_date()
 //    {
 //        $challenges = ChallengeResource::collection(Challenge::get()->sortByDesc('out_date'));
