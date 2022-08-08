@@ -101,5 +101,17 @@ class DonationController extends Controller
         $donation->delete($id);
         if($donation)
             return $this->apiResponse(null ,'the donation delete ',200);
+
+}
+    public function count()
+    {
+        $donation = DonationResource::collection(Donation::get());
+        return $donation->count();
     }
+    public function us_count()
+    {
+        $donation = DonationResource::collection(Donation::get());
+        return $donation->count();
+    }
+
 }

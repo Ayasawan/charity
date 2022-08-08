@@ -93,4 +93,17 @@ class BeneficiariesController extends Controller
             return $this->apiResponse($beneficiary, 'ok', 200);
         }
     }
+
+    //count
+    public function count()
+    {
+        $beneficiary = BeneficiaryResource::collection(Beneficiary::get());
+        return $beneficiary->count();
+    }
+
+    public function us_count()
+    {
+        $beneficiary = BeneficiaryResource::collection(Beneficiary::get());
+        return $beneficiary->count();
+    }
 }

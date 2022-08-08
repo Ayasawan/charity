@@ -32,17 +32,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
   return $request->user();
 });
 
-//Route::post('user/register',[PassportAuthController::class, 'register'])->name('register');
-//Route::post('user/login',[PassportAuthController::class, 'userLogin'])->name('userLogin');
-//
-
-//Route::group(['prefix' => 'user', 'middleware' => ['auth:user-api', 'scopes:user']], function () {
-//    // authenticated staff routes here
-//   // Route::get('dashboard', [PassportAuthController::class, 'userDashboard']);
-//    Route::get('logout', [PassportAuthController::class, 'logout']);
-//
-//
-
 Route::group( ['prefix' =>'user','middleware' => ['auth:user-api','scopes:user'] ],function(){
    // authenticated staff routes here
 //    Route::get('dashboard',[PassportAuthController::class, 'userDashboard']);
@@ -70,6 +59,7 @@ Route::group( ['prefix' =>'user','middleware' => ['auth:user-api','scopes:user']
 
     //      challenges routes
     Route::prefix("challenges")->group(function () {
+        Route::get('/count', [ChallengeController::class, 'us_count']);
         Route::get('/', [ChallengeController::class, 'us_index']);
         Route::get('/date', [ChallengeController::class, 'index_date']);
         Route::get('/{id}', [ChallengeController::class, 'us_show']);
@@ -128,6 +118,7 @@ Route::group( ['prefix' =>'user','middleware' => ['auth:user-api','scopes:user']
 
 
     //donation
+    Route::get('donation/count',[\App\Http\Controllers\DonationController::class,'us_count']);
     Route::post('donation', [\App\Http\Controllers\DonationController::class, 'us_store']);
 
 
@@ -143,6 +134,8 @@ Route::group( ['prefix' =>'user','middleware' => ['auth:user-api','scopes:user']
     Route::prefix("pics")->group(function () {
         Route::post('/', [PicController::class, 'store']);
     });
+    Route::get('beneficiary/count',[\App\Http\Controllers\BeneficiariesController::class,'us_count']);
+
 
 });
 
