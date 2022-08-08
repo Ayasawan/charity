@@ -23,7 +23,7 @@ class DonationController extends Controller
         $validator = Validator::make( $input, [
             'd_amount' => 'required',
             'd_date' => 'required',
-            'user_id' => 'required',
+           // 'user_id' => 'required',
 
         ]);
 
@@ -33,7 +33,7 @@ class DonationController extends Controller
         $donation =Donation::query()->create([
             'd_amount' =>$request->d_amount,
             'd_date' =>$request->d_date,
-            'user_id' =>$request->user_id,
+            'user_id' =>auth()->id(),
         ]);
         if ($donation) {
             return $this->apiResponse(new DonationResource($donation), 'the donation  save', 201);
