@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 use App\Http\Resources\ChallengeResource;
 use App\Http\Resources\ChallResource;
+use App\Http\Resources\DonationResource;
+use App\Models\Donation;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -108,7 +110,11 @@ class ChallController extends Controller
     }
 
 
-
+    public function us_sum()
+    {
+        $chall = ChallResource::collection(Chall::get())->where('user_id', '=', auth()->id());
+        return $chall->sum('c_amount');
+    }
 
 
 }

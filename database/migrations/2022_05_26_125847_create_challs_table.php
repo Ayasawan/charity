@@ -19,6 +19,8 @@ class CreateChallsTable extends Migration
             $table->foreignId('challenge_id')->constrained('challenges')->cascadeOnDelete();
             $table->double('c_amount');
             $table->date('c_date');
+            $table->string('bank_num');
+
             $table->timestamps();
         });
     }

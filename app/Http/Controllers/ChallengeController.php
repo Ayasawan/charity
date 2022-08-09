@@ -152,4 +152,6 @@ class ChallengeController extends Controller
         $challenges = ChallengeResource::collection(Challenge::get());
         return $challenges->count();
     }
+
+
 }

@@ -107,4 +107,11 @@ class DonationController extends Controller
     }
 
 
+
+
+    public function us_sum()
+    {
+        $donation = DonationResource::collection(Donation::get())->where('user_id', '=', auth()->id());
+        return $donation->sum('d_amount');
+    }
 }
