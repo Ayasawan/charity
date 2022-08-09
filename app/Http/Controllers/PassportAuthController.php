@@ -69,6 +69,7 @@ class PassportAuthController extends Controller
             'last_name'=> $request->last_name,
             'email' => $request->email,
             'password' => $request->password,
+            'login_date'=> date("d/m/y"),
 
         ]);
         $tokenResult = $user->createToken('Personal Access Token');

@@ -12,7 +12,7 @@ class Chall extends Model
     protected $table = "challs";
 
     protected $fillable = [
-        'challenge_id','user_id', 'c_amount','c_date'];
+        'challenge_id','user_id', 'c_amount','c_date','bank_num'];
 
     protected $primaryKey = "id";
 
