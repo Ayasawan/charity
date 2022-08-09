@@ -31,7 +31,7 @@ class ChallengeController extends Controller
                $now = Carbon::now();
                $out_date = Carbon::parse($exp['out_date']);
                $result = $now->diffInDays($out_date, false);
-               if ($result < 0) {
+               if ($result > 0) {
                    $exp->delete();
                }
               $challenges = ChallengeResource::collection(Challenge::get()->sortBy('out_date'));

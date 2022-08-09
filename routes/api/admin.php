@@ -141,7 +141,7 @@ Route::group( ['prefix' => 'admin','middleware' => ['auth:admin-api','scopes:adm
     Route::get('charity',[\App\Http\Controllers\CharityController::class,'index']);
     Route::post('charity/{id}',[\App\Http\Controllers\CharityController::class,'destroy']);
     Route::post('charity/update/{id}',[\App\Http\Controllers\CharityController::class,'update']);
-    Route::get('charity/{id}',[\App\Http\Controllers\CharityController::class,'show']);
+//    Route::get('charity/{id}',[\App\Http\Controllers\CharityController::class,'show']);
 
     //
     // images_charity
@@ -159,7 +159,7 @@ Route::group( ['prefix' => 'admin','middleware' => ['auth:admin-api','scopes:adm
     Route::get('donation/count',[\App\Http\Controllers\DonationController::class,'count']);
     Route::get('donation/sum',[\App\Http\Controllers\DonationController::class,'sum']);
     Route::post('donation/{id}',[\App\Http\Controllers\DonationController::class,'destroy']);
-    Route::post('donation/update/{id}',[\App\Http\Controllers\DonationController::class,'update']);
+//    Route::post('donation/update/{id}',[\App\Http\Controllers\DonationController::class,'update']);
     Route::get('donation/{id}',[\App\Http\Controllers\DonationController::class,'show']);
 
 
