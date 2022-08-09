@@ -16,16 +16,6 @@ use App\Http\Controllers\PassportAuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
@@ -167,6 +157,7 @@ Route::group( ['prefix' => 'admin','middleware' => ['auth:admin-api','scopes:adm
 
     Route::get('donation',[\App\Http\Controllers\DonationController::class,'index']);
     Route::get('donation/count',[\App\Http\Controllers\DonationController::class,'count']);
+    Route::get('donation/sum',[\App\Http\Controllers\DonationController::class,'sum']);
     Route::post('donation/{id}',[\App\Http\Controllers\DonationController::class,'destroy']);
     Route::post('donation/update/{id}',[\App\Http\Controllers\DonationController::class,'update']);
     Route::get('donation/{id}',[\App\Http\Controllers\DonationController::class,'show']);
@@ -185,7 +176,6 @@ Route::group( ['prefix' => 'admin','middleware' => ['auth:admin-api','scopes:adm
     //      requests routes
     Route::prefix("requests")->group(function () {
         Route::get('/', [ReqController::class, 'index']);
-
         Route::get('/{id}', [ReqController::class, 'show']);
       Route::post('/accept/{id}', [ReqController::class, 'accept']);
         Route::post('/{id}', [ReqController::class, 'destroy']);

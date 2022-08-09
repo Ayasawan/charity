@@ -124,6 +124,7 @@ Route::group( ['prefix' =>'user','middleware' => ['auth:user-api','scopes:user']
     //donation
     Route::get('donation/count',[\App\Http\Controllers\DonationController::class,'us_count']);
     Route::post('donation', [\App\Http\Controllers\DonationController::class, 'us_store']);
+    Route::get('donation/sum',[\App\Http\Controllers\DonationController::class,'us_sum']);
 
 
     //      requests routes

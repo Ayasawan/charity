@@ -95,5 +95,16 @@ class DonationController extends Controller
         $donation = DonationResource::collection(Donation::get());
         return $donation->count();
     }
+    public function sum()
+    {
+        $donation = DonationResource::collection(Donation::get());
+        return $donation->sum('d_amount');
+    }
+    public function us_sum()
+    {
+        $donation = DonationResource::collection(Donation::get());
+        return $donation->sum('d_amount');
+    }
+
 
 }
