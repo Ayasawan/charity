@@ -6,11 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateSponsorsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
+
     public function up()
     {
         Schema::create('sponsors', function (Blueprint $table) {
@@ -18,15 +14,11 @@ class CreateSponsorsTable extends Migration
             $table->string('bank_num');
             $table->double('first_paid');
             $table->date('submission_date');
+            $table->string('phone');
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('sponsors');

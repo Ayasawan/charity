@@ -78,7 +78,7 @@ Route::group( ['prefix' => 'admin','middleware' => ['auth:admin-api','scopes:adm
     Route::prefix("challenges")->group(function () {
         Route::get('/', [ChallengeController::class, 'index']);
         Route::post('/', [ChallengeController::class, 'store']);
-        Route::get('/count', [ChallengeController::class, 'us_count']);
+        Route::get('/count', [ChallengeController::class, 'count']);
         Route::get('/{id}', [ChallengeController::class, 'show']);
         Route::post('/update/{id}', [ChallengeController::class, 'update']);
         Route::post('/{id}', [ChallengeController::class, 'destroy']);
@@ -90,9 +90,7 @@ Route::group( ['prefix' => 'admin','middleware' => ['auth:admin-api','scopes:adm
     //      challs routes
     Route::prefix("challs")->group(function () {
         Route::get('/', [ChallController::class, 'index']);
-        Route::post('/', [ChallController::class, 'store']);
         Route::get('/{id}', [ChallController::class, 'show']);
-        Route::post('/update/{id}', [ChallController::class, 'update']);
         Route::post('/{id}', [ChallController::class, 'destroy']);
     });
 
@@ -101,6 +99,7 @@ Route::group( ['prefix' => 'admin','middleware' => ['auth:admin-api','scopes:adm
     //      zones routes
     Route::prefix("zones")->group(function () {
         Route::get('/', [ZoneController::class, 'index']);
+        Route::get('/count', [ZoneController::class, 'count']);
         Route::post('/', [ZoneController::class, 'store']);
         Route::get('/{id}', [ZoneController::class, 'show']);
         Route::post('/update/{id}', [ZoneController::class, 'update']);
@@ -119,16 +118,14 @@ Route::group( ['prefix' => 'admin','middleware' => ['auth:admin-api','scopes:adm
     Route::get('scolarships/{id}',[\App\Http\Controllers\ScolarshipController::class,'show']);
     Route::post('scolarships/update/{id}',[\App\Http\Controllers\ScolarshipController::class,'update']);
     Route::post('scolarships/{id}',[\App\Http\Controllers\ScolarshipController::class,'destroy']);
-    Route::post('scolarships/search/{id}',[\App\Http\Controllers\ScolarshipController::class,'search']);
 
 
 
-    //Route::post('pay/{id}', [ChallController::class, 'pay']);
+
     // applicants
 
     Route::get('applicants',[\App\Http\Controllers\ApplicantController::class,'index']);
     Route::get('applicants/{id}',[\App\Http\Controllers\ApplicantController::class,'show']);
-//    Route::post('applicants/update/{id}',[\App\Http\Controllers\ApplicantController::class,'update']);
     Route::post('applicants/{id}',[\App\Http\Controllers\ApplicantController::class,'destroy']);
 
 
@@ -167,7 +164,7 @@ Route::group( ['prefix' => 'admin','middleware' => ['auth:admin-api','scopes:adm
 
 
     //donation
-    Route::post('donation',[\App\Http\Controllers\DonationController::class,'store']);
+
     Route::get('donation',[\App\Http\Controllers\DonationController::class,'index']);
     Route::get('donation/count',[\App\Http\Controllers\DonationController::class,'count']);
     Route::post('donation/{id}',[\App\Http\Controllers\DonationController::class,'destroy']);
@@ -188,29 +185,23 @@ Route::group( ['prefix' => 'admin','middleware' => ['auth:admin-api','scopes:adm
     //      requests routes
     Route::prefix("requests")->group(function () {
         Route::get('/', [ReqController::class, 'index']);
-        Route::post('/', [ReqController::class, 'store']);
+
         Route::get('/{id}', [ReqController::class, 'show']);
-//        Route::post('/update/{id}', [ReqController::class, 'update']);
+      Route::post('/accept/{id}', [ReqController::class, 'accept']);
         Route::post('/{id}', [ReqController::class, 'destroy']);
-        Route::post('/spons/{id}', [ReqController::class, 'spons']);
+
     });
 
-   
-   
-    //Route::post('spons/{id}',[\App\Http\Controllers\SponsorController::class,'spons']);
-   
-   
-   
-   
+
     //      sponsors routes
     Route::prefix("sponsors")->group(function () {
         Route::get('/', [SponsorController::class, 'index']);
-        Route::post('/', [SponsorController::class, 'store']);
+        Route::get('/count',[SponsorController::class,'count']);
+      //  Route::post('/', [SponsorController::class, 'store']);
         Route::get('/{id}', [SponsorController::class, 'show']);
         Route::post('/update/{id}', [SponsorController::class, 'update']);
         Route::post('/{id}', [SponsorController::class, 'destroy']);
-       
-        
+
     });
 
 

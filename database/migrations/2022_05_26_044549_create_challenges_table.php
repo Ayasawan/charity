@@ -16,6 +16,7 @@ class CreateChallengesTable extends Migration
         Schema::create('challenges', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('bank_num');
             $table->text('description');
             $table->text('image');
             $table->date('in_date');

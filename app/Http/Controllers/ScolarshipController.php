@@ -126,22 +126,6 @@ class ScolarshipController extends Controller
             return $this->apiResponse(null, 'This Scolarship deleted', 200);
         }
     }
-    //search
-    public function search($name)
-    {
-        $scolarship=Scolarship::where("name","like","%".$name."%")->get();
-        if($scolarship) {
-            return $this->apiResponse($scolarship, 'ok', 200);
-        }
-    }
 
 
-    //search
-    public function us_search($name)
-    {
-        $scolarship=Scolarship::where("name","like","%".$name."%")->get();
-        if($scolarship) {
-            return $this->apiResponse($scolarship, 'ok', 200);
-        }
-    }
 }

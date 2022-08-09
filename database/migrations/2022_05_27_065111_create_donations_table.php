@@ -18,6 +18,7 @@ class CreateDonationsTable extends Migration
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->double('d_amount');
             $table->date('d_date');
+            $table->string('bank_num');
             $table->timestamps();
         });
     }

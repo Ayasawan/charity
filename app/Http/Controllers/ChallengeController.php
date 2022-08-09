@@ -31,40 +31,14 @@ class ChallengeController extends Controller
                $now = Carbon::now();
                $out_date = Carbon::parse($exp['out_date']);
                $result = $now->diffInDays($out_date, false);
-               if ($result > 0) {
-                   $exp = ChallengeResource::collection(Challenge::get());
-                   return $this->apiResponse($exp, 'ok', 200);
+               if ($result < 0) {
+                   $exp->delete();
                }
-//               $challenges = ChallengeResource::collection(Challenge::get()->sortBy('out_date'));
-//               return $this->apiResponse($challenges, 'ok', 200);
+              $challenges = ChallengeResource::collection(Challenge::get()->sortBy('out_date'));
+            return $this->apiResponse($challenges, 'ok', 200);
            }
        }
 
-//            //نرتيب تصاعدي
-//        foreach (Challenge::query()->get()->sortBy('out_date') as $exp) {
-//        $now = Carbon::now();
-//            $out_date = Carbon::parse($exp['out_date']);
-//        $result = $now->diffInDays($out_date, false);
-//        if ($result < 0) {
-//            $exp->delete();
-//        }
-//            $challenges = ChallengeResource::collection(Challenge::get()->sortBy('out_date'));
-//            return $this->apiResponse($challenges, 'ok', 200);
-//        }
-
-
-
-//            return $this->apiResponse($result, 'ok', 200);
-//          //  $exp->revoke('1');
-//        }
-
-
-//    public function index_date()
-//    {
-//        $challenges = ChallengeResource::collection(Challenge::get()->sortByDesc('out_date'));
-//        return $this->apiResponse($challenges,'ok',200);
-//    }
-//
 
     public function store(Request $request)
     {
@@ -103,34 +77,6 @@ class ChallengeController extends Controller
         }
         return $this->apiResponse(null, 'This Challenge not save', 400);
     }
-
-//    public function store(Request $request)
-//    {
-//       $input=$request->all();
-//        $validator = Validator::make($input , [
-//
-//            'amount'=>'required',
-//
-//
-//        ]);
-//
-//       // $file_name=$this->saveImage($request->image,'images/challenge');
-//
-////        if ($validator->fails()){
-////            return $this->apiResponse(null,$validator ->errors() , 400);
-////        }
-//
-//        $challenge =Challenge::query()->create([
-//
-//            'amount' => $request->amount,
-//
-//
-//        ]);
-//                if($challenge) {
-//            return $this->apiResponse(new ChallengeResource($challenge), 'This Challenge save', 201);
-//        }
-//        return $this->apiResponse(null, 'This Challenge not save', 400);
-//    }
 
 
         public function show( $id)
@@ -195,6 +141,7 @@ class ChallengeController extends Controller
             return $this->apiResponse($challenge, 'ok', 200);
         }
     }
+
     public function count()
     {
         $challenges = ChallengeResource::collection(Challenge::get());

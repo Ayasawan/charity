@@ -3,8 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-                                                                                                                                                                                                                                                                                                        
-class CreateJobsTable extends Migration                                                                                                                                  
+
+class CreateJobsTable extends Migration
 {
 
     public function up()
@@ -16,6 +16,8 @@ class CreateJobsTable extends Migration
             $table->text('about');
             $table->date('out_date');
             $table->string('phone');
+            $table->string('holiday');
+            $table->text('required_experience');
             $table->foreignId('charity_id')->constrained('charities')->cascadeOnDelete();
             $table->timestamps();
         });

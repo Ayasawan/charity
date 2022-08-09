@@ -17,6 +17,7 @@ class CreateTrainingsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('location');
+            $table->text('required_experience');
             $table->text('about');
             $table->date('out_date');
             $table->integer('phone');

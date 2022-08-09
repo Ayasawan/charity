@@ -11,6 +11,7 @@ use App\Models\Req;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Validator;
 
 class SponsorController extends Controller
@@ -27,16 +28,25 @@ class SponsorController extends Controller
     {
         $input=$request->all();
         $validator = Validator::make($input , [
-            'submission_date'=>'required',
+            'phone'=>'required',
+            'bank_num'=>'required',
+           'first_paid'=>'required',
+
 
         ]);
 
         if ($validator->fails()){
             return $this->apiResponse(null,$validator ->errors() , 400);
         }
-        $sponsor =Sponsor::create($request->all());
+        $sponsor =Sponsor::create([
+                        'bank_num' => $request->bank_num,
+                        'first_paid' => $request->first_paid,
+                       'submission_date'=>date("d/m/y"),
+                             'phone'=>$request->phone,
+
+        ]);
         if($sponsor) {
-            return $this->apiResponse(new SponsorResource($sponsor), 'This Sponsor save', 201);
+            return $this->apiResponse(new SponsorResource($sponsor), 'Thank you for your warranty, we will contact you soon', 201);
         }
         return $this->apiResponse(null, 'This Sponsor not save', 400);
     }
@@ -71,14 +81,28 @@ class SponsorController extends Controller
     public function destroy( $id)
     {
         $sponsor = Sponsor::find($id);
-        if(! $sponsor){
+        if (!$sponsor) {
             return $this->apiResponse(null, 'This Sponsor not found', 404);
         }
         $sponsor->delete($id);
-        if( $sponsor) {
+        if ($sponsor) {
             return $this->apiResponse(null, 'This Sponsor deleted', 200);
         }
     }
+
+        public function count()
+    {
+        $sponsor = SponsorResource::collection(Sponsor::get());
+        return $sponsor->count();
+    }
+
+        public function us_count()
+    {
+        $sponsor = SponsorResource::collection(Sponsor::get());
+        return $sponsor->count();
+    }
+
+
 
 
 
@@ -101,7 +125,7 @@ class SponsorController extends Controller
     //     // if(!$spp){
     //         $validator = Validator::make($request->all() , [
     //             'bank_num'=>['required', 'string', 'min:10'] ,
-    //             'first_paid'=>['required', 'double', 'min:10'] ,      
+    //             'first_paid'=>['required', 'double', 'min:10'] ,
     //         ]);
     //         if ($validator->fails()){
     //             return $this->apiResponse(null,$validator ->errors() , 400);

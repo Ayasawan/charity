@@ -13,16 +13,17 @@ class Req extends Model
     protected $table = "reqs";
 
     protected $fillable = [
-        'user_id','sponsor_id', 'age','gender','location'
+        'user_id', 'age','gender','location'
         , 'specialize','academic_years','value'
-        , 'description','phone','status'];
+        , 'description','phone','status'
+    ];
     public function pics()
     {
         return $this->hasMany(Pic::class,'requ_id');
     }
-    public function sponsors(){
-        return $this->belongsTo( Sponsor::class,'sponsor_id');
-    }
+//    public function sponsors(){
+//        return $this->belongsTo( Sponsor::class,'sponsor_id');
+//    }
     public function users(){
         return $this->belongsTo( User::class,'user_id');
     }

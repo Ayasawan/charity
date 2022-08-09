@@ -12,7 +12,7 @@ class Challenge extends Model
     protected $table = "challenges";
 
     protected $fillable = [
-        'name','description', 'image','in_date','out_date',
+        'name',  'bank_num','description', 'image','in_date','out_date',
         'amount','amount_paid','charity_id'];
 
     protected $primaryKey = "id";

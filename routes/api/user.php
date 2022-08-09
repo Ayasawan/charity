@@ -37,6 +37,14 @@ Route::group( ['prefix' =>'user','middleware' => ['auth:user-api','scopes:user']
 //    Route::get('dashboard',[PassportAuthController::class, 'userDashboard']);
     Route::get('logout',[PassportAuthController::class,'logout'])->name('userLogout');
 
+
+    //      sponsors routes
+    Route::prefix("sponsors")->group(function () {
+
+        Route::get('/count',[\App\Http\Controllers\SponsorController::class,'us_count']);
+        Route::post('/', [SponsorController::class, 'store']);
+    });
+
     // location
     Route::get('Location', [\App\Http\Controllers\LocationController::class, 'us_index']);
     Route::get('Location/{id}', [\App\Http\Controllers\LocationController::class, 'us_show']);
@@ -56,6 +64,9 @@ Route::group( ['prefix' =>'user','middleware' => ['auth:user-api','scopes:user']
 
     });
 
+    Route::prefix("challs")->group(function () {
+    Route::post('/', [ChallController::class, 'store']);
+    });
 
     //      challenges routes
     Route::prefix("challenges")->group(function () {
@@ -67,17 +78,10 @@ Route::group( ['prefix' =>'user','middleware' => ['auth:user-api','scopes:user']
 
     });
 
-
-//    //      challs routes
-//    Route::prefix("challs")->group(function () {
-//        Route::get('/', [ChallController::class, 'us_index']);
-//        Route::get('/{id}', [ChallController::class, 'us_show']);
-//    });
-
-
     //      zones routes
     Route::prefix("zones")->group(function () {
         Route::get('/', [ZoneController::class, 'us_index']);
+        Route::get('/count', [ZoneController::class, 'us_count']);
         Route::get('/{id}', [ZoneController::class, 'us_show']);
         Route::get('search/{id}', [ZoneController::class, 'us_search']);
 
@@ -87,7 +91,7 @@ Route::group( ['prefix' =>'user','middleware' => ['auth:user-api','scopes:user']
     // scolarships
     Route::get('scolarships', [\App\Http\Controllers\ScolarshipController::class, 'us_index']);
     Route::get('scolarships/{id}', [\App\Http\Controllers\ScolarshipController::class, 'us_show']);
-    Route::post('scolarships/search/{id}',[\App\Http\Controllers\ScolarshipController::class,'us_search']);
+
 
 
 
@@ -124,9 +128,9 @@ Route::group( ['prefix' =>'user','middleware' => ['auth:user-api','scopes:user']
 
     //      requests routes
     Route::prefix("requests")->group(function () {
-        Route::post('/update/{id}', [ReqController::class, 'update']);
 
         Route::post('/', [ReqController::class, 'us_store']);
+        Route::get('/', [ReqController::class, 'us_index']);
     });
 
 

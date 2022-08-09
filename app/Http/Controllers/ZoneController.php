@@ -110,4 +110,15 @@ class ZoneController extends Controller
             return $this->apiResponse($zone, 'ok', 200);
         }
     }
+    public function count()
+    {
+        $zone = ZoneResource::collection(Zone::get());
+        return $zone->count();
+    }
+
+    public function us_count()
+    {
+        $zone = ZoneResource::collection(Zone::get());
+        return $zone->count();
+    }
 }

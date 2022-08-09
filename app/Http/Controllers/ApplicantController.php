@@ -22,7 +22,6 @@ class ApplicantController extends Controller
         $input=$request->all();
         $validator = Validator::make($input , [
 
-            'user_id'=>'required',
             'scolarship_id'=>'required',
             'age'=> ['required', 'string', 'min:2'] ,
             'gender'=>'required',
@@ -33,7 +32,15 @@ class ApplicantController extends Controller
         if ($validator->fails()){
             return $this->apiResponse(null,$validator ->errors() , 400);
         }
-        $applicant =Applicant::create($request->all());
+        $applicant =Applicant::query()->create([
+            'scolarship_id' =>$request->scolarship_id,
+            'age' =>$request->age,
+            'gender' =>$request->gender,
+            'location' =>$request->location,
+            'phone' =>$request->phone,
+            'user_id' =>auth()->id(),
+
+        ]);
         if($applicant) {
             return $this->apiResponse(new ApplicantResource($applicant), 'This  applicant save', 201);
         }

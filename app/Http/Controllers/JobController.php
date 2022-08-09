@@ -32,6 +32,8 @@ class JobController extends Controller
             'name'=>'required',
             'about'=>'required',
             'out_date'=>'required',
+            'holiday'=>'required',
+            'required_experience'=>'required',
             'phone'=> ['required', 'string', 'min:10'] ,
             'charity_id'=>'required',
             'location'=>'required',

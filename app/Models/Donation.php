@@ -13,7 +13,7 @@ class Donation extends Model
     protected $table = "donations";
 
     protected $fillable = [
-        'user_id', 'd_amount','d_date'];
+        'user_id',   'bank_num','d_amount','d_date'];
 
 
     public function users()

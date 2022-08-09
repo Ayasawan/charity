@@ -12,9 +12,10 @@ class Sponsor extends Model
     protected $table = "sponsors";
 
     protected $fillable = [
-        'submission_date', 
+        'submission_date',
         'first_paid',
         'bank_num',
+        'phone' ,
     ];
 
     protected $primaryKey = "id";
@@ -22,10 +23,10 @@ class Sponsor extends Model
     public $timestamps=true ;
 
 
-
-    public function requests()
-    {
-        return $this->hasMany(Req::class,'sponsor_id');
-    }
+//
+//    public function requests()
+//    {
+//        return $this->hasMany(Req::class,'sponsor_id');
+//    }
 
 }

@@ -29,6 +29,7 @@ class TrainingController extends Controller
         $input=$request->all();
         $validator = Validator::make($input , [
             'name'=>'required',
+            'required_experience'=>'required',
             'about'=>'required',
             'out_date'=>'required',
             'phone'=> ['required', 'string', 'min:10'] ,
@@ -99,6 +100,7 @@ class TrainingController extends Controller
             return $this->apiResponse($training, 'ok', 200);
         }
     }
+
     //search on one product
     public function us_search($name)
     {

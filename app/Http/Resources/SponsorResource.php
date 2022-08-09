@@ -7,12 +7,8 @@ use App\Models\User;
 
 class SponsorResource extends JsonResource
 {
-
     public function toArray($request)
     {
-        return  [
-            "id"=>$this->id,
-            "submission_date"=>$this->submission_date,
-        ];
+        return parent::toArray($request);
     }
 }
