@@ -73,6 +73,7 @@ class ChallController extends Controller
                 if ($challenge->id == $chall->challenge_id)
                 {
                     if($chall->c_amount > $challenge->amount - $challenge->amount_paid){
+                        $chall->delete();
                         return $this->apiResponse(null, 'The Challenge needs less amount of money ', 200);}
 
                 }
@@ -113,7 +114,9 @@ class ChallController extends Controller
     public function us_sum()
     {
         $chall = ChallResource::collection(Chall::get())->where('user_id', '=', auth()->id());
-        return $chall->sum('c_amount');
+         return $chall->sum('c_amount');
+
+
     }
 
 
