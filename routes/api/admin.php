@@ -9,6 +9,7 @@ use App\Http\Controllers\ChallengeController;
 use App\Http\Controllers\ChallController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\PassportAuthController;
+use App\Http\Controllers\LocationController;
 
 
 

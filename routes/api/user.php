@@ -129,8 +129,9 @@ Route::group( ['prefix' =>'user','middleware' => ['auth:user-api','scopes:user']
     Route::get('donation/psum',[\App\Http\Controllers\DonationController::class,'pus_sum']);
     Route::get('donation/count',[\App\Http\Controllers\DonationController::class,'us_count']);
     Route::post('donation', [\App\Http\Controllers\DonationController::class, 'us_store']);
-    Route::get('/sum',[\App\Http\Controllers\DonationController::class,'us_sum']);
+    Route::get('donation/sum',[\App\Http\Controllers\DonationController::class,'us_sum']);
 
+    Route::get('donation/psum',[\App\Http\Controllers\DonationController::class,'pus_sum']);
 
     //      requests routes
     Route::prefix("requests")->group(function () {
