@@ -135,7 +135,7 @@ class PassportAuthController extends Controller
     }
 
     public function userLogin(Request $request)
-    {           // $data["message"] = $success;
+    {
 
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
@@ -160,9 +160,6 @@ class PassportAuthController extends Controller
             return response()->json(['error' => ['Email and Password are Wrong.']], 200);
         }
     }
-
-
-
 public function destroy($id)
 {
 
@@ -177,4 +174,5 @@ public function destroy($id)
         return $this->apiResponse(null ,'the user delete ',200);
 
 }
+
 }
