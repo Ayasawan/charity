@@ -81,4 +81,10 @@ class ApplicantController extends Controller
         }
     }
 
+//    public function sum()
+//    {
+//        $applicant = ApplicantResource::collection(Applicant::get())->where('user_id', '=', auth()->id());
+//        return $applicant->sum('id');
+//    }
+
 }

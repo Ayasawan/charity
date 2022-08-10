@@ -98,12 +98,12 @@ class ScolarshipController extends Controller
         if(!$scolarship){
             return $this->apiResponse(null, 'This  Scolarship  not found', 404);
         }
+        $file_name=$this->saveImage($request->image,'images/scolarship');
+        $scolarship->image= $file_name;
+        $scolarship->update(['image' => $file_name]);
 
 
        $scolarship->update($request->all());
-       $file_name=$this->saveImage($request->image,'images/scolarship');
-        $scolarship->image= $file_name;
-        $scolarship->update(['image' => $file_name]);
 
 
         if($scolarship) {
@@ -111,9 +111,6 @@ class ScolarshipController extends Controller
         }
 
     }
-
-
-
 
     public function destroy($id)
     {

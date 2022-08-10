@@ -91,7 +91,7 @@ class ReqController extends Controller
 
         $req->update(['status' =>'1']);
         if($req) {
-            return $this->apiResponse(new ReqResource(  $req), 'This Request update', 201);
+            return $this->apiResponse(new ReqResource(  $req), 'This Request accept', 201);
         }
 
     }
@@ -104,8 +104,9 @@ class ReqController extends Controller
         }
         $req->delete($id);
         if( $req) {
-            return $this->apiResponse(null, 'This Request deleted', 200);
+            return $this->apiResponse(null, 'This Request refuse', 200);
         }
+
     }
 
 

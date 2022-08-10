@@ -119,5 +119,4 @@ class ChallController extends Controller
 
     }
 
-
 }

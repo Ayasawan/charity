@@ -98,8 +98,9 @@ Route::group( ['prefix' =>'user','middleware' => ['auth:user-api','scopes:user']
 
 
     // applicants
-
+//    Route::get('/sum',[\App\Http\Controllers\ApplicantController::class,'sum']);
     Route::post('applicants',[\App\Http\Controllers\ApplicantController::class,'store']);
+
 
 
 //    // Documents_applicants

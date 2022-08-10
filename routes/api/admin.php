@@ -190,7 +190,7 @@ Route::group( ['prefix' => 'admin','middleware' => ['auth:admin-api','scopes:adm
         Route::get('/count',[SponsorController::class,'count']);
       //  Route::post('/', [SponsorController::class, 'store']);
         Route::get('/{id}', [SponsorController::class, 'show']);
-        Route::post('/update/{id}', [SponsorController::class, 'update']);
+//        Route::post('/update/{id}', [SponsorController::class, 'update']);
         Route::post('/{id}', [SponsorController::class, 'destroy']);
 
     });
@@ -202,7 +202,7 @@ Route::group( ['prefix' => 'admin','middleware' => ['auth:admin-api','scopes:adm
         Route::get('/', [PicController::class, 'index']);
         Route::post('/', [PicController::class, 'store']);
         Route::get('/{id}', [PicController::class, 'show']);
-        Route::post('/update/{id}', [PicController::class, 'update']);
+//        Route::post('/update/{id}', [PicController::class, 'update']);
         Route::post('/{id}', [PicController::class, 'destroy']);
     });
 
