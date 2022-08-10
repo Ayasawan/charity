@@ -113,8 +113,7 @@ class ChallController extends Controller
     public function us_sum()
     {
         $chall = ChallResource::collection(Chall::get())->where('user_id', '=', auth()->id());
-        return $chall->sum('c_amount');
+        return $chall->sum('challenge_id');
     }
-
 
 }
