@@ -19,6 +19,7 @@ class ReqResource extends JsonResource
             "specialize"=>$this->specialize,
             "academic_years"=>$this->academic_years,
             "value"=>$this->value,
+            "status"=>$this->status,
             "description"=>$this->description,
             "phone"=>$this->phone,
             "pics of request"=>$this->pics()->get(),

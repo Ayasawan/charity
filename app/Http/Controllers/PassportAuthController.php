@@ -22,14 +22,16 @@ class PassportAuthController extends Controller
 
 
     public function register(Request $request){
+
         $validator = Validator::make($request->all(),[
             'email' => ['required', 'string', 'email', 'max:255' ,'unique:users',],
             'password' => ['required', 'string', 'min:8'],
            'first_name' => [ 'required' , 'string','min:3'],
            'last_name' => [ 'required' , 'string','min:3'],
         ]);
-        if ($validator->fails()) {
-            return $validator->errors()->all();
+        if ($validator->fails())
+        {
+            return response(['errors'=>$validator->errors()->all()], 401);
         }
         $request['password'] = Hash::make($request['password']);
 
@@ -51,6 +53,8 @@ class PassportAuthController extends Controller
 
             return response()->json($data, Response::HTTP_OK);
         }
+
+             response()->json('error', 401);
         return response()->json(['error' => ['Email and Password are Wrong.']], 401);
 
     }
@@ -66,6 +70,7 @@ class PassportAuthController extends Controller
 
     public function adminLogin(Request $request)
     {
+
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
             'password' => 'required',
@@ -74,11 +79,9 @@ class PassportAuthController extends Controller
         if($validator->fails()){
             return response()->json(['error' => $validator->errors()->all()]);
         }
-
         if(auth()->guard('admin')->attempt(['email' => request('email'), 'password' => request('password')])){
 
             config(['auth.guards.api.provider' => 'admin']);
-
             $admin = Admin::select('admins.*')->find(auth()->guard('admin')->user()->id);
             $success =  $admin;
             $success['token'] =  $admin->createToken('MyApp',['admin'])->accessToken;

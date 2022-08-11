@@ -42,7 +42,6 @@ class ChallController extends Controller
             'c_date' =>date("d/m/y"),
         ]);
 
-
         if ($chall) {
             $id = $chall->challenge_id;
 
@@ -59,9 +58,7 @@ class ChallController extends Controller
                             $challenge->delete($id);
                             return $this->apiResponse(null, 'THANK YOU ^^ , the Challenge had enough money ', 200);
                         }
-
                     }
-
                     if($chall->c_amount <= $challenge->amount - $challenge->amount_paid){
                         $total_amount_paid = ($challenge->amount_paid + $chall->c_amount);
                         $challenge->amount_paid = $total_amount_paid;

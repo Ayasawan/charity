@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\ScolarshipResource;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Scolarship;
 use Illuminate\Http\Request;
@@ -13,9 +14,12 @@ class ScolarshipController extends Controller
     use  ApiResponseTrait;
     public function index()
     {
-        $scolarships=ScolarshipResource::collection(Scolarship::get());
-        return $this->apiResponse($scolarships,'ok',200);
-    }
+
+            $scolarships = ScolarshipResource::collection(Scolarship::get());
+            return $this->apiResponse($scolarships, 'ok', 200);
+        }
+
+
 
 
 
