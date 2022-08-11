@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 use App\Http\Resources\ReqResource;
+use App\Http\Resources\PicResource;
 
-use App\Models\Job;
+use App\Models\Pic;
 use App\Models\Req;
 use App\Models\Sponsor;
 use App\Http\Resources\JobResource;
@@ -74,6 +75,8 @@ class ReqController extends Controller
     {
         $req = Req::find($id);
         if( $req) {
+//            $pic = PicResource::collection(Pic::get())->where('request_id', '=', $req->id)->index();
+//          //  $pic->show();
             return $this->apiResponse(new ReqResource($req), 'ok', 200);
         }
         return $this->apiResponse(null, 'This Request not found', 404);

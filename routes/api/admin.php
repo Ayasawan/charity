@@ -142,7 +142,7 @@ Route::group( ['prefix' => 'admin','middleware' => ['auth:admin-api','scopes:adm
     Route::get('charity',[\App\Http\Controllers\CharityController::class,'index']);
     Route::post('charity/{id}',[\App\Http\Controllers\CharityController::class,'destroy']);
     Route::post('charity/update/{id}',[\App\Http\Controllers\CharityController::class,'update']);
-//    Route::get('charity/{id}',[\App\Http\Controllers\CharityController::class,'show']);
+    Route::get('charity/{id}',[\App\Http\Controllers\CharityController::class,'show']);
 
     //
     // images_charity

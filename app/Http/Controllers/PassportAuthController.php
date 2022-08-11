@@ -41,8 +41,7 @@ class PassportAuthController extends Controller
             'login_date'=> date("d/m/y"),
 
         ]);
-        if(        $tokenResult = $user->createToken('Personal Access Token')
-    ) {
+        if( $tokenResult = $user->createToken('Personal Access Token')) {
             $data["message"] = 'User Successfully registered';
             $data["user_type"] = 'user ';
 
